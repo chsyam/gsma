@@ -1,0 +1,62 @@
+.navbarContainer {
+    padding: 30px 10px 5% 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navbarMenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    font-size: 18px;
+}
+
+.navbarMenu li {
+    cursor: pointer;
+}
+
+.navbarMenu li:hover {
+    font-weight: bold;
+}
+
+.userActions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.navbarTitle {
+    font-family: Urbanist;
+    color: #255F43;
+    font-size: 54px;
+    font-weight: 400;
+    line-height: 66px;
+    letter-spacing: -0.02em;
+    text-align: left;
+}
+
+.tryNowButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tryNowButton button {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 35px 10px 35px;
+    gap: 5px;
+    border-radius: 10px;
+    transition: 0.2s all ease-in-out;
+}
+
+.tryNowButton button:hover {
+    background-color: #2b7d55;
+    color: #FFF;
+}
