@@ -69,7 +69,7 @@ export default function UserNavbar() {
                                     setShowNotifications(!showNotifications);
                                 }}
                             >
-                                <Bell color="white" className="h-6 w-6 text-gray-600" />
+                                <Bell className="h-6 w-6" />
                                 {notificationCount > 0 && (
                                     <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                                         {notificationCount > 99 ? '99+' : notificationCount}
@@ -81,10 +81,7 @@ export default function UserNavbar() {
                             }
                         </div>
 
-                        <div className="relative"
-                            onMouseEnter={() => setMouseEnter(true)}
-                            onMouseLeave={() => setMouseEnter(false)}
-                        >
+                        <div className="relative">
                             <button
                                 className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-lg transition-colors"
                                 onClick={() => {
@@ -92,9 +89,9 @@ export default function UserNavbar() {
                                     setShowProfile(!showProfile);
                                 }}
                             >
-                                <User color={mouseEnter ? '#4caf50' : `white`} className="h-6 w-6 text-gray-600" />
-                                <span className="text-md font-bold text-white hover:text-[#4caf50]">{"chsyamkumar"}</span>
-                                <ChevronDown color={mouseEnter ? '#4caf50' : `white`} className="h-4 w-4 text-gray-500" />
+                                <User className="h-6 w-6" />
+                                <span className="text-md font-bold text-black">{"chsyamkumar"}</span>
+                                <ChevronDown className="h-4 w-4" />
                             </button>
                             {showProfile && <ProfileDropdown />}
                         </div>

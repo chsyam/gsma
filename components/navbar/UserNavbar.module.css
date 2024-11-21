@@ -1,3 +1,4 @@
 .navbarContainer {
-    /* background: linear-gradient(to left, #027906bf, #FFF); */
+    background-color: #549B79;
+    user-select: none;
 }

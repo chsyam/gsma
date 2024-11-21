@@ -1,0 +1,30 @@
+.dashboardContainer {
+    padding: 2% 4%;
+    border: 1px;
+}
+
+.addApplication {
+    background: #549B79;
+    padding: 10px 16px 10px 16px;
+    gap: 4px;
+    border-radius: 8px;
+    opacity: 0px;
+    color: #FFF;
+    font-size: 14px;
+    width: max-content;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+}
+
+.zeroApplications {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    padding: 20px 0;
+}
