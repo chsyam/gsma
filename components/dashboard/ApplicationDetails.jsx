@@ -1,7 +1,16 @@
 import { ChevronRight } from "lucide-react";
 import styles from "./../../styles/dashboard/AddApplication.module.css"
+import React, { useState } from 'react';
+import Select from 'react-select';
 
 export default function ApplicationDetails() {
+    const [selectedOption, setSelectedOption] = useState(null);
+    const options = [
+        { value: 'AWS', label: 'AWS' },
+        { value: 'Azure', label: 'Azure' },
+        { value: 'GCP', label: 'GCP' },
+    ];
+
     return (
         <div className={styles.addingAppContainer}>
             <div className={styles.sectionTitle}>
@@ -63,11 +72,11 @@ export default function ApplicationDetails() {
                                 Cloud Provider
                             </label>
                             <br />
-                            <select name="cloudProvider" id="cloudProvider">
-                                <option>AWS</option>
-                                <option>Azure</option>
-                                <option>GCP</option>
-                            </select>
+                            <Select
+                                defaultValue={selectedOption}
+                                onChange={setSelectedOption}
+                                options={options}
+                            />
                         </div>
                     </div>
                     <div className={styles.formGroup}>
