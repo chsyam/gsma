@@ -28,12 +28,12 @@ export default function DashboardMenu() {
                     }
                 </li>
                 <li
-                    onClick={() => setActive("settings")}
-                    className={`cursor-pointer ${active === 'settings' && 'font-bold'}`}
+                    onClick={() => setActive("tools")}
+                    className={`cursor-pointer ${active === 'tools' && 'font-bold'}`}
                 >
-                    Settings
+                    Tools
                     {
-                        active === 'settings' &&
+                        active === 'tools' &&
                         <div className={styles.active}></div>
                     }
                 </li>

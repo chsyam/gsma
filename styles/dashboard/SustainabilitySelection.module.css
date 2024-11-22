@@ -1,0 +1,31 @@
+.SustainabilitySelectionContainer {
+    border: 1px solid #DDE1E6;
+    border-radius: 8px;
+    padding: 20px 30px;
+    margin: 20px 0;
+}
+
+.areaSelectionContainer {
+    display: flex;
+    justify-content: left;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.areaSection {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+}
+
+.areaSection .area {
+    padding: 5px 10px;
+    background-color: #DDE1E6;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: small;
+}
+
+.selectedAreas {
+    flex-grow: 1;
+}
