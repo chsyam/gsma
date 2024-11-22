@@ -12,6 +12,10 @@
     flex-wrap: wrap;
 }
 
+.addingAreas {
+    width: 50%;
+}
+
 .areaSection {
     display: flex;
     justify-content: left;
@@ -29,3 +33,13 @@
 .selectedAreas {
     flex-grow: 1;
 }
+
+.areaItem {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.areaContent {}

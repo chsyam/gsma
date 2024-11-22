@@ -43,7 +43,7 @@ export default function SustainabilitySelection() {
                 Status of Connection:  <Wifi /> Connected
             </div> */}
             <div className={styles.areaSelectionContainer}>
-                <div className="border-r pr-5">
+                <div className={styles.addingAreas}>
                     <div className={styles.areaSection}>
                         {
                             Object.keys(areas).map((area, index) => {
@@ -61,10 +61,10 @@ export default function SustainabilitySelection() {
                                 return (
                                     areas[area].assessmentAreas.map((assessmentArea, ind) => {
                                         return (
-                                            <div>
-                                                <div>
-                                                    <div>{assessmentArea.title}</div>
-                                                    <div>{assessmentArea.description}</div>
+                                            <div className={styles.areaItem}>
+                                                <div className={styles.areaContent}>
+                                                    <div className="font-semibold">{assessmentArea.title}</div>
+                                                    <div className="text-sm">{assessmentArea.description}</div>
                                                 </div>
                                                 <div>+</div>
                                             </div>
