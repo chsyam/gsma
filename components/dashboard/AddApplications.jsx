@@ -12,7 +12,7 @@ export default function AddApplications() {
             sectionNumber: 1,
             sectionLabel: 'Application Details',
             sectionComponent: <ApplicationDetails />,
-            isActive: true,
+            isActive: false,
             isCompleted: false,
             isLast: false
         }, {

@@ -1,5 +1,4 @@
 import { Plus } from "lucide-react";
-import styles from "./../../styles/dashboard/Dashboard.module.css"
 
 export default function ZeroApplicationUI({ setAddingStatus }) {
     return (
