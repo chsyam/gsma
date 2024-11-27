@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./../../styles/dashboard/SustainabilitySelection.module.css";
 import { find } from "lodash"
 import RenderComponent from "./RenderComponent";
+import TechnologyAdvisorQueList from "./../../public/data/TechnologyAdvisorQue.json"
 
 export default function SustainabilitySelection() {
     const areas = {
@@ -11,7 +12,15 @@ export default function SustainabilitySelection() {
             assessmentAreas: [
                 {
                     title: 'Technology Advisor',
-                    description: 'Smart tool comparison platform to optimize your development stack for performance and energy usage'
+                    description: 'Smart tool comparison platform to optimize your development stack for performance and energy usage',
+                    componentList: [
+                        {
+                            label: 'Questions',
+                            name: 'questions',
+                            componentType: 'questions',
+                            questionsList: TechnologyAdvisorQueList
+                        }
+                    ]
                 }
             ],
         },
@@ -194,7 +203,7 @@ export default function SustainabilitySelection() {
         }
     }
 
-    const [filteredLabels, setFilteredLabels] = useState(['Development']);
+    const [filteredLabels, setFilteredLabels] = useState(['Analysis & Design']);
     const handleLabelClick = (label) => {
         if (filteredLabels.includes(label)) {
             let temp = [];
@@ -338,6 +347,9 @@ export default function SustainabilitySelection() {
                                         );
                                     })
                                 }
+                                <div className="rounded-md bg-[#549B79] px-4 py-2 mt-6 w-fit text-[#FFF] cursor-pointer">
+                                    Start Analyzing
+                                </div>
                             </div>
                         )
                     }

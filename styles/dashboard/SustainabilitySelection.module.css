@@ -46,13 +46,6 @@
     flex-grow: 1;
 }
 
-.formElement label {
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 24px;
-    text-align: left;
-}
-
 .formElement input,
 .formElement textarea,
 .formElement select {
