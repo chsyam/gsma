@@ -77,7 +77,7 @@ export default function RenderComponent({ details }) {
                                 )
                             })
                         }
-                        <div className='flex flex-nowrap gap-4 justify-between align-center w-[100%]'>
+                        {/* <div className='flex flex-nowrap gap-4 justify-between align-center w-[100%]'>
                             {
                                 activeQuestion !== 1 && (
                                     <div
@@ -98,7 +98,7 @@ export default function RenderComponent({ details }) {
                                     </div>
                                 )
                             }
-                        </div>
+                        </div> */}
                     </div >
                 )
             }

@@ -1,40 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ZeroApplicationUI from "./ZeroApplicationUI";
 import ApplicationDetails from "./ApplicationDetails";
 import styles from "./../../styles/dashboard/AddApplication.module.css"
 import { ChevronRight } from "lucide-react";
 import SustainabilitySelection from "./SustainabilitySelection";
+import Recommendations from "./Recommendations";
 
 export default function AddApplications() {
     const [addingStatus, setAddingStatus] = useState(true);
-    const [levels, setLevels] = useState([
-        {
+    const [levels, setLevels] = useState({
+        1: {
             sectionNumber: 1,
             sectionLabel: 'Application Details',
             sectionComponent: <ApplicationDetails />,
-            isActive: false,
-            isCompleted: false,
-            isLast: false
-        }, {
-            sectionNumber: 2,
-            sectionLabel: 'Sustainability Selection',
-            sectionComponent: <SustainabilitySelection />,
             isActive: true,
             isCompleted: false,
             isLast: false
-        }, {
+        },
+        2: {
+            sectionNumber: 2,
+            sectionLabel: 'Sustainability Selection',
+            sectionComponent: <SustainabilitySelection />,
+            isActive: false,
+            isCompleted: false,
+            isLast: false
+        },
+        3: {
             sectionNumber: 3,
             sectionLabel: 'Recommendations',
-            sectionComponent: <ApplicationDetails />,
+            sectionComponent: <Recommendations />,
             isActive: false,
             isCompleted: false,
             isLast: true
         }
-    ]);
+    });
 
-    const handleSaveNext = () => {
-        console.log("Clicked on Save & Next");
+    const handleJumpingLevels = (index) => {
+        let tempLevels = levels;
+        Object.keys(tempLevels).map((key, i) => {
+            if (i === index && tempLevels[key].isCompleted) {
+                Object.keys(tempLevels).map((k, j) => {
+                    tempLevels[k].isActive = false;
+                })
+                tempLevels[key].isActive = true;
+            }
+        })
+        setLevels({ ...tempLevels })
     }
+
+    useEffect(() => {
+        console.log(levels)
+    }, [levels])
 
     return (
         <div className={styles.dashboardContainer}>
@@ -48,15 +64,17 @@ export default function AddApplications() {
                         <div className={styles.formContainer}>
                             <div className={styles.tracker}>
                                 {
-                                    levels.map((level, index) => {
+                                    Object.keys(levels).map((key, index) => {
                                         return (
-                                            <div key={index} className={`${styles.sectionLevel} ${level.isActive && styles.currentSection} ${level.isCompleted && styles.completedSection}`}>
+                                            <div key={index}
+                                                onClick={() => handleJumpingLevels(index)}
+                                                className={`${styles.sectionLevel} ${levels[key].isActive && styles.currentSection} ${levels[key].isCompleted && styles.completedSection}`}>
                                                 <div className={styles.sectionNumber}>
-                                                    {level.sectionNumber}
+                                                    {levels[key].sectionNumber}
                                                 </div>
-                                                <div>{level.sectionLabel}</div>
+                                                <div className={styles.sectionLabel}>{levels[key].sectionLabel}</div>
                                                 {
-                                                    !level.isLast && <ChevronRight />
+                                                    !levels[key].isLast && <ChevronRight />
                                                 }
                                             </div>
                                         )
@@ -64,12 +82,12 @@ export default function AddApplications() {
                                 }
                             </div>
                             {
-                                levels.map((level, index) => {
+                                Object.keys(levels).map((key, index) => {
                                     return (
                                         <div key={index}>
-                                            {level.isActive &&
-                                                React.cloneElement(level.sectionComponent, {
-                                                    currentLevel: level,
+                                            {levels[key].isActive &&
+                                                React.cloneElement(levels[key].sectionComponent, {
+                                                    currentLevel: levels[key],
                                                     levels: levels,
                                                     setLevels: setLevels
                                                 })

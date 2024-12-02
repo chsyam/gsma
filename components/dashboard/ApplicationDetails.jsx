@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import styles from "./../../styles/dashboard/AddApplication.module.css"
 
-export default function ApplicationDetails(props) {
-    console.log("props", props);
+export default function ApplicationDetails({ currentLevel, levels, setLevels }) {
     const [selectedOption, setSelectedOption] = useState(null);
     const options = [
         { value: 'AWS', label: 'AWS' },
@@ -13,21 +12,21 @@ export default function ApplicationDetails(props) {
 
     const handleSaveNext = () => {
         const temp = [];
-        props.levels.map((level, index) => {
-            if (props.currentLevel.sectionNumber == level.sectionNumber) {
-                const currentLevelObject = level;
+        Object.keys(levels).map((key, index) => {
+            if (currentLevel.sectionNumber == levels[key].sectionNumber) {
+                const currentLevelObject = levels[key];
                 currentLevelObject["isCompleted"] = true;
                 currentLevelObject["isActive"] = false;
                 temp.push(currentLevelObject);
-            } else if (props.currentLevel.sectionNumber + 1 == level.sectionNumber) {
-                const nextLevelObject = level;
+            } else if (currentLevel.sectionNumber + 1 == levels[key].sectionNumber) {
+                const nextLevelObject = levels[key];
                 nextLevelObject["isActive"] = true;
                 temp.push(nextLevelObject);
             } else {
-                temp.push(level)
+                temp.push(levels[key])
             }
         })
-        props.setLevels(temp);
+        setLevels(temp);
     }
 
     return (
