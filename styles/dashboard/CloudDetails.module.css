@@ -106,7 +106,7 @@
     border-bottom: 1px solid #a3a7ab;
     width: 100%;
     background: #FFFFFF;
-    padding: 12px 12px 12px 12px;
+    padding: 8px 12px 8px 12px;
     gap: 0px;
     opacity: 0px;
     font-size: 14px;
@@ -129,30 +129,6 @@
 
 .formButton:hover {
     background: #0faa5f;
-    padding: 10px 15px;
+    padding: 5px 15px;
     font-weight: 600;
-}
-
-.completedSection {
-    font-weight: 600;
-}
-
-.completedSection .sectionNumber {
-    color: #FFFFFF;
-}
-
-.currentSection .sectionNumber {
-    color: #FFF;
-    background: #549B798C;
-    border: 1px solid #549B798C;
-}
-
-.currentSection .sectionLabel,
-.completedSection .sectionLabel {
-    color: #000;
-}
-
-.completedSection .sectionNumber {
-    background-color: #549B79;
-    border: 1px solid #549B79;
 }

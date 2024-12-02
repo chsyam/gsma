@@ -44,22 +44,22 @@
 }
 
 .formElement {
-    margin: 0 0 20px 0;
     flex-grow: 1;
+    margin: 5px 0 5px 20px;
 }
 
 .formElement input,
 .formElement textarea,
 .formElement select {
-    border: 1px solid #a3a7ab;
-    width: 100%;
-    background: #F0F0F0;
-    padding: 4px 12px 4px 12px;
+    border-bottom: 2px solid #C1C7CD;
+    width: 96%;
+    padding: 10px 12px 10px 12px;
     gap: 0px;
-    border-radius: 4px;
-    font-size: 14px;
+    font-size: 16px;
     opacity: 0px;
     color: #000;
+    margin: 5px 0 0 0;
+    outline: none;
 }
 
 .formElement textarea {

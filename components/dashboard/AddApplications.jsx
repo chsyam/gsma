@@ -1,13 +1,25 @@
-import React, { useEffect, useState } from "react";
-import ZeroApplicationUI from "./ZeroApplicationUI";
+import React, { useState } from "react";
 import ApplicationDetails from "./ApplicationDetails";
 import styles from "./../../styles/dashboard/AddApplication.module.css"
 import { ChevronRight } from "lucide-react";
 import SustainabilitySelection from "./SustainabilitySelection";
 import Recommendations from "./recommendations/Recommendations";
+import CloudDetails from "./CloudDetails";
+import { Alert, Snackbar } from "@mui/material";
 
 export default function AddApplications() {
-    const [addingStatus, setAddingStatus] = useState(true);
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const handleSnackbarOpen = () => {
+        setOpenSnackbar(true);
+    };
+
+    const handleSnackbarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSnackbar(false);
+    };
+
     const [levels, setLevels] = useState({
         1: {
             sectionNumber: 1,
@@ -19,14 +31,22 @@ export default function AddApplications() {
         },
         2: {
             sectionNumber: 2,
-            sectionLabel: 'Sustainability Selection',
-            sectionComponent: <SustainabilitySelection />,
+            sectionLabel: 'Cloud Details',
+            sectionComponent: <CloudDetails />,
             isActive: false,
             isCompleted: false,
             isLast: false
         },
         3: {
             sectionNumber: 3,
+            sectionLabel: 'Sustainability Selection',
+            sectionComponent: <SustainabilitySelection />,
+            isActive: false,
+            isCompleted: false,
+            isLast: false
+        },
+        4: {
+            sectionNumber: 4,
             sectionLabel: 'Recommendations',
             sectionComponent: <Recommendations />,
             isActive: false,
@@ -48,60 +68,60 @@ export default function AddApplications() {
         setLevels({ ...tempLevels })
     }
 
-    useEffect(() => {
-        console.log(levels)
-    }, [levels])
-
     return (
         <div className={styles.dashboardContainer}>
-            {
-                addingStatus ? (
-                    <div className={styles.addingAppContainer}>
-                        <div className={styles.sectionTitle}>
-                            Create Sustainability Analysis
-                        </div>
-
-                        <div className={styles.formContainer}>
-                            <div className={styles.tracker}>
-                                {
-                                    Object.keys(levels).map((key, index) => {
-                                        return (
-                                            <div key={index}
-                                                onClick={() => handleJumpingLevels(index)}
-                                                className={`${styles.sectionLevel} ${levels[key].isActive && styles.currentSection} ${levels[key].isCompleted && styles.completedSection}`}>
-                                                <div className={styles.sectionNumber}>
-                                                    {levels[key].sectionNumber}
-                                                </div>
-                                                <div className={styles.sectionLabel}>{levels[key].sectionLabel}</div>
-                                                {
-                                                    !levels[key].isLast && <ChevronRight />
-                                                }
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
-                            {
-                                Object.keys(levels).map((key, index) => {
-                                    return (
-                                        <div key={index}>
-                                            {levels[key].isActive &&
-                                                React.cloneElement(levels[key].sectionComponent, {
-                                                    currentLevel: levels[key],
-                                                    levels: levels,
-                                                    setLevels: setLevels
-                                                })
-                                            }
+            <div className={styles.addingAppContainer}>
+                <div className={styles.sectionTitle}>
+                    Create Sustainability Analysis
+                </div>
+                <div className={styles.formContainer}>
+                    <div className={styles.tracker}>
+                        {
+                            Object.keys(levels).map((key, index) => {
+                                return (
+                                    <div key={index}
+                                        onClick={() => handleJumpingLevels(index)}
+                                        className={`${styles.sectionLevel} ${levels[key].isActive && styles.currentSection} ${levels[key].isCompleted && styles.completedSection}`}>
+                                        <div className={styles.sectionNumber}>
+                                            {levels[key].sectionNumber}
                                         </div>
-                                    )
-                                })
-                            }
-                        </div>
+                                        <div className={styles.sectionLabel}>{levels[key].sectionLabel}</div>
+                                        {
+                                            !levels[key].isLast && <ChevronRight />
+                                        }
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
-                ) : (
-                    <ZeroApplicationUI setAddingStatus={setAddingStatus} />
-                )
-            }
+                    {
+                        Object.keys(levels).map((key, index) => {
+                            return (
+                                <div key={index}>
+                                    {levels[key].isActive &&
+                                        React.cloneElement(levels[key].sectionComponent, {
+                                            currentLevel: levels[key],
+                                            levels: levels,
+                                            setLevels: setLevels,
+                                            handleSnackbarOpen: handleSnackbarOpen,
+                                        })
+                                    }
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </div>
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={1000}
+                onClose={handleSnackbarClose}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            >
+                <Alert variant="filled" severity="success">
+                    Connected to the cloud
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

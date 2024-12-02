@@ -65,36 +65,15 @@ export default function ApplicationDetails({ currentLevel, levels, setLevels }) 
                     <input name="companyName" id="companyName" placeholder="enter company name" />
                 </div>
                 <div className={styles.formElement}>
-                    <label htmlFor="cloudProvider">
-                        Cloud Provider
+                    <label htmlFor="level">
+                        Level
                     </label>
                     <br />
-                    <Select
-                        instanceId="cloudProvider"
-                        defaultValue={selectedOption}
-                        onChange={setSelectedOption}
-                        options={options}
-                    />
-                </div>
-            </div>
-            <div className={styles.formGroup}>
-                <div className={styles.formElement}>
-                    <label htmlFor="secretKey">
-                        Secret Key
-                    </label>
-                    <br />
-                    <input name="secretKey" id="secretKey" placeholder="enter secret key" />
-                </div>
-                <div className={styles.formElement}>
-                    <label htmlFor="accessKey">
-                        Access Key
-                    </label>
-                    <br />
-                    <input name="accessKey" id="accessKey" placeholder="enter access key" />
+                    <input name="level" id="level" placeholder="Level of the Application" />
                 </div>
             </div>
             <div className={styles.formButton} onClick={() => handleSaveNext()}>
-                Save & Next
+                Next
             </div>
         </form>
     );

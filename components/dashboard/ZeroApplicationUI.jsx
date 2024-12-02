@@ -1,14 +1,20 @@
 import { Plus } from "lucide-react";
+import styles from "./../../styles/dashboard/AddApplication.module.css"
+import { useRouter } from "next/router";
 
 export default function ZeroApplicationUI({ setAddingStatus }) {
+    const router = useRouter();
+    const handleAddNewApp = () => {
+        router.push(`${router.pathname}/add`)
+    }
     return (
-        <div>
+        <div className={styles.dashboardContainer}>
             <div className="flex justify-between align-center">
                 <div className="text-2xl font-semibold">
                     Sustainability Analysis Applications
                 </div>
                 <div
-                    onClick={() => setAddingStatus(true)}
+                    onClick={() => handleAddNewApp()}
                     className={styles.addApplication}>
                     Add Application <Plus />
                 </div>
@@ -24,7 +30,7 @@ export default function ZeroApplicationUI({ setAddingStatus }) {
                     *************************************************************
                 </div>
                 <div
-                    onClick={() => setAddingStatus(true)}
+                    onClick={() => handleAddNewApp()}
                     className={`my-6 ${styles.addApplication}`}>
                     Add Application <Plus />
                 </div>

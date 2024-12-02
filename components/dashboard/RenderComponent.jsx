@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from "next/link";
 import styles from "./../../styles/dashboard/SustainabilitySelection.module.css";
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 
 export default function RenderComponent({ details }) {
@@ -27,7 +26,7 @@ export default function RenderComponent({ details }) {
             {
                 details.componentType === 'input' && (
                     <div className={styles.formElement}>
-                        <label className="text-sm">{details.label}</label><br />
+                        <label className="text-md font-semibold">{details.label}</label><br />
                         <input
                             type={details.inputType}
                             placeholder={details.placeholder}
@@ -40,7 +39,7 @@ export default function RenderComponent({ details }) {
             {
                 details.componentType === 'text' && (
                     <div className={styles.formElement}>
-                        <div className="max-w-[350px]">
+                        <div>
                             {details.defaultValue}
                             {
                                 details.externalResources &&

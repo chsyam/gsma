@@ -143,17 +143,17 @@ export default function SustainabilitySelection({ currentLevel, levels, setLevel
                                 {
                                     selectedAssessments.map((item, index) => {
                                         return (
-                                            <div key={index} className={`py-4 ${index !== 0 && 'border-t-2'}`}>
-                                                <div className="flex justify-between font-semibold flex-wrap text-md items-center">
+                                            <div key={index} className='py-4'>
+                                                <div className="flex justify-between font-semibold flex-wrap text-md items-center pl-4 bg-[#DDE1E6]">
                                                     <div>{item.title}</div>
                                                     <div
-                                                        className="cursor-pointer rounded-full p-2 hover:bg-[#ef9696] ease-in-out duration-300"
+                                                        className="cursor-pointer rounded-full p-3 hover:bg-[#ef9696] ease-in-out duration-300"
                                                         onClick={() => handleSelection(item)}
                                                     >
-                                                        <Trash2 color="red" />
+                                                        <Trash2 size={20} color="red" />
                                                     </div>
                                                 </div>
-                                                <div>
+                                                <div className="my-4">
                                                     <form className="px-4">
                                                         {
                                                             item?.componentList?.map((component, index) => {
