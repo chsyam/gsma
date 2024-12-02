@@ -3,13 +3,14 @@
     border-radius: 8px;
     padding: 20px 30px;
     margin: 20px 0;
+    background-color: #FFF;
 }
 
 .areaSelectionContainer {
     display: flex;
-    justify-content: left;
+    justify-content: space-around;
     gap: 20px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .addingAreas {
@@ -34,6 +35,7 @@
 
 .selectedAreas {
     flex-grow: 1;
+    max-width: 50%;
 }
 
 .description {
@@ -42,7 +44,7 @@
 }
 
 .formElement {
-    margin: 10px 0;
+    margin: 0 0 20px 0;
     flex-grow: 1;
 }
 
@@ -51,12 +53,13 @@
 .formElement select {
     border: 1px solid #a3a7ab;
     width: 100%;
-    background: #FFFFFF;
-    padding: 6px 12px 6px 12px;
+    background: #F0F0F0;
+    padding: 4px 12px 4px 12px;
     gap: 0px;
     border-radius: 4px;
+    font-size: 14px;
     opacity: 0px;
-    outline: none;
+    color: #000;
 }
 
 .formElement textarea {

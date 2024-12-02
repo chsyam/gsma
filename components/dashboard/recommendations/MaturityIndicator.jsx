@@ -60,7 +60,7 @@ export default function MaturityIndicator({ stage }) {
                     d="M87.1416 127.231C87.1416 132.942 82.3589 137.731 76.2593 137.731C70.1596 137.731 65.377 132.942 65.377 127.231C65.377 121.521 70.1596 116.731 76.2593 116.731C82.3589 116.731 87.1416 121.521 87.1416 127.231Z"
                     fill="white"
                     stroke="#323238"
-                    stroke-width="7"
+                    strokeWidth="7"
                 />}
 
             {/* arc 2 */}
@@ -74,7 +74,7 @@ export default function MaturityIndicator({ stage }) {
                     d="M152.5 75C152.5 80.711 147.717 85.5 141.617 85.5C135.518 85.5 130.735 80.711 130.735 75C130.735 69.289 135.518 64.5 141.617 64.5C147.717 64.5 152.5 69.289 152.5 75Z"
                     fill="white"
                     stroke="#323238"
-                    stroke-width="7"
+                    strokeWidth="7"
                     transform="translate(-4,-5)"
                 />
             }
@@ -90,7 +90,7 @@ export default function MaturityIndicator({ stage }) {
                     d="M236.5 65C236.5 70.711 231.717 75.5 225.617 75.5C219.518 75.5 214.735 70.711 214.735 65C214.735 59.289 219.518 54.5 225.617 54.5C231.717 54.5 236.5 59.289 236.5 65Z"
                     fill="white"
                     stroke="#323238"
-                    stroke-width="7"
+                    strokeWidth="7"
                     transform="translate(-9,-1)"
                 />
             }
@@ -99,7 +99,7 @@ export default function MaturityIndicator({ stage }) {
             <path
                 d="M294.728 111.032C297.79 108.83 298.475 104.586 296.084 101.746C282.381 85.4698 264.89 72.6027 245.062 64.2142C241.683 62.7849 237.805 64.548 236.478 67.971C235.15 71.3941 236.876 75.1792 240.247 76.6264C257.707 84.1234 273.129 95.4893 285.278 109.815C287.618 112.574 291.744 113.177 294.728 111.032Z"
                 fill="#35CD2D"
-                fill-opacity="0.67"
+                fillOpacity="0.67"
             />
             {
                 stages[4].indicatorVisible &&
@@ -107,7 +107,7 @@ export default function MaturityIndicator({ stage }) {
                     d="M300.5 110C300.5 115.711 295.717 120.5 289.617 120.5C283.518 120.5 278.735 115.711 278.735 110C278.735 104.289 283.518 99.5 289.617 99.5C295.717 99.5 300.5 104.289 300.5 110Z"
                     fill="white"
                     stroke="#323238"
-                    stroke-width="7"
+                    strokeWidth="7"
                     transform="translate(-4,-10)"
                 />
             }
@@ -123,7 +123,7 @@ export default function MaturityIndicator({ stage }) {
                     d="M326.5 178C326.5 183.711 321.717 188.5 315.617 188.5C309.518 188.5 304.735 183.711 304.735 178C304.735 172.289 309.518 167.5 315.617 167.5C321.717 167.5 326.5 172.289 326.5 178Z"
                     fill="white"
                     stroke="#323238"
-                    stroke-width="7"
+                    strokeWidth="7"
                     transform="translate(5,-6)"
                 />
             }
@@ -132,12 +132,12 @@ export default function MaturityIndicator({ stage }) {
                 x="130"
                 y="130"
                 fill="#000"
-                font-weight="500"
-                font-size="18"
+                fontWeight="500"
+                fontSize="18"
             >
                 Maturity Level
             </text>
-            <text x="155" y="200" fill="black" stroke="black" font-size="60" style={{ fontWeight: '600' }}>
+            <text x="155" y="200" fill="black" stroke="black" fontSize="60" style={{ fontWeight: '600' }}>
                 {stages[stage].level}
             </text>
             <rect x="155" y="230" width="70" height="40" rx="20" fill={`${stages[stage].bgColor}`} />
@@ -145,8 +145,8 @@ export default function MaturityIndicator({ stage }) {
                 x="170"
                 y="255"
                 fill="#FFF"
-                font-weight="600"
-                font-size="20"
+                fontWeight="600"
+                fontSize="20"
             >
                 {stages[stage].label}
             </text>

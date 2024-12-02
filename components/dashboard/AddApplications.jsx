@@ -4,7 +4,7 @@ import ApplicationDetails from "./ApplicationDetails";
 import styles from "./../../styles/dashboard/AddApplication.module.css"
 import { ChevronRight } from "lucide-react";
 import SustainabilitySelection from "./SustainabilitySelection";
-import Recommendations from "./Recommendations";
+import Recommendations from "./recommendations/Recommendations";
 
 export default function AddApplications() {
     const [addingStatus, setAddingStatus] = useState(true);

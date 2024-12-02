@@ -27,7 +27,7 @@ export default function RenderComponent({ details }) {
             {
                 details.componentType === 'input' && (
                     <div className={styles.formElement}>
-                        <label className="font-semibold text-[16px]">{details.label}</label><br />
+                        <label className="text-sm">{details.label}</label><br />
                         <input
                             type={details.inputType}
                             placeholder={details.placeholder}
@@ -57,13 +57,14 @@ export default function RenderComponent({ details }) {
                             details.questionsList.map((question, index) => {
                                 return (
                                     <div key={index} className={`mb-5 ${(activeQuestion !== index + 1) && 'hidden'}`}>
-                                        <div className="py-1 text-md font-semibold">
-                                            {index + 1}. {question.questionTitle}
+                                        <div className="py-1 text-md">
+                                            {question.questionTitle}
                                         </div>
                                         <RadioGroup
                                             aria-labelledby="demo-radio-buttons-group-label"
                                             name="radio-buttons-group"
                                             onChange={(e) => handleActiveQuestion(question.questionTitle, e.target.value, details.questionsList.length)}
+                                            sx={{ marginTop: '5px' }}
                                         >
                                             {
                                                 question.questionOptions.map((option, optionInd) => {

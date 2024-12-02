@@ -144,12 +144,14 @@ export default function SustainabilitySelection({ currentLevel, levels, setLevel
                                     selectedAssessments.map((item, index) => {
                                         return (
                                             <div key={index} className={`py-4 ${index !== 0 && 'border-t-2'}`}>
-                                                <div className="flex justify-between font-semibold flex-wrap text-xl items-center">
+                                                <div className="flex justify-between font-semibold flex-wrap text-md items-center">
                                                     <div>{item.title}</div>
                                                     <div
                                                         className="cursor-pointer rounded-full p-2 hover:bg-[#ef9696] ease-in-out duration-300"
                                                         onClick={() => handleSelection(item)}
-                                                    ><Trash2 color="red" /></div>
+                                                    >
+                                                        <Trash2 color="red" />
+                                                    </div>
                                                 </div>
                                                 <div>
                                                     <form className="px-4">
