@@ -109,7 +109,7 @@ const headCells = [
     },
 ];
 
-export default function ApplicationList() {
+export default function ApplicationList({ projectList }) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
