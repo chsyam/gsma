@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./../../styles/dashboard/SustainabilitySelection.module.css";
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 
-export default function RenderComponent({ details }) {
+export default function RenderComponent({ details, newProjectForm, setNewProjectForm }) {
     const [activeQuestion, setActiveQuestion] = useState(1);
     const [selectedOptions, setSelectedOptions] = useState({});
 
@@ -18,8 +18,12 @@ export default function RenderComponent({ details }) {
     }
 
     useEffect(() => {
-        console.log(selectedOptions);
+        setNewProjectForm({ ...newProjectForm, designQuestions: selectedOptions })
     }, [selectedOptions])
+
+    const handleChange = (e) => {
+        setNewProjectForm({ ...newProjectForm, [e.target.name]: e.target.value });
+    }
 
     return (
         <div>
@@ -31,6 +35,8 @@ export default function RenderComponent({ details }) {
                             type={details.inputType}
                             placeholder={details.placeholder}
                             name={details.name}
+                            value={newProjectForm[details.name]}
+                            onChange={(e) => handleChange(e)}
                             readOnly={details.readOnly}
                         />
                     </div>
@@ -68,7 +74,13 @@ export default function RenderComponent({ details }) {
                                             {
                                                 question.questionOptions.map((option, optionInd) => {
                                                     return (
-                                                        <FormControlLabel key={optionInd} value={option.value} control={<Radio />} label={option.label} />
+                                                        <FormControlLabel
+                                                            key={optionInd}
+                                                            value={option.value}
+                                                            onChange={(e) => console.log(e.target)}
+                                                            control={<Radio />}
+                                                            label={option.label}
+                                                        />
                                                     )
                                                 })
                                             }

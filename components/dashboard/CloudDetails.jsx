@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from "./../../styles/dashboard/CloudDetails.module.css"
 import AwsSvg from '../icons/AWS';
 import AzureSVG from '../icons/AzureSVG';
 import GcpSVG from '../icons/GcpSVG';
 import { Alert, Backdrop, CircularProgress, Snackbar } from '@mui/material';
 
-export default function CloudDetails({ currentLevel, levels, setLevels, handleSnackbarOpen }) {
+export default function CloudDetails({ currentLevel, levels, setLevels, handleSnackbarOpen, newProjectForm,
+    setNewProjectForm }) {
     const [activeCloud, setActiveCloud] = useState("AWS");
-    const [open, setOpen] = useState(false);
+    useEffect(() => {
+        setNewProjectForm({ ...newProjectForm, "CLOUD_PROVIDER": activeCloud })
+    }, [activeCloud])
 
+    const [open, setOpen] = useState(false);
     const handleClose = () => {
         setOpen(false);
     };
 
     const handleOpen = () => {
         setOpen(true);
-
         setTimeout(() => {
             handleClose();
             handleSaveNext();
@@ -23,18 +26,23 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
         }, 2000);
     };
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setNewProjectForm({ ...newProjectForm, [name]: value });
+    }
+
     const cloudOptions = {
         "AWS": {
             cloudName: 'AWS',
             svgLogo: <AwsSvg height='200px' width='200px' />,
             components: [
                 {
-                    name: 'secretKey',
+                    name: 'SECRET_KEY',
                     placeholder: 'enter secret key',
                     label: 'Secret Key'
                 },
                 {
-                    name: 'accessKey',
+                    name: 'ACCESS_KEY',
                     placeholder: 'enter access key',
                     label: 'Access Key'
                 }
@@ -45,12 +53,12 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
             svgLogo: <GcpSVG height='200px' width='200px' />,
             components: [
                 {
-                    name: 'secretKey',
+                    name: 'SECRET_KEY',
                     placeholder: 'enter secret key',
                     label: 'Secret Key'
                 },
                 {
-                    name: 'accessKey',
+                    name: 'ACCESS_KEY',
                     placeholder: 'enter access key',
                     label: 'Access Key'
                 }
@@ -61,14 +69,14 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
             svgLogo: <AzureSVG height='200px' width='200px' />,
             components: [
                 {
-                    name: 'clientId',
-                    placeholder: 'enter Client Id',
-                    label: 'Client Id'
+                    name: 'SECRET_KEY',
+                    placeholder: 'enter secret key',
+                    label: 'Secret Key'
                 },
                 {
-                    name: 'clientSecret',
-                    placeholder: 'enter client secret',
-                    label: 'Client Secret'
+                    name: 'ACCESS_KEY',
+                    placeholder: 'enter access key',
+                    label: 'Access Key'
                 }
             ]
         }
@@ -129,7 +137,13 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
                                             {component.label}
                                         </label>
                                         <br />
-                                        <input name={component.name} id={component.name} placeholder={component.placeholder} />
+                                        <input
+                                            name={component.name}
+                                            value={newProjectForm[component.name]}
+                                            onChange={(e) => handleChange(e)}
+                                            id={component.name}
+                                            placeholder={component.placeholder}
+                                        />
                                     </div>
                                 </div>
                             )

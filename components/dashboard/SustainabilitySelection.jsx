@@ -5,7 +5,8 @@ import { find } from "lodash"
 import RenderComponent from "./RenderComponent";
 import areas from "./../../public/data/areas.json"
 
-export default function SustainabilitySelection({ currentLevel, levels, setLevels }) {
+export default function SustainabilitySelection({ currentLevel, levels, setLevels, newProjectForm,
+    setNewProjectForm }) {
     const [filteredLabels, setFilteredLabels] = useState(['Analysis & Design']);
     const handleLabelClick = (label) => {
         if (filteredLabels.includes(label)) {
@@ -159,7 +160,7 @@ export default function SustainabilitySelection({ currentLevel, levels, setLevel
                                                             item?.componentList?.map((component, index) => {
                                                                 return (
                                                                     <div key={index}>
-                                                                        <RenderComponent details={component} />
+                                                                        <RenderComponent details={component} newProjectForm={newProjectForm} setNewProjectForm={setNewProjectForm} />
                                                                     </div>
                                                                 );
                                                             })

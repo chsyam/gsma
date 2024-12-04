@@ -248,7 +248,7 @@
         "componentList": [
           {
             "label": "Application URL",
-            "name": "applicationURL",
+            "name": "ENERGY_LEAKS_URL",
             "componentType": "input",
             "inputType": "text",
             "placeholder": "enter application URL",
@@ -258,7 +258,7 @@
           },
           {
             "label": "Branch",
-            "name": "branch",
+            "name": "ENERGY_LEAKS_BRANCH",
             "componentType": "input",
             "inputType": "text",
             "placeholder": "enter branch",
@@ -274,7 +274,7 @@
         "componentList": [
           {
             "label": "Code URL",
-            "name": "codeURL",
+            "name": "ML_JOB_CONSUMPTION_CODE_URL",
             "inputType": "text",
             "componentType": "input",
             "placeholder": "enter code url",
@@ -290,7 +290,7 @@
         "componentList": [
           {
             "label": "Server Application IP",
-            "name": "serverIP",
+            "name": "ENERGY_METRICS_SERVER_IP",
             "inputType": "text",
             "componentType": "input",
             "placeholder": "enter server IP",
@@ -300,7 +300,7 @@
           },
           {
             "label": "Username",
-            "name": "username",
+            "name": "ENERGY_METRICS_USERNAME",
             "componentType": "input",
             "inputType": "text",
             "placeholder": "enter username",
@@ -310,7 +310,7 @@
           },
           {
             "label": "Password",
-            "name": "password",
+            "name": "ENERGY_METRICS_PASSWORD",
             "componentType": "input",
             "inputType": "password",
             "placeholder": "enter password",
@@ -347,7 +347,7 @@
         "componentList": [
           {
             "label": "Application Deployment File URL",
-            "name": "applicationDeploymentFileURL",
+            "name": "WORKLOAD_BENCHMARKING_APP",
             "inputType": "text",
             "componentType": "input",
             "placeholder": "enter Application Deployment File URL",
@@ -357,7 +357,7 @@
           },
           {
             "label": "Load Generator Deployment File URL",
-            "name": "loadGeneratorDeploymentFileURL",
+            "name": "WORKLOAD_BENCHMARKING_WORKLOAD",
             "inputType": "text",
             "componentType": "input",
             "placeholder": "enter Load Generator Deployment File URL",
@@ -367,7 +367,7 @@
           },
           {
             "label": "Enter Instance Type",
-            "name": "instanceType",
+            "name": "WORKLOAD_BENCHMARKING_INSTANCE",
             "inputType": "text",
             "componentType": "input",
             "placeholder": "enter Instance Type",
