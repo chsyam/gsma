@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from "./../../styles/dashboard/AddApplication.module.css"
 
 export default function ApplicationDetails({ currentLevel, levels, setLevels, newProjectForm,

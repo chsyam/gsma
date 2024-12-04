@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Select from 'react-select'
 import { useRouter } from "next/router";
 import { Plus } from "lucide-react";
@@ -22,16 +22,16 @@ const rows = [
         cloudProvider: 'AWS',
         lastVersionAnalysed: '0.0.1',
         lastAnalysedOn: new Date(),
-        sustainabilityLevel: 'Low',
+        sustainabilityLevel: 'Level 1',
     },
     {
         applicationId: 2,
-        applicationName: 'Sample App',
+        applicationName: 'Sample App1',
         applicationDescription: 'Sample App',
         cloudProvider: 'AWS',
         lastVersionAnalysed: '0.0.1',
         lastAnalysedOn: new Date(),
-        sustainabilityLevel: 'Low'
+        sustainabilityLevel: 'Level 2'
     },
     {
         applicationId: 3,
@@ -40,7 +40,7 @@ const rows = [
         cloudProvider: 'AWS',
         lastVersionAnalysed: '0.0.1',
         lastAnalysedOn: new Date(),
-        sustainabilityLevel: 'Low'
+        sustainabilityLevel: 'Level 3'
     },
     {
         applicationId: 4,
@@ -49,7 +49,7 @@ const rows = [
         cloudProvider: 'AWS',
         lastVersionAnalysed: '0.0.1',
         lastAnalysedOn: new Date(),
-        sustainabilityLevel: 'Low'
+        sustainabilityLevel: 'Level 4'
     },
     {
         applicationId: 5,
@@ -58,7 +58,7 @@ const rows = [
         cloudProvider: 'Azure',
         lastVersionAnalysed: '0.0.1',
         lastAnalysedOn: new Date(),
-        sustainabilityLevel: 'Low'
+        sustainabilityLevel: 'Level 4'
     },
     {
         applicationId: 6,
@@ -67,7 +67,7 @@ const rows = [
         cloudProvider: 'GCP',
         lastVersionAnalysed: '0.0.1',
         lastAnalysedOn: new Date(),
-        sustainabilityLevel: 'Low'
+        sustainabilityLevel: 'Level 5'
     }
 ];
 
@@ -110,8 +110,52 @@ const headCells = [
 ];
 
 export default function ApplicationList({ projectList }) {
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const cloudOptions = [
+        { value: 'AWS', label: 'AWS' },
+        { value: 'Azure', label: 'Azure' },
+        { value: 'GCP', label: 'GCP' },
+    ]
+    const maturityLevels = [
+        { value: 'Level 1', label: 'Level 1' },
+        { value: 'Level 2', label: 'Level 2' },
+        { value: 'Level 3', label: 'Level 3' },
+        { value: 'Level 4', label: 'Level 4' },
+        { value: 'Level 5', label: 'Level 5' },
+    ]
+
+    const [selectedCloudProvider, setSelectedCloudProvider] = useState(null);
+    const [selectedMaturityLevels, setSelectedMaturityLevels] = useState([]);
+    const [applicationSearchTerm, setApplicationSearchTerm] = useState("");
+    const [filteredRows, setFilterdRows] = useState(rows);
+    const [visibleRows, setVisibleRows] = useState([]);
+
+    useEffect(() => {
+        if (applicationSearchTerm !== "") {
+            const temp = rows.filter((row) => {
+                return row.applicationName.toLowerCase().includes(applicationSearchTerm.toLowerCase())
+            })
+            setFilterdRows(temp)
+        } else {
+            setFilterdRows(rows)
+        }
+    }, [applicationSearchTerm])
+
+    useEffect(() => {
+        const temp = rows.filter((row) => {
+            return !selectedCloudProvider || (row.cloudProvider?.toLowerCase() === selectedCloudProvider?.value?.toLowerCase())
+        })
+        setFilterdRows(temp)
+    }, [selectedCloudProvider]);
+
+    useEffect(() => {
+        console.log(selectedMaturityLevels)
+        const temp = rows.filter((row) => {
+            return !selectedMaturityLevels || selectedMaturityLevels.length === 0 || selectedMaturityLevels.map((level) => level.value).includes(row.sustainabilityLevel)
+        })
+        setFilterdRows(temp)
+    }, [selectedMaturityLevels])
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -123,36 +167,29 @@ export default function ApplicationList({ projectList }) {
     };
 
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredRows.length) : 0;
 
-    const visibleRows = React.useMemo(
-        () =>
-            [...rows]
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-        [page, rowsPerPage],
-    );
+    useEffect(() => {
+        const startIndex = page * rowsPerPage;
+        const endIndex = startIndex + rowsPerPage;
+        setVisibleRows([...filteredRows].slice(startIndex, endIndex));
+    }, [page, rowsPerPage, filteredRows]);
 
     const router = useRouter();
     const handleAddNewApp = () => {
         router.push(`${router.pathname}/add`)
     }
 
-    const cloudOptions = [
-        { value: 'AWS', label: 'AWS' },
-        { value: 'Azure', label: 'Azure' },
-        { value: 'GCP', label: 'GCP' },
-    ]
-
-    const maturityLevels = [
-        { value: 1, label: 'Level 1' },
-        { value: 2, label: 'Level 2' },
-        { value: 3, label: 'Level 3' },
-        { value: 4, label: 'Level 4' },
-        { value: 5, label: 'Level 5' },
-    ]
-
     const getFormattedDate = (date) => {
         return format(date, "dd/MM/yyyy hh:mm a");
+    }
+
+    const handleCloudProviderChange = (selectedOption) => {
+        setSelectedCloudProvider(selectedOption);
+    };
+
+    const handleMaturityLevelChange = (selectedOption) => {
+        setSelectedMaturityLevels(selectedOption);
     }
 
     return (
@@ -169,12 +206,23 @@ export default function ApplicationList({ projectList }) {
             </div>
             <div className="flex justify-between items-center gap-8 mt-4 px-4 flex-wrap">
                 <div className="flex-grow max-w-[50%]">
-                    <input className="w-full py-2 px-4 text-sm rounded-sm border border-[#CED4DA]" type="text" placeholder="Type to search for Application..." />
+                    <input
+                        className="w-full py-2 px-4 text-sm rounded-sm border border-[#CED4DA]"
+                        type="text"
+                        placeholder="Type to search for Application..."
+                        name="applicationSearchTerm"
+                        id="applicationSearchTerm"
+                        value={applicationSearchTerm}
+                        onChange={(e) => setApplicationSearchTerm(e.target.value)}
+                    />
                 </div>
                 <div className="flex justify-center gap-4 items-center">
                     <Select
                         placeholder="Cloud Provider"
+                        isClearable
                         options={cloudOptions}
+                        value={selectedCloudProvider}
+                        onChange={handleCloudProviderChange}
                         styles={{
                             control: (baseStyles, state) => ({
                                 ...baseStyles,
@@ -186,6 +234,8 @@ export default function ApplicationList({ projectList }) {
                         placeholder="Maturity Level"
                         options={maturityLevels}
                         isMulti
+                        value={selectedMaturityLevels}
+                        onChange={handleMaturityLevelChange}
                         styles={{
                             control: (baseStyles, state) => ({
                                 ...baseStyles,
@@ -205,7 +255,7 @@ export default function ApplicationList({ projectList }) {
                                         {
                                             headCells.map((headCell, index) => (
                                                 <TableCell key={index} align={headCell.align}
-                                                    sx={{ fontSize: '14px', color: '#000' }}
+                                                    sx={{ fontSize: '14px', color: '#FFF' }}
                                                 >
                                                     {headCell.label}
                                                 </TableCell>
@@ -254,8 +304,8 @@ export default function ApplicationList({ projectList }) {
                                                     <TableCell align='center' sx={{
                                                         color: '#17202a'
                                                     }}>
-                                                        Level 1 <span className="font-semibold px-1 text-black">
-                                                            ({row.sustainabilityLevel})
+                                                        <span className="font-semibold px-1 text-black">
+                                                            {row.sustainabilityLevel}
                                                         </span>
                                                     </TableCell>
                                                 </TableRow>
@@ -277,7 +327,7 @@ export default function ApplicationList({ projectList }) {
                         <TablePagination
                             rowsPerPageOptions={[5, 10, 25]}
                             component="div"
-                            count={rows.length}
+                            count={filteredRows.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             onPageChange={handleChangePage}

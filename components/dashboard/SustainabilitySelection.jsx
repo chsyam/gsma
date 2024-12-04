@@ -155,17 +155,13 @@ export default function SustainabilitySelection({ currentLevel, levels, setLevel
                                                     </div>
                                                 </div>
                                                 <div className="my-4">
-                                                    <form className="px-4">
-                                                        {
-                                                            item?.componentList?.map((component, index) => {
-                                                                return (
-                                                                    <div key={index}>
-                                                                        <RenderComponent details={component} newProjectForm={newProjectForm} setNewProjectForm={setNewProjectForm} />
-                                                                    </div>
-                                                                );
-                                                            })
-                                                        }
-                                                    </form>
+                                                    {
+                                                        item?.componentList?.map((component, index) => {
+                                                            return (
+                                                                <RenderComponent key={index} details={component} newProjectForm={newProjectForm} setNewProjectForm={setNewProjectForm} />
+                                                            );
+                                                        })
+                                                    }
                                                 </div>
                                             </div>
                                         );

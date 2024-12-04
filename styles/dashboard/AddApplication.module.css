@@ -157,3 +157,22 @@
     background-color: #549B79;
     border: 1px solid #549B79;
 }
+
+.menuContainer {
+    padding: 0 20px;
+    height: 40px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 32px;
+    opacity: 0px;
+    border-bottom: 1px solid #DCDBDD;
+    user-select: none;
+    line-height: 40px;
+    font-size: 16px;
+}
+
+.active {
+    border: 2px solid #47B900;
+    border-radius: 5px;
+}

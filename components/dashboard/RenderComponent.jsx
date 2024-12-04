@@ -26,7 +26,7 @@ export default function RenderComponent({ details, newProjectForm, setNewProject
     }
 
     return (
-        <div>
+        <div className='my-5'>
             {
                 details.componentType === 'input' && (
                     <div className={styles.formElement}>

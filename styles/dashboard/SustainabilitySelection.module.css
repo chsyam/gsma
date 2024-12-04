@@ -52,13 +52,12 @@
 .formElement textarea,
 .formElement select {
     border-bottom: 2px solid #C1C7CD;
-    width: 96%;
-    padding: 10px 12px 10px 12px;
+    width: 100%;
+    padding: 5px 12px 5px 12px;
     gap: 0px;
     font-size: 16px;
     opacity: 0px;
     color: #000;
-    margin: 5px 0 0 0;
     outline: none;
 }
 

@@ -1,8 +1,4 @@
 import * as React from "react";
-import CircularProgress from "@mui/joy/CircularProgress";
-import ReportIcon from "@mui/icons-material/Report";
-import WarningIcon from "@mui/icons-material/Warning";
-import { Box, Typography } from "@mui/joy";
 
 export default function MaturityIndicator({ stage }) {
     const stages = {
@@ -42,6 +38,7 @@ export default function MaturityIndicator({ stage }) {
             indicatorVisible: stage === 5
         }
     }
+
     return (
         <svg
             width="350"
