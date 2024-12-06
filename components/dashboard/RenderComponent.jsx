@@ -35,7 +35,7 @@ export default function RenderComponent({ details, newProjectForm, setNewProject
                             type={details.inputType}
                             placeholder={details.placeholder}
                             name={details.name}
-                            value={newProjectForm[details.name]}
+                            value={newProjectForm[details.name] || ""}
                             onChange={(e) => handleChange(e)}
                             readOnly={details.readOnly}
                         />
@@ -77,7 +77,6 @@ export default function RenderComponent({ details, newProjectForm, setNewProject
                                                         <FormControlLabel
                                                             key={optionInd}
                                                             value={option.value}
-                                                            onChange={(e) => console.log(e.target)}
                                                             control={<Radio />}
                                                             label={option.label}
                                                         />

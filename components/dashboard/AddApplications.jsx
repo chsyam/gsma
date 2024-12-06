@@ -7,7 +7,7 @@ import Recommendations from "./recommendations/Recommendations";
 import CloudDetails from "./CloudDetails";
 import { Alert, Snackbar } from "@mui/material";
 
-export default function AddApplications({ newProjectForm, setNewProjectForm }) {
+export default function AddApplications({ newProjectForm, setNewProjectForm, setShowPopup }) {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const handleSnackbarOpen = () => {
         setOpenSnackbar(true);
@@ -105,7 +105,8 @@ export default function AddApplications({ newProjectForm, setNewProjectForm }) {
                                             setLevels: setLevels,
                                             handleSnackbarOpen: handleSnackbarOpen,
                                             newProjectForm: newProjectForm,
-                                            setNewProjectForm: setNewProjectForm
+                                            setNewProjectForm: setNewProjectForm,
+                                            setShowPopup: setShowPopup
                                         })
                                     }
                                 </div>

@@ -6,7 +6,7 @@ import RenderComponent from "./RenderComponent";
 import areas from "./../../public/data/areas.json"
 
 export default function SustainabilitySelection({ currentLevel, levels, setLevels, newProjectForm,
-    setNewProjectForm }) {
+    setNewProjectForm, setShowPopup }) {
     const [filteredLabels, setFilteredLabels] = useState(['Analysis & Design']);
     const handleLabelClick = (label) => {
         if (filteredLabels.includes(label)) {
@@ -50,6 +50,30 @@ export default function SustainabilitySelection({ currentLevel, levels, setLevel
                 return true;
             }
         })
+    }
+
+    const handleAnalyzeApplictaion = async () => {
+        console.log(newProjectForm);
+        try {
+            const res = await fetch('/api/applications/analyzeNewProject', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ newProjectForm }),
+            });
+
+            if (!res.ok) {
+                throw new Error(`Error: ${res.status}`);
+            }
+
+            const result = await res.json();
+            console.log(result);
+            setShowPopup(true);
+        } catch (error) {
+            alert("Something went wrong")
+            console.log(error);
+        }
     }
 
     const handleSaveNext = () => {
@@ -168,7 +192,10 @@ export default function SustainabilitySelection({ currentLevel, levels, setLevel
                                     })
                                 }
                                 <div className="rounded-md bg-[#549B79] px-4 py-2 mt-6 w-fit text-[#FFF] cursor-pointer"
-                                    onClick={() => { handleSaveNext() }}
+                                    onClick={() => {
+                                        // handleSaveNext()
+                                        handleAnalyzeApplictaion()
+                                    }}
                                 >
                                     Start Analyzing
                                 </div>

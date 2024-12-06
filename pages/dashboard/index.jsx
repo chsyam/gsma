@@ -3,15 +3,20 @@ import UserNavbar from "../../components/navbar/UserNavbar";
 import DashboardMenu from "./DashboardMenu";
 import ZeroApplicationUI from "../../components/dashboard/ZeroApplicationUI";
 import ApplicationList from "../../components/dashboard/ApplicationList";
-import { getAllApplications } from "../api/applications/getAll";
+import { getAllApplications } from "../api/applications/getAllApplications";
+import SuccessPopup from "../../components/dashboard/SuccessPopup";
+import { useRouter } from "next/router";
 
 export default function Dashboard({ projectList }) {
+    const router = useRouter();
+
     return (
         <div>
             <UserNavbar />
             <DashboardMenu />
+            {router.pathname}
             {/* {
-                projectList && projectList?.length == 0 ? (
+                !projectList && projectList?.length == 0 ? (
                     <ZeroApplicationUI />
                 ) : (
                     <ApplicationList projectList={projectList} />

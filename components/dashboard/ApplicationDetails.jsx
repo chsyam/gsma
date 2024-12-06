@@ -38,7 +38,7 @@ export default function ApplicationDetails({ currentLevel, levels, setLevels, ne
                     <input
                         name="PROJECT_NAME"
                         id="PROJECT_NAME"
-                        value={newProjectForm['PROJECT_NAME']}
+                        value={newProjectForm['PROJECT_NAME'] || ""}
                         onChange={(e) => handleChange(e)}
                         placeholder="enter application name"
                     />
@@ -51,7 +51,7 @@ export default function ApplicationDetails({ currentLevel, levels, setLevels, ne
                     <input
                         name="PROJECT_VERSION"
                         id="PROJECT_VERSION"
-                        value={newProjectForm['PROJECT_VERSION']}
+                        value={newProjectForm['PROJECT_VERSION'] || ""}
                         onChange={(e) => handleChange(e)}
                         placeholder="enter application version"
                     />
@@ -66,7 +66,7 @@ export default function ApplicationDetails({ currentLevel, levels, setLevels, ne
                     <textarea
                         name="PROJECT_DESCRIPTION"
                         id="PROJECT_DESCRIPTION"
-                        value={newProjectForm['PROJECT_DESCRIPTION']}
+                        value={newProjectForm['PROJECT_DESCRIPTION'] || ""}
                         onChange={(e) => handleChange(e)}
                         placeholder="description about the application"
                     ></textarea>

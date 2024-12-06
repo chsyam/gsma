@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Select from 'react-select'
+import React, { useEffect, useId, useState } from "react";
 import { useRouter } from "next/router";
 import { Plus } from "lucide-react";
 import styles from "./../../styles/dashboard/AddApplication.module.css"
@@ -13,6 +12,10 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { format } from "date-fns";
+import dynamic from 'next/dynamic';
+
+const Select = dynamic(() => import('react-select'), { ssr: false });
+
 
 const rows = [
     {
@@ -150,7 +153,6 @@ export default function ApplicationList({ projectList }) {
     }, [selectedCloudProvider]);
 
     useEffect(() => {
-        console.log(selectedMaturityLevels)
         const temp = rows.filter((row) => {
             return !selectedMaturityLevels || selectedMaturityLevels.length === 0 || selectedMaturityLevels.map((level) => level.value).includes(row.sustainabilityLevel)
         })
@@ -255,7 +257,7 @@ export default function ApplicationList({ projectList }) {
                                         {
                                             headCells.map((headCell, index) => (
                                                 <TableCell key={index} align={headCell.align}
-                                                    sx={{ fontSize: '14px', color: '#FFF' }}
+                                                    sx={{ fontSize: '14px', color: '#FFF', letterSpacing: '0.05em' }}
                                                 >
                                                     {headCell.label}
                                                 </TableCell>
@@ -269,7 +271,8 @@ export default function ApplicationList({ projectList }) {
                                             return (
                                                 <TableRow hover tabIndex={-1}
                                                     key={index}
-                                                    sx={{ cursor: 'pointer', fontSize: 14, }}
+                                                    sx={{ cursor: 'pointer', fontSize: 14 }}
+                                                    onClick={() => router.push(`${router.pathname}/application?projectName=${row.applicationName}`)}
                                                 >
                                                     <TableCell align='center' sx={{
                                                         color: '#17202a'

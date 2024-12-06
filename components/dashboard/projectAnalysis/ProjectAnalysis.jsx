@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import styles from "./../../../styles/dashboard/AddApplication.module.css"
 import { format } from "date-fns";
 import MaturityIndicator from "../recommendations/MaturityIndicator";
-import Select from "react-select";
+import Recommendations from "../recommendations/Recommendations";
+import dynamic from 'next/dynamic';
+
+const Select = dynamic(() => import('react-select'), { ssr: false });
+
 
 export default function ProjectAnalysis({ projectList }) {
     const [active, setActive] = useState('dashboard');
@@ -184,6 +188,7 @@ export default function ProjectAnalysis({ projectList }) {
                     </ul>
                 </div>
             </div>
+            <Recommendations />
         </div>
     );
 }

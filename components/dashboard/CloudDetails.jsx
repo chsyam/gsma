@@ -139,7 +139,7 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
                                         <br />
                                         <input
                                             name={component.name}
-                                            value={newProjectForm[component.name]}
+                                            value={newProjectForm[component.name] || ""}
                                             onChange={(e) => handleChange(e)}
                                             id={component.name}
                                             placeholder={component.placeholder}
