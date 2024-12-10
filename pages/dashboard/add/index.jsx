@@ -14,6 +14,13 @@ export default function AddNewApplication() {
         setNewProjectForm(formFields);
     }, []);
 
+    useEffect(() => {
+        const path = window.location.pathname;
+        const pathArray = path.split('/').filter((item) => item !== '');
+
+        console.log(pathArray)
+    }, []);
+
     const [showPopup, setShowPopup] = useState(false);
     const router = useRouter();
 
@@ -21,7 +28,6 @@ export default function AddNewApplication() {
         <Layout>
             <UserNavbar />
             <DashboardMenu />
-            {router.pathname}
             <AddApplications
                 newProjectForm={newProjectForm}
                 setNewProjectForm={setNewProjectForm}

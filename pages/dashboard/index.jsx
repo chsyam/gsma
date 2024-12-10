@@ -6,6 +6,7 @@ import ApplicationList from "../../components/dashboard/ApplicationList";
 import { getAllApplications } from "../api/applications/getAllApplications";
 import SuccessPopup from "../../components/dashboard/SuccessPopup";
 import { useRouter } from "next/router";
+import BreadCrumb from "../../components/BreadCrumb";
 
 export default function Dashboard({ projectList }) {
     const router = useRouter();
@@ -14,7 +15,7 @@ export default function Dashboard({ projectList }) {
         <div>
             <UserNavbar />
             <DashboardMenu />
-            {router.pathname}
+            <BreadCrumb />
             {/* {
                 !projectList && projectList?.length == 0 ? (
                     <ZeroApplicationUI />

@@ -11,7 +11,8 @@ const Select = dynamic(() => import('react-select'), { ssr: false });
 export default function ProjectAnalysis({ projectList }) {
     const [active, setActive] = useState('dashboard');
     const getFormattedDate = (date) => {
-        return format(date, "dd/MM/yyyy hh:mm a");
+        // return format(date, "dd/MM/yyyy hh:mm a");
+        return "time"
     }
 
     const timeOptions = [
@@ -34,9 +35,9 @@ export default function ProjectAnalysis({ projectList }) {
                     Re-analyze
                 </div>
             </div>
-            <div className="bg-white rounded-[24px] my-12 px-4 py-2">
+            <div className="bg-white rounded-[20px] my-12 px-4 py-2">
                 <div className="flex flex-wrap align-items justify-center gap-12">
-                    <table className="">
+                    <table>
                         <tbody>
                             <tr>
                                 <td className="pr-5 py-5">

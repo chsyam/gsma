@@ -194,6 +194,13 @@ export default function ApplicationList({ projectList }) {
         setSelectedMaturityLevels(selectedOption);
     }
 
+    const handleApplicationRoute = (baseURL, appName) => {
+        router.push({
+            pathname: baseURL,
+            query: { projectName: encodeURIComponent(appName) }
+        })
+    }
+
     return (
         <div className={styles.dashboardContainer}>
             <div className="flex justify-between items-center flex-nowrap">
@@ -272,7 +279,7 @@ export default function ApplicationList({ projectList }) {
                                                 <TableRow hover tabIndex={-1}
                                                     key={index}
                                                     sx={{ cursor: 'pointer', fontSize: 14 }}
-                                                    onClick={() => router.push(`${router.pathname}/application?projectName=${row.applicationName}`)}
+                                                    onClick={() => handleApplicationRoute(`${router.pathname}/application`, row.applicationName)}
                                                 >
                                                     <TableCell align='center' sx={{
                                                         color: '#17202a'
