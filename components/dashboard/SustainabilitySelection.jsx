@@ -6,8 +6,11 @@ import RenderComponent from "./RenderComponent";
 import areas from "./../../public/data/areas.json"
 
 export default function SustainabilitySelection({ currentLevel, levels, setLevels, newProjectForm,
-    setNewProjectForm, setShowPopup }) {
+    setNewProjectForm, setSuccessShowPopup, setFailureShowPopup
+}) {
     const [filteredLabels, setFilteredLabels] = useState(['Analysis & Design']);
+    const [analyzingStatus, setAnalyzingStatus] = useState(false);
+
     const handleLabelClick = (label) => {
         if (filteredLabels.includes(label)) {
             let temp = [];
@@ -53,7 +56,8 @@ export default function SustainabilitySelection({ currentLevel, levels, setLevel
     }
 
     const handleAnalyzeApplictaion = async () => {
-        console.log(newProjectForm);
+        setAnalyzingStatus(true);
+
         try {
             const res = await fetch('/api/applications/analyzeNewProject', {
                 method: 'POST',
@@ -69,30 +73,12 @@ export default function SustainabilitySelection({ currentLevel, levels, setLevel
 
             const result = await res.json();
             console.log(result);
-            setShowPopup(true);
+            setSuccessShowPopup(true);
         } catch (error) {
-            alert("Something went wrong")
+            setFailureShowPopup(true);
             console.log(error);
         }
-    }
-
-    const handleSaveNext = () => {
-        const temp = [];
-        Object.keys(levels).map((key, index) => {
-            if (currentLevel.sectionNumber == levels[key].sectionNumber) {
-                const currentLevelObject = levels[key];
-                currentLevelObject["isCompleted"] = true;
-                currentLevelObject["isActive"] = false;
-                temp.push(currentLevelObject);
-            } else if (currentLevel.sectionNumber + 1 == levels[key].sectionNumber) {
-                const nextLevelObject = levels[key];
-                nextLevelObject["isActive"] = true;
-                temp.push(nextLevelObject);
-            } else {
-                temp.push(levels[key])
-            }
-        })
-        setLevels(temp);
+        setAnalyzingStatus(false);
     }
 
     return (
@@ -193,11 +179,19 @@ export default function SustainabilitySelection({ currentLevel, levels, setLevel
                                 }
                                 <div className="rounded-md bg-[#549B79] px-4 py-2 mt-6 w-fit text-[#FFF] cursor-pointer"
                                     onClick={() => {
-                                        // handleSaveNext()
                                         handleAnalyzeApplictaion()
                                     }}
                                 >
-                                    Start Analyzing
+                                    {
+                                        analyzingStatus ? (
+                                            <div className="flex justify-center items-center flex-nowrap">
+                                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mx-2"></div> Analyzing...
+                                            </div>
+                                        ) : (
+                                            "Start Analyzing"
+                                        )
+                                    }
+
                                 </div>
                             </div>
                         )

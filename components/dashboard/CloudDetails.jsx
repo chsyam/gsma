@@ -9,7 +9,7 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
     setNewProjectForm }) {
     const [activeCloud, setActiveCloud] = useState("AWS");
     useEffect(() => {
-        setNewProjectForm({ ...newProjectForm, "CLOUD_PROVIDER": activeCloud })
+        setNewProjectForm({ ...newProjectForm, "cloudProvider": activeCloud })
     }, [activeCloud])
 
     const [open, setOpen] = useState(false);
@@ -23,7 +23,7 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
             handleClose();
             handleSaveNext();
             handleSnackbarOpen();
-        }, 2000);
+        }, 1000);
     };
 
     const handleChange = (e) => {
@@ -37,12 +37,12 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
             svgLogo: <AwsSvg height='200px' width='200px' />,
             components: [
                 {
-                    name: 'SECRET_KEY',
+                    name: 'secretKey',
                     placeholder: 'enter secret key',
                     label: 'Secret Key'
                 },
                 {
-                    name: 'ACCESS_KEY',
+                    name: 'accessKey',
                     placeholder: 'enter access key',
                     label: 'Access Key'
                 }
@@ -53,12 +53,12 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
             svgLogo: <GcpSVG height='200px' width='200px' />,
             components: [
                 {
-                    name: 'SECRET_KEY',
+                    name: 'secretKey',
                     placeholder: 'enter secret key',
                     label: 'Secret Key'
                 },
                 {
-                    name: 'ACCESS_KEY',
+                    name: 'accessKey',
                     placeholder: 'enter access key',
                     label: 'Access Key'
                 }
@@ -69,12 +69,12 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
             svgLogo: <AzureSVG height='200px' width='200px' />,
             components: [
                 {
-                    name: 'SECRET_KEY',
+                    name: 'secretKey',
                     placeholder: 'enter secret key',
                     label: 'Secret Key'
                 },
                 {
-                    name: 'ACCESS_KEY',
+                    name: 'accessKey',
                     placeholder: 'enter access key',
                     label: 'Access Key'
                 }

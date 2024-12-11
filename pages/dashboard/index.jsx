@@ -8,7 +8,7 @@ import SuccessPopup from "../../components/dashboard/SuccessPopup";
 import { useRouter } from "next/router";
 import BreadCrumb from "../../components/BreadCrumb";
 
-export default function Dashboard({ projectList }) {
+export default function Dashboard({ projectsList }) {
     const router = useRouter();
 
     return (
@@ -16,23 +16,39 @@ export default function Dashboard({ projectList }) {
             <UserNavbar />
             <DashboardMenu />
             <BreadCrumb />
-            {/* {
-                !projectList && projectList?.length == 0 ? (
+            {
+                !projectsList && projectsList?.length == 0 ? (
                     <ZeroApplicationUI />
                 ) : (
-                    <ApplicationList projectList={projectList} />
+                    <ApplicationList projectsList={projectsList} />
                 )
-            } */}
-            <ApplicationList projectList={projectList} />
+            }
         </div>
     );
 }
 
 export async function getServerSideProps() {
-    const projectList = await getAllApplications();
-    return {
-        props: {
-            projectList
+    try {
+        const projectsList = await getAllApplications();
+        if (!projectsList) {
+            console.log("Error while fetching project list")
+            return {
+                props: {
+                    projectsList: []
+                }
+            }
+        }
+        return {
+            props: {
+                projectsList: projectsList
+            }
+        }
+    } catch (error) {
+        console.log(error);
+        return {
+            props: {
+                projectsList: []
+            }
         }
     }
 }

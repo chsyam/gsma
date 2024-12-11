@@ -7,6 +7,7 @@ import UserNavbar from "../../../components/navbar/UserNavbar";
 import DashboardMenu from "../DashboardMenu";
 import formFields from "./../../../public/data/ApplicationFormFields.json";
 import SuccessPopup from "../../../components/dashboard/SuccessPopup";
+import FailurePopup from '../../../components/dashboard/FailurePopup';
 
 export default function AddNewApplication() {
     const [newProjectForm, setNewProjectForm] = useState({});
@@ -21,7 +22,8 @@ export default function AddNewApplication() {
         console.log(pathArray)
     }, []);
 
-    const [showPopup, setShowPopup] = useState(false);
+    const [showSuccessPopup, setSuccessShowPopup] = useState(false);
+    const [showFailurePopup, setFailureShowPopup] = useState(false);
     const router = useRouter();
 
     return (
@@ -31,9 +33,11 @@ export default function AddNewApplication() {
             <AddApplications
                 newProjectForm={newProjectForm}
                 setNewProjectForm={setNewProjectForm}
-                setShowPopup={setShowPopup}
+                setFailureShowPopup={setFailureShowPopup}
+                setSuccessShowPopup={setSuccessShowPopup}
             />
-            <SuccessPopup showPopup={showPopup} setShowPopup={setShowPopup} />
+            <SuccessPopup showSuccessPopup={showSuccessPopup} setSuccessShowPopup={setSuccessShowPopup} />
+            <FailurePopup showFailurePopup={showFailurePopup} setFailureShowPopup={setFailureShowPopup} />
         </Layout>
     );
 }

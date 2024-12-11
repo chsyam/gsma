@@ -1,19 +1,19 @@
 import React from 'react';
 
-const SuccessPopup = ({ showSuccessPopup, setSuccessShowPopup }) => {
+const FailurePopup = ({ showFailurePopup, setFailureShowPopup }) => {
     return (
         <div>
-            {showSuccessPopup && (
+            {showFailurePopup && (
                 <div style={styles.overlay}>
                     <div style={styles.popup}>
                         <p>
-                            A Request is sent for Analyze this project. <br />
-                            This will take upto 10-15 min. <br />
+                            Something went wrong while sending request to analyze this project. <br />
+                            Please try again later after sometime. <br />
                             Meanwhile take a look at your previous reports.
                         </p>
                         <button onClick={() => {
                             window.location.href = "/dashboard/"
-                            setSuccessShowPopup(false);
+                            setFailureShowPopup(false);
                         }} style={styles.closeButton}>
                             Continue
                         </button>
@@ -42,11 +42,11 @@ const styles = {
         padding: '20px',
         borderRadius: '10px',
         textAlign: 'center',
-        boxShadow: '0 4px 8px rgba(0, 255, 0, 0.3)',
-        border: '1px solid #549B79',
+        boxShadow: '0 4px 8px rgba(255, 0, 0, 0.4)',
+        border: '1px solid red',
         minWidth: '40%',
         maxWidth: '60%',
-        color: '#549B79',
+        color: 'red',
         fontWeight: 500
     },
     closeButton: {
@@ -60,5 +60,4 @@ const styles = {
     },
 };
 
-
-export default SuccessPopup;
+export default FailurePopup;

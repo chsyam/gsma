@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Plus } from "lucide-react";
 import styles from "./../../styles/dashboard/AddApplication.module.css"
@@ -15,7 +15,6 @@ import { format } from "date-fns";
 import dynamic from 'next/dynamic';
 
 const Select = dynamic(() => import('react-select'), { ssr: false });
-
 
 const rows = [
     {
@@ -112,7 +111,7 @@ const headCells = [
     },
 ];
 
-export default function ApplicationList({ projectList }) {
+export default function ApplicationList({ projectsList }) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const cloudOptions = [
@@ -133,31 +132,31 @@ export default function ApplicationList({ projectList }) {
     const [applicationSearchTerm, setApplicationSearchTerm] = useState("");
     const [filteredRows, setFilterdRows] = useState(rows);
     const [visibleRows, setVisibleRows] = useState([]);
+    const [applicationsList, setApplicationsList] = useState(projectsList);
 
     useEffect(() => {
+        console.log(applicationsList);
+    }, [applicationsList]);
+
+    useEffect(() => {
+        let temp = rows;
         if (applicationSearchTerm !== "") {
-            const temp = rows.filter((row) => {
+            temp = filteredRows.filter((row) => {
                 return row.applicationName.toLowerCase().includes(applicationSearchTerm.toLowerCase())
             })
-            setFilterdRows(temp)
-        } else {
-            setFilterdRows(rows)
         }
-    }, [applicationSearchTerm])
-
-    useEffect(() => {
-        const temp = rows.filter((row) => {
-            return !selectedCloudProvider || (row.cloudProvider?.toLowerCase() === selectedCloudProvider?.value?.toLowerCase())
-        })
+        if (selectedCloudProvider) {
+            temp = temp.filter((row) => {
+                return !selectedCloudProvider || (row.cloudProvider?.toLowerCase() === selectedCloudProvider?.value?.toLowerCase())
+            })
+        }
+        if (selectedMaturityLevels.length !== 0) {
+            temp = temp.filter((row) => {
+                return !selectedMaturityLevels || selectedMaturityLevels.length === 0 || selectedMaturityLevels.map((level) => level.value).includes(row.sustainabilityLevel)
+            })
+        }
         setFilterdRows(temp)
-    }, [selectedCloudProvider]);
-
-    useEffect(() => {
-        const temp = rows.filter((row) => {
-            return !selectedMaturityLevels || selectedMaturityLevels.length === 0 || selectedMaturityLevels.map((level) => level.value).includes(row.sustainabilityLevel)
-        })
-        setFilterdRows(temp)
-    }, [selectedMaturityLevels])
+    }, [applicationSearchTerm, selectedCloudProvider, selectedMaturityLevels])
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);

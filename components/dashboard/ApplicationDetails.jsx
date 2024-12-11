@@ -31,14 +31,14 @@ export default function ApplicationDetails({ currentLevel, levels, setLevels, ne
         <form className='px-[6%] my-14'>
             <div className={styles.formGroup}>
                 <div className={styles.formElement}>
-                    <label htmlFor="PROJECT_NAME">
+                    <label htmlFor="projectName">
                         Application Name
                     </label>
                     <br />
                     <input
-                        name="PROJECT_NAME"
-                        id="PROJECT_NAME"
-                        value={newProjectForm['PROJECT_NAME'] || ""}
+                        name="projectName"
+                        id="projectName"
+                        value={newProjectForm['projectName'] || ""}
                         onChange={(e) => handleChange(e)}
                         placeholder="enter application name"
                     />

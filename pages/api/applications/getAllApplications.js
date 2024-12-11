@@ -6,11 +6,10 @@ export async function getAllApplications() {
                 'Content-Type': 'application/json',
             }
         });
-        // console.log("response", await response.json());
-        const projectList = await response.json();
-        return projectList;
+        const projectsList = await response.json();
+        return projectsList;
     } catch (error) {
-        console.log("Error while fetching project list")
+        console.log("Error while fetching project list", error)
         return [];
     }
 }
