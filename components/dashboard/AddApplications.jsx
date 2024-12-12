@@ -43,14 +43,6 @@ export default function AddApplications({ newProjectForm, setNewProjectForm, set
             sectionComponent: <SustainabilitySelection />,
             isActive: false,
             isCompleted: false,
-            isLast: false
-        },
-        4: {
-            sectionNumber: 4,
-            sectionLabel: 'Recommendations',
-            sectionComponent: <Recommendations />,
-            isActive: false,
-            isCompleted: false,
             isLast: true
         }
     });

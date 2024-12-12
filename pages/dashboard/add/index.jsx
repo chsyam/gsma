@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 import AddApplications from "../../../components/dashboard/AddApplications";
 import ZeroApplicationUI from "../../../components/dashboard/ZeroApplicationUI";
@@ -24,7 +23,6 @@ export default function AddNewApplication() {
 
     const [showSuccessPopup, setSuccessShowPopup] = useState(false);
     const [showFailurePopup, setFailureShowPopup] = useState(false);
-    const router = useRouter();
 
     return (
         <Layout>

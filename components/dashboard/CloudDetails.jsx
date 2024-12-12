@@ -23,7 +23,7 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
             handleClose();
             handleSaveNext();
             handleSnackbarOpen();
-        }, 1000);
+        }, 500);
     };
 
     const handleChange = (e) => {
@@ -34,7 +34,7 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
     const cloudOptions = {
         "AWS": {
             cloudName: 'AWS',
-            svgLogo: <AwsSvg height='200px' width='200px' />,
+            svgLogo: <AwsSvg height='150px' width='150px' />,
             components: [
                 {
                     name: 'secretKey',
@@ -50,7 +50,7 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
         },
         "GCP": {
             cloudName: 'GCP',
-            svgLogo: <GcpSVG height='200px' width='200px' />,
+            svgLogo: <GcpSVG height='150px' width='150px' />,
             components: [
                 {
                     name: 'secretKey',
@@ -66,7 +66,7 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
         },
         "Azure": {
             cloudName: 'Azure',
-            svgLogo: <AzureSVG height='200px' width='200px' />,
+            svgLogo: <AzureSVG height='150px' width='150px' />,
             components: [
                 {
                     name: 'secretKey',
@@ -150,8 +150,7 @@ export default function CloudDetails({ currentLevel, levels, setLevels, handleSn
                         })
                     }
                 </div>
-                <div
-                    className={styles.formButton}
+                <div className={styles.formButton}
                     onClick={() => {
                         handleOpen();
                     }}
