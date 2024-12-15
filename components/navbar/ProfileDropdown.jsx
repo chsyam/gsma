@@ -1,6 +1,11 @@
 import React from 'react';
 import { Settings, LogOut, User, Shield } from 'lucide-react';
 
+const logoutHandler = () => {
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = "/login";
+}
+
 const ProfileDropdown = () => {
     const menuItems = [
         {
@@ -21,7 +26,7 @@ const ProfileDropdown = () => {
         {
             icon: LogOut,
             label: 'Logout',
-            onClick: () => console.log('Logout clicked'),
+            onClick: () => logoutHandler(),
             className: 'text-red-600 hover:text-red-700 hover:bg-red-50',
         },
     ];

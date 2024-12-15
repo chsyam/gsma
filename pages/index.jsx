@@ -1,7 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import styles from "./../styles/HomePage.module.css";
 import introScreen from "./../components/images/intoScreen.png";
-import Navbar from "../components/navbar/Navbar";
 
 export default function Home() {
 	return (
@@ -16,7 +15,6 @@ export default function Home() {
 				backgroundSize: "cover",
 			}}
 		>
-			<Navbar />
 			<div className={styles.pageTitle}>
 				Green Soft Maturity
 				<div className="text-[#549B79] font-bold">Assessment</div>
@@ -49,7 +47,10 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
-			<div className={styles.tryNowButton}>
+			<div
+				className={styles.tryNowButton}
+				onClick={() => window.location.href = "/login"}
+			>
 				<button>
 					Try Now <ChevronRight size={20} />
 				</button>

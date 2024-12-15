@@ -1,9 +1,10 @@
 .navbarContainer {
-    padding: 30px 10px 5% 0;
+    padding: 30px 10px 2% 0;
     display: flex;
     justify-content: space-around;
     align-items: center;
     user-select: none;
+    flex-wrap: wrap;
 }
 
 .navbarMenu {
@@ -16,10 +17,12 @@
 
 .navbarMenu li {
     cursor: pointer;
+    transition: 0.2s all ease-in-out;
 }
 
 .navbarMenu li:hover {
     font-weight: bold;
+    font-size: 19px;
 }
 
 .userActions {
@@ -31,13 +34,13 @@
 }
 
 .navbarTitle {
-    font-family: Urbanist;
     color: #255F43;
     font-size: 54px;
     font-weight: 400;
     line-height: 66px;
     letter-spacing: -0.02em;
     text-align: left;
+    cursor: pointer;
 }
 
 .tryNowButton {

@@ -4,7 +4,7 @@ import { Bell, ChevronDown, User } from "lucide-react";
 import ProfileDropdown from "./ProfileDropdown";
 import NotificationDropdown from "./NotificationDropdown";
 
-export default function UserNavbar() {
+export default function UserNavbar({ username }) {
     const [notificationCount, setNotificationCount] = useState(0);
     const mockNotifications = [
         {
@@ -90,7 +90,9 @@ export default function UserNavbar() {
                                 }}
                             >
                                 <User className="h-6 w-6" />
-                                <span className="text-md font-bold text-black">{"chsyamkumar"}</span>
+                                <span className="text-md font-bold text-black">
+                                    {username}
+                                </span>
                                 <ChevronDown className="h-4 w-4" />
                             </button>
                             {showProfile && <ProfileDropdown />}

@@ -3,7 +3,6 @@ import ApplicationDetails from "./ApplicationDetails";
 import styles from "./../../styles/dashboard/AddApplication.module.css"
 import { ChevronRight } from "lucide-react";
 import SustainabilitySelection from "./SustainabilitySelection";
-import Recommendations from "./recommendations/Recommendations";
 import CloudDetails from "./CloudDetails";
 import { Alert, Snackbar } from "@mui/material";
 

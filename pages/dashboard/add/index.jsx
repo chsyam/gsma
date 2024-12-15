@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import AddApplications from "../../../components/dashboard/AddApplications";
-import ZeroApplicationUI from "../../../components/dashboard/ZeroApplicationUI";
 import Layout from "../../../components/Layout";
-import UserNavbar from "../../../components/navbar/UserNavbar";
 import DashboardMenu from "../DashboardMenu";
 import formFields from "./../../../public/data/ApplicationFormFields.json";
 import SuccessPopup from "../../../components/dashboard/SuccessPopup";
 import FailurePopup from '../../../components/dashboard/FailurePopup';
+import { decrypt } from "../../api/auth/lib";
 
 export default function AddNewApplication() {
     const [newProjectForm, setNewProjectForm] = useState({});
@@ -26,7 +25,6 @@ export default function AddNewApplication() {
 
     return (
         <Layout>
-            <UserNavbar />
             <DashboardMenu />
             <AddApplications
                 newProjectForm={newProjectForm}
@@ -38,4 +36,30 @@ export default function AddNewApplication() {
             <FailurePopup showFailurePopup={showFailurePopup} setFailureShowPopup={setFailureShowPopup} />
         </Layout>
     );
+}
+
+
+export async function getServerSideProps(context) {
+    const { req, res } = context;
+    const token = req?.cookies['token']
+    const payload = await decrypt(token)
+    if (!payload || payload === null || payload === undefined) {
+        res.setHeader('Set-Cookie', [
+            'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;',
+        ]);
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false
+            }
+        }
+    } else {
+        return {
+            props: {
+                username: payload?.username,
+                email: payload?.email,
+                role: payload?.role
+            }
+        }
+    }
 }

@@ -111,6 +111,7 @@
     opacity: 0px;
     font-size: 14px;
     margin-top: 5px;
+    outline: none;
 }
 
 .formElement textarea {
