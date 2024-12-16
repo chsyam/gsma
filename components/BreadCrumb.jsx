@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function BreadCrumb({ urlParts }) {
     const [parts, setParts] = useState([]);
-    
+
     useEffect(() => {
         let breadCrumbItems = [];
 
@@ -37,7 +37,7 @@ export default function BreadCrumb({ urlParts }) {
     }
 
     return (
-        <div className="bg-[#f2f3f3] px-[2%] py-2">
+        <div className="bg-[#e7e7e7] px-[2%] py-2 border-b border-[#dadada]">
             <Breadcrumbs separator={<ChevronRight />} aria-label="breadcrumb">
                 <Link underline="hover" color="inherit" href="/dashboard">
                     <House size={20} color="#000" />
