@@ -1,42 +1,61 @@
-import { Breadcrumbs, Link, Stack, Typography } from "@mui/material";
+import { Breadcrumbs, Link, Typography } from "@mui/material";
 import { ChevronRight, House } from "lucide-react";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export default function BreadCrumb() {
-    const handleClick = (event) => {
-        event.preventDefault();
-        console.info('You clicked a breadcrumb.');
-    };
-    const [breadCrumbs, setBreadCrumbs] = useState([]);
-    const router = useRouter();
-
+export default function BreadCrumb({ urlParts }) {
+    const [parts, setParts] = useState([]);
+    
     useEffect(() => {
-        let path = window.location.href;
-        let origin = window.location.origin;
-        console.log(path.replace(origin, ""));
-        console.log(window.location.search)
-        console.log(decodeURIComponent(decodeURIComponent(window.location.search)).replace('?', '').split('&'))
-    }, []);
+        let breadCrumbItems = [];
+
+        urlParts?.map((item, index) => {
+            let temp = [];
+            let decodedItem = decodeURIComponent(decodeURIComponent(item))
+            if (decodedItem.includes('?')) {
+                let params = decodedItem.split('?');
+                params.map(param => {
+                    if (param.includes('=')) {
+                        let p = param.split('=');
+                        temp.push(p[1].toLowerCase());
+                    } else {
+                        temp.push(param.toLowerCase());
+                    }
+                })
+            }
+            temp.length === 0 ? breadCrumbItems.push(decodedItem.toLowerCase()) : breadCrumbItems.push(...temp);
+        })
+        setParts(breadCrumbItems);
+    }, [])
+
+    const getBreadCrumbName = (item) => {
+        if (item === "add") {
+            return "Analyze new project"
+        }
+        else {
+            return item;
+        }
+    }
 
     return (
-        <div>
+        <div className="bg-[#f2f3f3] px-[2%] py-2">
             <Breadcrumbs separator={<ChevronRight />} aria-label="breadcrumb">
                 <Link underline="hover" color="inherit" href="/dashboard">
-                    <House color="#000" />
+                    <House size={20} color="#000" />
                 </Link>
                 {
-                    breadCrumbs.map((item, index) => {
+                    parts?.map((item, index) => {
                         return (
-                            (index !== 0 && index !== breadCrumbs.length - 1) && <Link underline="hover" key={index} color="inherit" href={`/${item}`}>
-                                {item}
-                            </Link>
+                            (index !== 0 && index !== parts?.length - 1) && (
+                                <Link underline="none" key={index} color="inherit">
+                                    {getBreadCrumbName(item)}
+                                </Link>
+                            )
                         )
                     })
                 }
                 <Typography sx={{ color: 'text.primary' }}>
                     {
-                        breadCrumbs.length > 1 && breadCrumbs[breadCrumbs.length - 1]
+                        parts?.length > 1 && getBreadCrumbName(parts[parts?.length - 1])
                     }
                 </Typography>
             </Breadcrumbs>

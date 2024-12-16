@@ -5,7 +5,6 @@ import ZeroApplicationUI from "../../components/dashboard/ZeroApplicationUI";
 import ApplicationList from "../../components/dashboard/ApplicationList";
 import { getAllApplications } from "../api/applications/getAllApplications";
 import { useRouter } from "next/router";
-import BreadCrumb from "../../components/BreadCrumb";
 import { decrypt } from "../api/auth/lib";
 
 export default function Dashboard({ projectsList }) {
@@ -14,7 +13,6 @@ export default function Dashboard({ projectsList }) {
     return (
         <div className="bg-[#F0F0F0]">
             <DashboardMenu />
-            <BreadCrumb />
             {
                 !projectsList && projectsList?.length == 0 ? (
                     <ZeroApplicationUI />

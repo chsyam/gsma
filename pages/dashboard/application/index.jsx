@@ -1,18 +1,36 @@
-import { useRouter } from 'next/router';
 import ProjectAnalysis from "../../../components/dashboard/projectAnalysis/ProjectAnalysis";
-import UserNavbar from "../../../components/navbar/UserNavbar";
-import DashboardMenu from "../DashboardMenu";
-import BreadCrumb from '../../../components/BreadCrumb';
+import { decrypt } from '../../api/auth/lib';
+import Layout from '../../../components/Layout';
 
 export default function ApplicationDetails() {
-    const router = useRouter();
-
     return (
-        <div>
-            <UserNavbar />
-            <DashboardMenu />
-            <BreadCrumb />
+        <Layout>
             <ProjectAnalysis projectList={[]} />
-        </div>
+        </Layout>
     );
+}
+
+export async function getServerSideProps(context) {
+    const { req, res } = context;
+    const token = req?.cookies['token']
+    const payload = await decrypt(token)
+    if (!payload || payload === null || payload === undefined) {
+        res.setHeader('Set-Cookie', [
+            'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;',
+        ]);
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false
+            }
+        }
+    } else {
+        return {
+            props: {
+                username: payload?.username,
+                email: payload?.email,
+                role: payload?.role
+            }
+        }
+    }
 }
