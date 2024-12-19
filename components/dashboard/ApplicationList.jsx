@@ -16,63 +16,6 @@ import dynamic from 'next/dynamic';
 
 const Select = dynamic(() => import('react-select'), { ssr: false });
 
-const rows = [
-    {
-        applicationId: 1,
-        applicationName: 'Sample App',
-        applicationDescription: 'Sample App',
-        cloudProvider: 'AWS',
-        lastVersionAnalysed: '0.0.1',
-        lastAnalysedOn: new Date(),
-        sustainabilityLevel: 'Level 1',
-    },
-    {
-        applicationId: 2,
-        applicationName: 'Sample App1',
-        applicationDescription: 'Sample App',
-        cloudProvider: 'AWS',
-        lastVersionAnalysed: '0.0.1',
-        lastAnalysedOn: new Date(),
-        sustainabilityLevel: 'Level 2'
-    },
-    {
-        applicationId: 3,
-        applicationName: 'Sample App',
-        applicationDescription: 'Sample App',
-        cloudProvider: 'AWS',
-        lastVersionAnalysed: '0.0.1',
-        lastAnalysedOn: new Date(),
-        sustainabilityLevel: 'Level 3'
-    },
-    {
-        applicationId: 4,
-        applicationName: 'Sample App',
-        applicationDescription: 'Sample App',
-        cloudProvider: 'AWS',
-        lastVersionAnalysed: '0.0.1',
-        lastAnalysedOn: new Date(),
-        sustainabilityLevel: 'Level 4'
-    },
-    {
-        applicationId: 5,
-        applicationName: 'Sample App',
-        applicationDescription: 'Sample App',
-        cloudProvider: 'Azure',
-        lastVersionAnalysed: '0.0.1',
-        lastAnalysedOn: new Date(),
-        sustainabilityLevel: 'Level 4'
-    },
-    {
-        applicationId: 6,
-        applicationName: 'Sample App',
-        applicationDescription: 'Sample App',
-        cloudProvider: 'GCP',
-        lastVersionAnalysed: '0.0.1',
-        lastAnalysedOn: new Date(),
-        sustainabilityLevel: 'Level 5'
-    }
-];
-
 const headCells = [
     {
         id: 'slNo',
@@ -119,6 +62,7 @@ export default function ApplicationList({ projectsList }) {
         { value: 'Azure', label: 'Azure' },
         { value: 'GCP', label: 'GCP' },
     ]
+
     const maturityLevels = [
         { value: 'Level 1', label: 'Level 1' },
         { value: 'Level 2', label: 'Level 2' },
@@ -127,22 +71,56 @@ export default function ApplicationList({ projectsList }) {
         { value: 'Level 5', label: 'Level 5' },
     ]
 
+    const rows = [
+        {
+            applicationId: 1,
+            applicationName: 'Sample App',
+            applicationDescription: 'Sample App',
+            cloudProvider: 'AWS',
+            lastVersionAnalysed: '0.0.1',
+            lastAnalysedOn: new Date(),
+            sustainabilityLevel: 'Level 1',
+        },
+        {
+            applicationId: 2,
+            applicationName: 'Sample App1',
+            applicationDescription: 'Sample App',
+            cloudProvider: 'AWS',
+            lastVersionAnalysed: '0.0.1',
+            lastAnalysedOn: new Date(),
+            sustainabilityLevel: 'Level 2'
+        },
+        {
+            applicationId: 3,
+            applicationName: 'Sample App',
+            applicationDescription: 'Sample App',
+            cloudProvider: 'AWS',
+            lastVersionAnalysed: '0.0.1',
+            lastAnalysedOn: new Date(),
+            sustainabilityLevel: 'Level 3'
+        },
+        {
+            applicationId: 4,
+            applicationName: 'Sample App',
+            applicationDescription: 'Sample App',
+            cloudProvider: 'AWS',
+            lastVersionAnalysed: '0.0.1',
+            lastAnalysedOn: new Date(),
+            sustainabilityLevel: 'Level 4'
+        }
+    ];
+
     const [selectedCloudProvider, setSelectedCloudProvider] = useState(null);
     const [selectedMaturityLevels, setSelectedMaturityLevels] = useState([]);
     const [applicationSearchTerm, setApplicationSearchTerm] = useState("");
-    const [filteredRows, setFilterdRows] = useState(rows);
+    const [filteredRows, setFilterdRows] = useState([]);
     const [visibleRows, setVisibleRows] = useState([]);
-    const [applicationsList, setApplicationsList] = useState(projectsList);
 
     useEffect(() => {
-        console.log(applicationsList);
-    }, [applicationsList]);
-
-    useEffect(() => {
-        let temp = rows;
+        let temp = projectsList;
         if (applicationSearchTerm !== "") {
-            temp = filteredRows.filter((row) => {
-                return row.applicationName.toLowerCase().includes(applicationSearchTerm.toLowerCase())
+            temp = temp.filter((row) => {
+                return row.project_name?.toLowerCase().includes(applicationSearchTerm.toLowerCase())
             })
         }
         if (selectedCloudProvider) {
@@ -194,10 +172,12 @@ export default function ApplicationList({ projectsList }) {
     }
 
     const handleApplicationRoute = (baseURL, appName) => {
-        router.push({
-            pathname: baseURL,
-            query: { projectName: encodeURIComponent(appName) }
-        })
+        if (appName) {
+            router.push({
+                pathname: baseURL,
+                query: { projectName: encodeURIComponent(appName) }
+            })
+        }
     }
 
     return (
@@ -254,96 +234,106 @@ export default function ApplicationList({ projectsList }) {
                 </div>
             </div>
             <div className="px-4 mt-6 w-full">
-                <Box sx={{ width: '100%' }}>
-                    <Paper sx={{ width: '100%', mb: 2 }}>
-                        <TableContainer>
-                            <Table>
-                                <TableHead>
-                                    <TableRow sx={{ background: '#549B79' }}>
-                                        {
-                                            headCells.map((headCell, index) => (
-                                                <TableCell key={index} align={headCell.align}
-                                                    sx={{ fontSize: '14px', color: '#FFF', letterSpacing: '0.05em' }}
+                {
+                    filteredRows.length === 0 ? (
+                        <div className="text-center font-medium text-xl my-[50px] leading-10 select-none tracking-wide">
+                            No applications found with these filters.
+                            <br />
+                            Try clearing filters.
+                        </div>
+                    ) : (
+                        <Box sx={{ width: '100%' }}>
+                            <Paper sx={{ width: '100%', mb: 2 }}>
+                                <TableContainer>
+                                    <Table>
+                                        <TableHead>
+                                            <TableRow sx={{ background: '#549B79' }}>
+                                                {
+                                                    headCells.map((headCell, index) => (
+                                                        <TableCell key={index} align={headCell.align}
+                                                            sx={{ fontSize: '14px', color: '#FFF', letterSpacing: '0.05em' }}
+                                                        >
+                                                            {headCell.label}
+                                                        </TableCell>
+                                                    ))
+                                                }
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {
+                                                filteredRows.map((row, index) => {
+                                                    return (
+                                                        <TableRow hover tabIndex={-1}
+                                                            key={index}
+                                                            sx={{ cursor: 'pointer', fontSize: 14 }}
+                                                            onClick={() => handleApplicationRoute(`${router.pathname}/application`, row.project_name)}
+                                                        >
+                                                            <TableCell align='center' sx={{
+                                                                color: '#17202a'
+                                                            }}>
+                                                                {index + 1}
+                                                            </TableCell>
+                                                            <TableCell align='left' sx={{
+                                                                color: '#17202a'
+                                                            }}>
+                                                                {row.project_name ? row.project_name : "-"}
+                                                            </TableCell>
+                                                            <TableCell align='left' sx={{
+                                                                color: '#17202a'
+                                                            }}>
+                                                                {row.projectDescription ? row.projectDescription : '-'}
+                                                            </TableCell>
+                                                            <TableCell align='center' sx={{
+                                                                color: '#17202a'
+                                                            }}>
+                                                                {row.cloudProvider ? row.cloudProvider : "-"}
+                                                            </TableCell>
+                                                            <TableCell align='center' sx={{
+                                                                color: '#17202a'
+                                                            }}>
+                                                                {row.projectVersion ? row.projectVersion : "-"}
+                                                            </TableCell>
+                                                            <TableCell align='center' sx={{
+                                                                color: '#17202a'
+                                                            }}>
+                                                                {row.lastAnalysedOn ? getFormattedDate(row.lastAnalysedOn) : "-"}
+                                                            </TableCell>
+                                                            <TableCell align='center' sx={{
+                                                                color: '#17202a'
+                                                            }}>
+                                                                <span className="font-semibold px-1 text-black">
+                                                                    {row.sustainabilityLevel ? row.sustainabilityLevel : "-"}
+                                                                </span>
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    );
+                                                })
+                                            }
+                                            {emptyRows > 0 && (
+                                                <TableRow
+                                                    style={{
+                                                        height: 53 * emptyRows,
+                                                    }}
                                                 >
-                                                    {headCell.label}
-                                                </TableCell>
-                                            ))
-                                        }
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {
-                                        visibleRows.map((row, index) => {
-                                            return (
-                                                <TableRow hover tabIndex={-1}
-                                                    key={index}
-                                                    sx={{ cursor: 'pointer', fontSize: 14 }}
-                                                    onClick={() => handleApplicationRoute(`${router.pathname}/application`, row.applicationName)}
-                                                >
-                                                    <TableCell align='center' sx={{
-                                                        color: '#17202a'
-                                                    }}>
-                                                        {row.applicationId}
-                                                    </TableCell>
-                                                    <TableCell align='left' sx={{
-                                                        color: '#17202a'
-                                                    }}>
-                                                        {row.applicationName}
-                                                    </TableCell>
-                                                    <TableCell align='left' sx={{
-                                                        color: '#17202a'
-                                                    }}>
-                                                        {row.applicationDescription}
-                                                    </TableCell>
-                                                    <TableCell align='center' sx={{
-                                                        color: '#17202a'
-                                                    }}>
-                                                        {row.cloudProvider}
-                                                    </TableCell>
-                                                    <TableCell align='center' sx={{
-                                                        color: '#17202a'
-                                                    }}>
-                                                        {row.lastVersionAnalysed}
-                                                    </TableCell>
-                                                    <TableCell align='center' sx={{
-                                                        color: '#17202a'
-                                                    }}>
-                                                        {getFormattedDate(row.lastAnalysedOn)}
-                                                    </TableCell>
-                                                    <TableCell align='center' sx={{
-                                                        color: '#17202a'
-                                                    }}>
-                                                        <span className="font-semibold px-1 text-black">
-                                                            {row.sustainabilityLevel}
-                                                        </span>
-                                                    </TableCell>
+                                                    <TableCell colSpan={7} />
                                                 </TableRow>
-                                            );
-                                        })
-                                    }
-                                    {emptyRows > 0 && (
-                                        <TableRow
-                                            style={{
-                                                height: 53 * emptyRows,
-                                            }}
-                                        >
-                                            <TableCell colSpan={7} />
-                                        </TableRow>
-                                    )}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <TablePagination
-                            rowsPerPageOptions={[5, 10, 25]}
-                            component="div"
-                            count={filteredRows.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
-                        />
-                    </Paper>
-                </Box>
+                                            )}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                                <TablePagination
+                                    rowsPerPageOptions={[5, 10, 25]}
+                                    component="div"
+                                    count={filteredRows.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                />
+                            </Paper>
+                        </Box>
+                    )
+                }
             </div>
         </div>
     );

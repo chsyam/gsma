@@ -44,14 +44,14 @@ export default function ApplicationDetails({ currentLevel, levels, setLevels, ne
                     />
                 </div>
                 <div className={styles.formElement}>
-                    <label htmlFor="PROJECT_VERSION">
+                    <label htmlFor="projectVersion">
                         Application Version
                     </label>
                     <br />
                     <input
-                        name="PROJECT_VERSION"
-                        id="PROJECT_VERSION"
-                        value={newProjectForm['PROJECT_VERSION'] || ""}
+                        name="projectVersion"
+                        id="projectVersion"
+                        value={newProjectForm['projectVersion'] || ""}
                         onChange={(e) => handleChange(e)}
                         placeholder="enter application version"
                     />
@@ -59,14 +59,14 @@ export default function ApplicationDetails({ currentLevel, levels, setLevels, ne
             </div>
             <div className={styles.formGroup}>
                 <div className={styles.formElement}>
-                    <label htmlFor="PROJECT_DESCRIPTION">
+                    <label htmlFor="projectDescription">
                         Application Description
                     </label>
                     <br />
                     <textarea
-                        name="PROJECT_DESCRIPTION"
-                        id="PROJECT_DESCRIPTION"
-                        value={newProjectForm['PROJECT_DESCRIPTION'] || ""}
+                        name="projectDescription"
+                        id="projectDescription"
+                        value={newProjectForm['projectDescription'] || ""}
                         onChange={(e) => handleChange(e)}
                         placeholder="description about the application"
                     ></textarea>

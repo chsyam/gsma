@@ -6,7 +6,7 @@ export default async function handler(req, res) {
             projectDetails: newProjectForm
         }
         console.log(formData);
-        
+
         try {
             const response = await fetch('http://marvel-teaas-lb-1490692637.us-east-1.elb.amazonaws.com:83/trigger-jenkins', {
                 method: 'POST',

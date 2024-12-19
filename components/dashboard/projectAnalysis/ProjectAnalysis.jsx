@@ -4,11 +4,14 @@ import { format } from "date-fns";
 import MaturityIndicator from "../recommendations/MaturityIndicator";
 import Recommendations from "../recommendations/Recommendations";
 import dynamic from 'next/dynamic';
+import { Download } from "lucide-react";
+import { Button } from "@mui/material";
+import CountUp from "react-countup";
 
 const Select = dynamic(() => import('react-select'), { ssr: false });
 
 
-export default function ProjectAnalysis({ projectList }) {
+export default function ProjectAnalysis({ projectList, maturityLevel, implementedAreas, unImplementedAreas }) {
     const [active, setActive] = useState('dashboard');
     const getFormattedDate = (date) => {
         // return format(date, "dd/MM/yyyy hh:mm a");
@@ -31,8 +34,23 @@ export default function ProjectAnalysis({ projectList }) {
                 <div className="text-2xl font-semibold">
                     Application Details Page
                 </div>
-                <div className={styles.addApplication}>
-                    Re-analyze
+                <div className="flex gap-6">
+                    <Button
+                        variant="outlined"
+                        startIcon={<Download />}
+                        sx={{
+                            borderRadius: '8px',
+                            textTransform: 'none',
+                            borderColor: '#549B79',
+                            color: '#549B79',
+                            height: '40px'
+                        }}
+                    >
+                        Reports
+                    </Button>
+                    <div className={styles.addApplication}>
+                        Re-analyze
+                    </div>
                 </div>
             </div>
             <div className="bg-white rounded-[20px] my-12 px-4 py-2">
@@ -50,35 +68,27 @@ export default function ProjectAnalysis({ projectList }) {
                                 </td>
                                 <td className="pl-5 py-5">
                                     <label className="text-[#ABA8B0] text-[16px]">
-                                        Version Details
-                                    </label>
-                                    <div className="text-[16px] font-medium mt-2">
-                                        Ver 1.1.1.2
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="pr-5 py-5">
-                                    <label className="text-[#ABA8B0] text-[16px]">
-                                        Application Description
-                                    </label>
-                                    <div className="text-[16px] font-medium mt-2 max-w-[400px] text-justify">
-                                        An Institute having different branches at different locations, want to control and maintain the accountant salary and students personal and payment details.
-                                    </div>
-                                </td>
-                                <td className="pl-5 py-5">
-                                    <label className="text-[#ABA8B0] text-[16px]">
-                                        Last Updates on
+                                        Analyzed on
                                     </label>
                                     <div className="text-[16px] font-medium mt-2">
                                         {getFormattedDate(new Date())}
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                                <td colSpan={2} className="pr-5 py-5">
+                                    <label className="text-[#ABA8B0] text-[16px]">
+                                        Application Description
+                                    </label>
+                                    <div className="text-[16px] font-medium mt-2 max-w-[500px] text-justify">
+                                        An Institute having different branches at different locations, want to control and maintain the accountant salary and students personal and payment details.
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <div>
-                        <MaturityIndicator stage={1} />
+                        <MaturityIndicator stage={maturityLevel} />
                     </div>
                 </div>
             </div>
@@ -136,13 +146,13 @@ export default function ProjectAnalysis({ projectList }) {
                             Carbon Emissions
                         </li>
                         <li className="my-3 text-[#202020] text-[32px] font-semibold leading-9">
-                            {38.25}
+                            <CountUp start={0} end={38.25} decimal="." decimals={2} duration={2} />
                         </li>
                         <li className="my-3 text-[#47464A] text-[14px] leading-5 font-normal">
                             {'Kg CO₂'}
                         </li>
                         <li className="my-3 text-[#009512] font-medium text-[14px] leading-5">
-                            +{6.28}%
+                            +<CountUp start={0} end={6.28} decimal="." decimals={2} duration={2} />%
                         </li>
                     </ul>
                     <ul className="p-4">
@@ -150,13 +160,13 @@ export default function ProjectAnalysis({ projectList }) {
                             Cost
                         </li>
                         <li className="my-3 text-[#202020] text-[32px] font-semibold leading-9">
-                            {3385.11}
+                            <CountUp start={0} end={3385.11} decimal="." decimals={2} duration={2} />
                         </li>
                         <li className="my-3 text-[#47464A] text-[14px] leading-5 font-normal">
                             {'USD'}
                         </li>
                         <li className="my-3 text-[#009512] font-medium text-[14px] leading-5">
-                            +{1.28}%
+                            +<CountUp start={0} end={1.281} decimal="." decimals={2} duration={2} />%
                         </li>
                     </ul>
                     <ul className="p-4">
@@ -164,13 +174,13 @@ export default function ProjectAnalysis({ projectList }) {
                             Total Energy
                         </li>
                         <li className="my-3 text-[#202020] text-[32px] font-semibold leading-9">
-                            {38.25}
+                            <CountUp start={0} end={38.25} decimal="." decimals={2} duration={2} />
                         </li>
                         <li className="my-3 text-[#47464A] text-[14px] leading-5 font-normal">
                             {'kWh'}
                         </li>
                         <li className="my-3 text-[#F75151] font-medium text-[14px] leading-5">
-                            +{6.28}%
+                            +<CountUp start={0} end={6.28} decimal="." decimals={2} duration={2} />%
                         </li>
                     </ul>
                     <ul className="p-4">
@@ -178,18 +188,18 @@ export default function ProjectAnalysis({ projectList }) {
                             Grid Factor
                         </li>
                         <li className="my-3 text-[#202020] text-[32px] font-semibold leading-9">
-                            {271.00}
+                            <CountUp start={0} end={271} decimal="." decimals={2} duration={2} />
                         </li>
                         <li className="my-3 text-[#47464A] text-[14px] leading-5 font-normal">
                             {"gCO₂e/kWh"}
                         </li>
                         <li className="my-3 text-[#F75151] font-medium text-[14px] leading-5">
-                            +{3.43}%
+                            +<CountUp start={0} end={3.43} decimal="." decimals={2} duration={2} />%
                         </li>
                     </ul>
                 </div>
             </div>
-            <Recommendations />
+            <Recommendations implementedAreas={implementedAreas} unImplementedAreas={unImplementedAreas} />
         </div>
     );
 }

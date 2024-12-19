@@ -1,15 +1,11 @@
 import React from "react";
-import UserNavbar from "../../components/navbar/UserNavbar";
 import DashboardMenu from "./DashboardMenu";
 import ZeroApplicationUI from "../../components/dashboard/ZeroApplicationUI";
 import ApplicationList from "../../components/dashboard/ApplicationList";
 import { getAllApplications } from "../api/applications/getAllApplications";
-import { useRouter } from "next/router";
 import { decrypt } from "../api/auth/lib";
 
 export default function Dashboard({ projectsList }) {
-    const router = useRouter();
-
     return (
         <div className="bg-[#F0F0F0]">
             <DashboardMenu />

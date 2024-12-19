@@ -3,35 +3,35 @@ import * as React from "react";
 export default function MaturityIndicator({ stage }) {
     const stages = {
         1: {
-            label: "Low",
+            label: "Level 1",
             level: "01",
             bgColor: "#CD2D2E",
             rectWidth: 0,
             indicatorVisible: stage === 1
         },
         2: {
-            label: "Low",
+            label: "Level 2",
             level: "02",
             bgColor: "#ED6B4D",
             rectWidth: 0,
             indicatorVisible: stage === 2
         },
         3: {
-            label: "Low",
+            label: "Level 3",
             level: "03",
             bgColor: "#FFBD19",
             rectWidth: 0,
             indicatorVisible: stage === 3
         },
         4: {
-            label: "Low",
+            label: "Level 4",
             level: "04",
             bgColor: "#35CD2DAB",
             rectWidth: 0,
             indicatorVisible: stage === 4
         },
         5: {
-            label: "Low",
+            label: "Level 5",
             level: "05",
             bgColor: "#47B900",
             rectWidth: 0,
@@ -52,7 +52,7 @@ export default function MaturityIndicator({ stage }) {
                 fill="#CD2D2E"
             />
             {
-                stages[1].indicatorVisible &&
+                stages[1]?.indicatorVisible &&
                 <path
                     d="M87.1416 127.231C87.1416 132.942 82.3589 137.731 76.2593 137.731C70.1596 137.731 65.377 132.942 65.377 127.231C65.377 121.521 70.1596 116.731 76.2593 116.731C82.3589 116.731 87.1416 121.521 87.1416 127.231Z"
                     fill="white"
@@ -66,7 +66,7 @@ export default function MaturityIndicator({ stage }) {
                 fill="#ED6B4D"
             />
             {
-                stages[2].indicatorVisible &&
+                stages[2]?.indicatorVisible &&
                 <path
                     d="M152.5 75C152.5 80.711 147.717 85.5 141.617 85.5C135.518 85.5 130.735 80.711 130.735 75C130.735 69.289 135.518 64.5 141.617 64.5C147.717 64.5 152.5 69.289 152.5 75Z"
                     fill="white"
@@ -82,7 +82,7 @@ export default function MaturityIndicator({ stage }) {
                 fill="#FFBD19"
             />
             {
-                stages[3].indicatorVisible &&
+                stages[3]?.indicatorVisible &&
                 <path
                     d="M236.5 65C236.5 70.711 231.717 75.5 225.617 75.5C219.518 75.5 214.735 70.711 214.735 65C214.735 59.289 219.518 54.5 225.617 54.5C231.717 54.5 236.5 59.289 236.5 65Z"
                     fill="white"
@@ -99,7 +99,7 @@ export default function MaturityIndicator({ stage }) {
                 fillOpacity="0.67"
             />
             {
-                stages[4].indicatorVisible &&
+                stages[4]?.indicatorVisible &&
                 <path
                     d="M300.5 110C300.5 115.711 295.717 120.5 289.617 120.5C283.518 120.5 278.735 115.711 278.735 110C278.735 104.289 283.518 99.5 289.617 99.5C295.717 99.5 300.5 104.289 300.5 110Z"
                     fill="white"
@@ -115,7 +115,7 @@ export default function MaturityIndicator({ stage }) {
                 fill="#47B900"
             />
             {
-                stages[5].indicatorVisible &&
+                stages[5]?.indicatorVisible &&
                 <path
                     d="M326.5 178C326.5 183.711 321.717 188.5 315.617 188.5C309.518 188.5 304.735 183.711 304.735 178C304.735 172.289 309.518 167.5 315.617 167.5C321.717 167.5 326.5 172.289 326.5 178Z"
                     fill="white"
@@ -135,17 +135,17 @@ export default function MaturityIndicator({ stage }) {
                 Maturity Level
             </text>
             <text x="155" y="200" fill="black" stroke="black" fontSize="60" style={{ fontWeight: '600' }}>
-                {stages[stage].level}
+                {stages[stage]?.level}
             </text>
-            <rect x="155" y="230" width="70" height="40" rx="20" fill={`${stages[stage].bgColor}`} />
+            <rect x="145" y="230" width="100" height="40" rx="20" fill={`${stages[stage]?.bgColor}`} />
             <text
-                x="170"
+                x="160"
                 y="255"
                 fill="#FFF"
                 fontWeight="600"
                 fontSize="20"
             >
-                {stages[stage].label}
+                {stages[stage]?.label}
             </text>
         </svg>
     );
