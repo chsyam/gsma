@@ -6,11 +6,13 @@ import { getAllApplications } from "../api/applications/getAllApplications";
 import { decrypt } from "../api/auth/lib";
 
 export default function Dashboard({ projectsList }) {
+    console.log(projectsList)
+
     return (
         <div className="bg-[#F0F0F0]">
             <DashboardMenu />
             {
-                !projectsList && projectsList?.length == 0 ? (
+                !projectsList || projectsList?.length == 0 ? (
                     <ZeroApplicationUI />
                 ) : (
                     <ApplicationList projectsList={projectsList} />
