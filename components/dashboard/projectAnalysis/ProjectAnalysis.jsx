@@ -8,6 +8,9 @@ import { Download, Triangle } from "lucide-react";
 import { Button, Divider } from "@mui/material";
 import CountUp from "react-countup";
 import TriangleSVG from "../../icons/TriangleSVG";
+import HighchartsReact from "highcharts-react-official";
+import Highcharts, { chart } from "highcharts";
+import ChartStatistics from "./ChatStatistics";
 
 const Select = dynamic(() => import('react-select'), { ssr: false });
 
@@ -30,7 +33,8 @@ export default function ProjectAnalysis({ maturityLevel, implementedAreas, unImp
     };
 
     const [stats, setStats] = useState({});
-    const [chartData, setChartData] = useState([]);
+    const [energyUsageChartData, setEnergyUsageChartData] = useState([]);
+    const [carbonFootprintChartData, setCarbonFootprintChartData] = useState([]);
 
     useEffect(() => {
         let temp = {
@@ -65,7 +69,11 @@ export default function ProjectAnalysis({ maturityLevel, implementedAreas, unImp
             '1 month': [],
             '3 months': []
         };
-
+        let carbonFootprintChartTempData = {
+            '1 week': [],
+            '1 month': [],
+            '3 months': []
+        };
         energyStats?.map((stat, index) => {
             if (stat.period_name === `This ${selectedOption.value}`) {
                 temp['energy_usage'].amount = stat['energy_usage'];
@@ -80,11 +88,23 @@ export default function ProjectAnalysis({ maturityLevel, implementedAreas, unImp
                 temp['grid_factor'].previousAmount = stat['grid_factor'];
             }
             if (stat.report_type === 'weekly') {
-                energyUsageChartTempData[stat.timeframe].push([stat.period_name, stat.energy_usage]);
+                energyUsageChartTempData[stat.timeframe].push([stat.period_name, stat['energy_usage']]);
+                carbonFootprintChartTempData[stat.timeframe].push([stat.period_name, stat['carbon_emissions']]);
             }
         })
         setStats(temp);
-        console.log("energyUsageChartTempData", energyUsageChartTempData)
+        if (selectedOption.value === 'Week') {
+            setCarbonFootprintChartData(carbonFootprintChartTempData['1 week'])
+            setEnergyUsageChartData(energyUsageChartTempData['1 week']);
+        }
+        else if (selectedOption.value === 'Month') {
+            setCarbonFootprintChartData(carbonFootprintChartTempData['1 month'])
+            setEnergyUsageChartData(energyUsageChartTempData['1 month']);
+        }
+        else {
+            setCarbonFootprintChartData(carbonFootprintChartTempData['3 months'])
+            setEnergyUsageChartData(energyUsageChartTempData['3 months']);
+        }
     }, [energyStats, selectedOption.value])
 
     return (
@@ -175,8 +195,8 @@ export default function ProjectAnalysis({ maturityLevel, implementedAreas, unImp
                     </li>
                 </ol>
             </div>
-            <div className="bg-white p-4 my-8">
-                <div className="flex justify-between items-center flex-nowrap">
+            <div className="bg-white py-6 mt-8">
+                <div className="flex justify-between items-center flex-nowrap px-6">
                     <div>
                         <div className="text-[18px] font-semibold leading-7">
                             Energy & Emissions Analytics
@@ -205,30 +225,36 @@ export default function ProjectAnalysis({ maturityLevel, implementedAreas, unImp
                             return (
                                 <ul key={index} className="p-4">
                                     <li className="my-3 text-[#202020] text-[16px] leading-7 font-medium">
-                                        {item}
+                                        {stats[item]?.label}
                                     </li>
                                     <li className="my-3 text-[#202020] text-[32px] font-semibold leading-9">
-                                        <CountUp start={0} end={stats[item]?.amount} decimal="." decimals={2} duration={2} />
+                                        <CountUp start={0} end={stats[item]?.amount} decimal="." decimals={2} duration={1} />
                                     </li>
                                     <li className="my-3 text-[#47464A] text-[14px] leading-5 font-normal">
                                         {stats[item]?.units}
                                     </li>
-                                    <li className={`flex items-center gap-2 my-3 font-semibold text-[16px] leading-5 ${stats[item]?.previousAmount > stats[item]?.amount < 0 ? 'text-[#FF0000]' : 'text-[#008000]'}`}>
+                                    <li className={`flex items-center gap-2 my-3 font-semibold text-[16px] leading-5 ${stats[item]?.previousAmount >= stats[item]?.amount ? 'text-[#008000]' : 'text-[#FF0000]'}`}>
                                         {stats[item]?.previousAmount >= stats[item]?.amount ?
                                             <TriangleSVG color={'green'} />
                                             :
                                             <TriangleSVG color={'red'} />
                                         }
-                                        <CountUp start={0} end={Math.abs(((stats[item]?.amount - stats[item]?.previousAmount) / stats[item].previousAmount) * 100)} decimal="." decimals={2} duration={2} />%
+                                        <CountUp start={0} end={Math.abs(((stats[item]?.amount - stats[item]?.previousAmount) / stats[item].previousAmount) * 100)} decimal="." decimals={2} duration={1} />%
                                     </li>
                                 </ul>
                             )
                         })
                     }
                 </div>
-                <Divider />
             </div>
-            <Recommendations implementedAreas={implementedAreas} unImplementedAreas={unImplementedAreas} />
+            <ChartStatistics
+                energyUsageChartData={energyUsageChartData}
+                carbonFootprintChartData={carbonFootprintChartData}
+            />
+            <Recommendations
+                implementedAreas={implementedAreas}
+                unImplementedAreas={unImplementedAreas}
+            />
         </div>
     );
 }
