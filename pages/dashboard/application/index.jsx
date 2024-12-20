@@ -1,14 +1,20 @@
-import ProjectAnalysis from "../../../components/dashboard/projectAnalysis/ProjectAnalysis";
 import { decrypt } from '../../api/auth/lib';
 import Layout from '../../../components/Layout';
+import { getEnergyStats } from "../../api/applications/getEnergyStats";
 import { getMaturityLevel } from "../../api/applications/getMaturityLevel";
 import { getImplementedAreas } from "../../api/applications/getImplementedAreas";
 import { getUnImplementedAreas } from "../../api/applications/getUnImplementedAreas";
+import ProjectAnalysis from "../../../components/dashboard/projectAnalysis/ProjectAnalysis";
 
-export default function ApplicationDetails({ maturityLevel, implementedAreas, unImplementedAreas }) {
+export default function ApplicationDetails({ maturityLevel, implementedAreas, unImplementedAreas, energyStats }) {
     return (
         <Layout>
-            <ProjectAnalysis projectList={[]} maturityLevel={maturityLevel} implementedAreas={implementedAreas} unImplementedAreas={unImplementedAreas} />
+            <ProjectAnalysis
+                maturityLevel={maturityLevel}
+                implementedAreas={implementedAreas}
+                unImplementedAreas={unImplementedAreas}
+                energyStats={energyStats}
+            />
         </Layout>
     );
 }
@@ -44,6 +50,8 @@ export async function getServerSideProps(context) {
         const maturityLevel = await getMaturityLevel(project_name);
         const implementedAreas = await getImplementedAreas(project_name);
         const unImplementedAreas = await getUnImplementedAreas(project_name);
+        const energyStats = await getEnergyStats(project_name);
+
         return {
             props: {
                 username: payload?.username,
@@ -51,7 +59,8 @@ export async function getServerSideProps(context) {
                 role: payload?.role,
                 maturityLevel: maturityLevel,
                 implementedAreas: implementedAreas,
-                unImplementedAreas: unImplementedAreas
+                unImplementedAreas: unImplementedAreas,
+                energyStats: energyStats
             }
         }
     }

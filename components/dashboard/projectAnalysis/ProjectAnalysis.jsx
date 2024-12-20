@@ -1,17 +1,17 @@
-import React, { useId, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./../../../styles/dashboard/AddApplication.module.css"
 import { format } from "date-fns";
 import MaturityIndicator from "../recommendations/MaturityIndicator";
 import Recommendations from "../recommendations/Recommendations";
 import dynamic from 'next/dynamic';
-import { Download } from "lucide-react";
-import { Button } from "@mui/material";
+import { Download, Triangle } from "lucide-react";
+import { Button, Divider } from "@mui/material";
 import CountUp from "react-countup";
+import TriangleSVG from "../../icons/TriangleSVG";
 
 const Select = dynamic(() => import('react-select'), { ssr: false });
 
-
-export default function ProjectAnalysis({ projectList, maturityLevel, implementedAreas, unImplementedAreas }) {
+export default function ProjectAnalysis({ maturityLevel, implementedAreas, unImplementedAreas, energyStats }) {
     const [active, setActive] = useState('dashboard');
     const getFormattedDate = (date) => {
         // return format(date, "dd/MM/yyyy hh:mm a");
@@ -19,14 +19,73 @@ export default function ProjectAnalysis({ projectList, maturityLevel, implemente
     }
 
     const timeOptions = [
-        { value: 'Weekly', label: 'Weekly' },
-        { value: 'Monthly', label: 'Monthly' },
+        { value: 'Week', label: 'Weekly' },
+        { value: 'Month', label: 'Monthly' },
+        { value: 'Three Months', label: 'Quarterly' },
     ];
     const [selectedOption, setSelectedOption] = useState(timeOptions[0])
 
     const handleChange = (selected) => {
         setSelectedOption(selected);
     };
+
+    const [stats, setStats] = useState({});
+    const [chartData, setChartData] = useState([]);
+
+    useEffect(() => {
+        let temp = {
+            'carbon_emissions': {
+                label: 'Carbon Emissions',
+                amount: 0,
+                units: 'Kg CO₂',
+                previousAmount: 0,
+            },
+            'total_cost': {
+                label: 'Cost',
+                amount: 0,
+                units: 'USD',
+                previousAmount: 0,
+            },
+            'energy_usage': {
+                label: 'Total Energy',
+                amount: 0,
+                units: 'kWh',
+                previousAmount: 0,
+            },
+            'grid_factor': {
+                label: 'Grid Factor',
+                amount: 0,
+                units: 'gCO₂e/kWh',
+                previousAmount: 0,
+            }
+        };
+
+        let energyUsageChartTempData = {
+            '1 week': [],
+            '1 month': [],
+            '3 months': []
+        };
+
+        energyStats?.map((stat, index) => {
+            if (stat.period_name === `This ${selectedOption.value}`) {
+                temp['energy_usage'].amount = stat['energy_usage'];
+                temp['carbon_emissions'].amount = stat['carbon_emissions'];
+                temp['total_cost'].amount = stat['total_cost'];
+                temp['grid_factor'].amount = stat['grid_factor'];
+            }
+            if (stat.period_name === `Previous ${selectedOption.value}`) {
+                temp['energy_usage'].previousAmount = stat['energy_usage'];
+                temp['carbon_emissions'].previousAmount = stat['carbon_emissions'];
+                temp['total_cost'].previousAmount = stat['total_cost'];
+                temp['grid_factor'].previousAmount = stat['grid_factor'];
+            }
+            if (stat.report_type === 'weekly') {
+                energyUsageChartTempData[stat.timeframe].push([stat.period_name, stat.energy_usage]);
+            }
+        })
+        setStats(temp);
+        console.log("energyUsageChartTempData", energyUsageChartTempData)
+    }, [energyStats, selectedOption.value])
 
     return (
         <div className={styles.dashboardContainer}>
@@ -141,63 +200,33 @@ export default function ProjectAnalysis({ projectList, maturityLevel, implemente
                     />
                 </div>
                 <div className="flex justify-around gap-8 items-center flex-wrap my-12 min-w-[300px]">
-                    <ul className="p-4">
-                        <li className="my-3 text-[#202020] text-[16px] leading-7 font-medium">
-                            Carbon Emissions
-                        </li>
-                        <li className="my-3 text-[#202020] text-[32px] font-semibold leading-9">
-                            <CountUp start={0} end={38.25} decimal="." decimals={2} duration={2} />
-                        </li>
-                        <li className="my-3 text-[#47464A] text-[14px] leading-5 font-normal">
-                            {'Kg CO₂'}
-                        </li>
-                        <li className="my-3 text-[#009512] font-medium text-[14px] leading-5">
-                            +<CountUp start={0} end={6.28} decimal="." decimals={2} duration={2} />%
-                        </li>
-                    </ul>
-                    <ul className="p-4">
-                        <li className="my-3 text-[#202020] text-[16px] leading-7 font-medium">
-                            Cost
-                        </li>
-                        <li className="my-3 text-[#202020] text-[32px] font-semibold leading-9">
-                            <CountUp start={0} end={3385.11} decimal="." decimals={2} duration={2} />
-                        </li>
-                        <li className="my-3 text-[#47464A] text-[14px] leading-5 font-normal">
-                            {'USD'}
-                        </li>
-                        <li className="my-3 text-[#009512] font-medium text-[14px] leading-5">
-                            +<CountUp start={0} end={1.281} decimal="." decimals={2} duration={2} />%
-                        </li>
-                    </ul>
-                    <ul className="p-4">
-                        <li className="my-3 text-[#202020] text-[16px] leading-7 font-medium">
-                            Total Energy
-                        </li>
-                        <li className="my-3 text-[#202020] text-[32px] font-semibold leading-9">
-                            <CountUp start={0} end={38.25} decimal="." decimals={2} duration={2} />
-                        </li>
-                        <li className="my-3 text-[#47464A] text-[14px] leading-5 font-normal">
-                            {'kWh'}
-                        </li>
-                        <li className="my-3 text-[#F75151] font-medium text-[14px] leading-5">
-                            +<CountUp start={0} end={6.28} decimal="." decimals={2} duration={2} />%
-                        </li>
-                    </ul>
-                    <ul className="p-4">
-                        <li className="my-3 text-[#202020] text-[16px] leading-7 font-medium">
-                            Grid Factor
-                        </li>
-                        <li className="my-3 text-[#202020] text-[32px] font-semibold leading-9">
-                            <CountUp start={0} end={271} decimal="." decimals={2} duration={2} />
-                        </li>
-                        <li className="my-3 text-[#47464A] text-[14px] leading-5 font-normal">
-                            {"gCO₂e/kWh"}
-                        </li>
-                        <li className="my-3 text-[#F75151] font-medium text-[14px] leading-5">
-                            +<CountUp start={0} end={3.43} decimal="." decimals={2} duration={2} />%
-                        </li>
-                    </ul>
+                    {
+                        Object.keys(stats).map((item, index) => {
+                            return (
+                                <ul key={index} className="p-4">
+                                    <li className="my-3 text-[#202020] text-[16px] leading-7 font-medium">
+                                        {item}
+                                    </li>
+                                    <li className="my-3 text-[#202020] text-[32px] font-semibold leading-9">
+                                        <CountUp start={0} end={stats[item]?.amount} decimal="." decimals={2} duration={2} />
+                                    </li>
+                                    <li className="my-3 text-[#47464A] text-[14px] leading-5 font-normal">
+                                        {stats[item]?.units}
+                                    </li>
+                                    <li className={`flex items-center gap-2 my-3 font-semibold text-[16px] leading-5 ${stats[item]?.previousAmount > stats[item]?.amount < 0 ? 'text-[#FF0000]' : 'text-[#008000]'}`}>
+                                        {stats[item]?.previousAmount >= stats[item]?.amount ?
+                                            <TriangleSVG color={'green'} />
+                                            :
+                                            <TriangleSVG color={'red'} />
+                                        }
+                                        <CountUp start={0} end={Math.abs(((stats[item]?.amount - stats[item]?.previousAmount) / stats[item].previousAmount) * 100)} decimal="." decimals={2} duration={2} />%
+                                    </li>
+                                </ul>
+                            )
+                        })
+                    }
                 </div>
+                <Divider />
             </div>
             <Recommendations implementedAreas={implementedAreas} unImplementedAreas={unImplementedAreas} />
         </div>
