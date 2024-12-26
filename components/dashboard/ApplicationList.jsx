@@ -38,11 +38,6 @@ const headCells = [
         align: 'center',
     },
     {
-        id: 'lastVersionAnalysed',
-        label: 'Last Version Analysed',
-        align: 'center',
-    },
-    {
         id: 'lastAnalysedOn',
         label: 'Last Analysed On',
         align: 'center',
@@ -120,7 +115,7 @@ export default function ApplicationList({ projectsList }) {
         let temp = projectsList;
         if (applicationSearchTerm !== "") {
             temp = temp.filter((row) => {
-                return row.project_name?.toLowerCase().includes(applicationSearchTerm.toLowerCase())
+                return row.application_name?.toLowerCase().includes(applicationSearchTerm.toLowerCase())
             })
         }
         if (selectedCloudProvider) {
@@ -177,6 +172,19 @@ export default function ApplicationList({ projectsList }) {
                 pathname: baseURL,
                 query: { projectName: encodeURIComponent(appName) }
             })
+        }
+    }
+
+    const getCloud = (cloudProvider) => {
+        switch (cloudProvider?.toLowerCase()) {
+            case "aws":
+                return "AWS";
+            case "azure":
+                return "Azure";
+            case "gcp":
+                return "GCP";
+            default:
+                return "-";
         }
     }
 
@@ -266,7 +274,7 @@ export default function ApplicationList({ projectsList }) {
                                                         <TableRow hover tabIndex={-1}
                                                             key={index}
                                                             sx={{ cursor: 'pointer', fontSize: 14 }}
-                                                            onClick={() => handleApplicationRoute(`${router.pathname}/application`, row.project_name)}
+                                                            onClick={() => handleApplicationRoute(`${router.pathname}/application`, row.application_name)}
                                                         >
                                                             <TableCell align='center' sx={{
                                                                 color: '#17202a'
@@ -276,33 +284,28 @@ export default function ApplicationList({ projectsList }) {
                                                             <TableCell align='left' sx={{
                                                                 color: '#17202a'
                                                             }}>
-                                                                {row.project_name ? row.project_name : "-"}
+                                                                {row.application_name ? row.application_name : "-"}
                                                             </TableCell>
                                                             <TableCell align='left' sx={{
                                                                 color: '#17202a'
                                                             }}>
-                                                                {row.projectDescription ? row.projectDescription : '-'}
+                                                                {row.application_description ? row.application_description : '-'}
                                                             </TableCell>
                                                             <TableCell align='center' sx={{
                                                                 color: '#17202a'
                                                             }}>
-                                                                {row.cloudProvider ? row.cloudProvider : "-"}
+                                                                {row.cloud_provider ? getCloud(row.cloud_provider) : "-"}
                                                             </TableCell>
                                                             <TableCell align='center' sx={{
                                                                 color: '#17202a'
                                                             }}>
-                                                                {row.projectVersion ? row.projectVersion : "-"}
-                                                            </TableCell>
-                                                            <TableCell align='center' sx={{
-                                                                color: '#17202a'
-                                                            }}>
-                                                                {row.lastAnalysedOn ? getFormattedDate(row.lastAnalysedOn) : "-"}
+                                                                {row.last_analyzed_on ? getFormattedDate(row.last_analyzed_on) : "-"}
                                                             </TableCell>
                                                             <TableCell align='center' sx={{
                                                                 color: '#17202a'
                                                             }}>
                                                                 <span className="font-semibold px-1 text-black">
-                                                                    {row.sustainabilityLevel ? row.sustainabilityLevel : "-"}
+                                                                    {row.sustainability_level ? row.sustainability_level : "-"}
                                                                 </span>
                                                             </TableCell>
                                                         </TableRow>

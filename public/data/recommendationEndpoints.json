@@ -1,0 +1,14 @@
+{
+  "Energy metrics for application using Intel RAPL, Kepler, Schaphandre": "/dashboard/reports/cpu_metrics",
+  "Energy consumption of ML job, Model training": "http://marvel-teaas-lb-1490692637.us-east-1.elb.amazonaws.com:85/login?from=%2Fview%2Fsustainability%2Fjob%2Fsustain%2F145%2Fartifact%2Femissions.csv%2F*view*",
+  "Optimize source code for energy and carbon emissions using static code analysis": "http://marvel-teaas-lb-1490692637.us-east-1.elb.amazonaws.com:86/sessions/new?return_to=%2Fdashboard%3Fid%3Dj2%26codeScope%3Doverall",
+  "Compare memory and energy utilization of docker and multi-stage docker files": "",
+  "Compare energy efficiency for synchronous (REST vs gRPC) and Asynchronous (Kafka vs RabbitMQ) messaging between microservices": "",
+  "Tagging of resources to track usage": "/dashboard/reports/tagging",
+  "Calculate energy utilization for provisioned resources and show recommendations to deployment teams": "",
+  "Identify and share report on unused resources": "",
+  "Turn off workloads and node pools outside of business hours": "/dashboard/reports/turnoff",
+  "Show energy efficient resource provisioning options during provisioning": "",
+  "Implement pre-checks for common issues in CI/CD pipeline to avoid failures in different stages of pipeline": "",
+  "Workload allocation on energy efficient servers, VMs": ""
+}

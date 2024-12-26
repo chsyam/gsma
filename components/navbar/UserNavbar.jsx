@@ -49,7 +49,10 @@ export default function UserNavbar({ username }) {
         <nav className={`relative z-50 ${styles.navbarContainer}`}>
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex justify-between h-16 items-center">
-                    <div className="flex items-center space-x-2">
+                    <div
+                        className="flex items-center space-x-2 cursor-pointer"
+                        onClick={() => window.location.href = "/"}
+                    >
                         <span className="text-3xl text-white font-bold text-[#4caf50] drop-shadow-2xl"
                             style={{
                                 textShadow: '4px 4px 6px rgba(0,0,0,0.3)',

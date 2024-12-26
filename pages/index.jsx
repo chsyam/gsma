@@ -1,6 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import styles from "./../styles/HomePage.module.css";
 import introScreen from "./../components/images/intoScreen.png";
+import { decrypt } from "./api/auth/lib";
 
 export default function Home() {
 	return (
@@ -57,4 +58,25 @@ export default function Home() {
 			</div>
 		</div>
 	);
+}
+
+export async function getServerSideProps(context) {
+	const { req, res } = context;
+	const token = req?.cookies['token']
+	const payload = await decrypt(token)
+
+	if (payload) {
+		return {
+			redirect: {
+				destination: '/dashboard',
+				permanent: false
+			}
+		}
+	} else {
+		return {
+			props: {
+				error: "You need to log in to access this page.",
+			},
+		};
+	}
 }

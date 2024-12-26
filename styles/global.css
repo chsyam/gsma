@@ -5,13 +5,49 @@
 @tailwind utilities;
 
 body {
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  margin: 0;
-  padding: 0;
+	font-family: "Montserrat", sans-serif;
+	font-optical-sizing: auto;
+	margin: 0;
+	padding: 0;
 }
 
 .introScreen {
-  padding: 10px 10px 10px 10px;
-  background: linear-gradient(270deg, #D3E8B1, #A5E7C7);
+	padding: 10px 10px 10px 10px;
+	background: linear-gradient(270deg, #D3E8B1, #A5E7C7);
+}
+
+@media print {
+
+	/* Header and Footer */
+	.print-header {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		text-align: center;
+		background-color: #f1f1f1;
+		padding: 10px;
+	}
+
+	.print-footer {
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		text-align: center;
+		background-color: #f1f1f1;
+		padding: 10px;
+	}
+
+	/* Padding to avoid content overlapping */
+	.print-content {
+		margin-top: 80px;
+		/* Match header height */
+		margin-bottom: 50px;
+		/* Match footer height */
+		padding: 50px;
+	}
+
+	/* Page breaks */
+	.page-break {
+		page-break-before: always;
+	}
 }

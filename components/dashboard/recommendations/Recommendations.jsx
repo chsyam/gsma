@@ -1,11 +1,19 @@
-import { Accordion, AccordionDetails, AccordionSummary, Button, Divider, LinearProgress } from "@mui/material";
-import { ChevronDown, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
+import { ChevronDown, ExternalLink } from "lucide-react";
+import endPoints from "./../../../public/data/recommendationEndpoints.json";
+import { Accordion, AccordionDetails, AccordionSummary, Button, Divider, LinearProgress } from "@mui/material";
 
 export default function Recommendations({ implementedAreas, unImplementedAreas }) {
     const [expandedPanels, setExpandedPanels] = useState({});
     const [toggleOperation, setToggleOperation] = useState("Expand");
     const [analysisResult, setAnalysisReport] = useState({})
+
+    const endPointHandler = (area) => {
+        let temp = Object.keys(endPoints).includes(area);
+        if (temp && endPoints[area]) {
+            endPoints[area]?.includes("http") ? window.open(endPoints[area], "_blank") : window.open(window.location.origin + "/" + endPoints[area], "_blank");
+        }
+    }
 
     useEffect(() => {
         let tempImplemented = {};
@@ -84,10 +92,10 @@ export default function Recommendations({ implementedAreas, unImplementedAreas }
                                 <div key={index} className="p-2 flex-1 basis-[calc(40%-16px)]">
                                     <div className="flex items-center gap-2">
                                         <div
-                                            className={`w-5 h-5 ${analysisResult[area].implementedAreas === analysisResult[area].totalAreas ? 'bg-green-600' : 'bg-[#E7E7E7]'} rounded-sm`}
+                                            className={`w - 5 h - 5 ${analysisResult[area].implementedAreas === analysisResult[area].totalAreas ? 'bg-green-600' : 'bg-[#E7E7E7]'} rounded - sm`}
                                         />
                                         <div
-                                            className={`text-[14px] ${analysisResult[area].implementedAreas === analysisResult[area].totalAreas ? 'text-green-700 font-semibold' : 'text-black font-medium'}`}
+                                            className={`text - [14px] ${analysisResult[area].implementedAreas === analysisResult[area].totalAreas ? 'text-green-700 font-semibold' : 'text-black font-medium'}`}
                                         >
                                             {analysisResult[area].areaName}
                                         </div>
@@ -164,15 +172,15 @@ export default function Recommendations({ implementedAreas, unImplementedAreas }
                                                     <div className="px-4">
                                                         {
                                                             analysisResult[area].passedAreas.length === 0 ? (
-                                                                <div className="text-[14px] my-8 text-[#F35E4A] cursor-pointer">
+                                                                <div className="text-[16px] font-medium my-8 text-[#F35E4A] cursor-pointer">
                                                                     No Passed Areas
                                                                 </div>
                                                             ) : (
                                                                 analysisResult[area].passedAreas.map((item, index) => {
                                                                     return (
-                                                                        <div key={index} className="flex justify-between flex-nowrap items-center gap-2 my-3 hover:underline underline-offset-4">
-                                                                            <div className="text-[14px] text-[#549B79] cursor-pointer">
-                                                                                {item}
+                                                                        <div key={index} onClick={() => endPointHandler(item)} className={`flex justify-between flex-nowrap items-center gap-2 my-4 ${endPoints.hasOwnProperty(item) && 'hover:underline'} underline-offset-4`}>
+                                                                            <div className="text-[16px] font-medium text-[#549B79] cursor-pointer">
+                                                                                - {item}
                                                                             </div>
                                                                             <ExternalLink size={16}
                                                                                 color="#549B79"
@@ -190,20 +198,24 @@ export default function Recommendations({ implementedAreas, unImplementedAreas }
                                                     <div className="px-4">
                                                         {
                                                             analysisResult[area].failedAreas.length === 0 ? (
-                                                                <div className="text-[14px] my-8 text-[#549B79] cursor-pointer">
+                                                                <div className="text-[16px] font-medium my-8 text-[#549B79] cursor-pointer">
                                                                     No Failed Areas
                                                                 </div>
                                                             ) : (
                                                                 analysisResult[area].failedAreas.map((item, index) => {
                                                                     return (
-                                                                        <div key={index} className="flex justify-between flex-nowrap items-center gap-2 my-3 hover:underline underline-offset-4">
-                                                                            <div className="text-[14px] text-red-600 cursor-pointer">
-                                                                                {item}
+                                                                        <div key={index} className="flex justify-between flex-nowrap items-center gap-2 my-4">
+                                                                            <div className={`text-[16px] font-medium text-[#F35E4A] ${endPoints.hasOwnProperty(item) && 'cursor-pointer hover:underline'} underline-offset-4`}>
+                                                                                - {item}
                                                                             </div>
-                                                                            <ExternalLink size={16}
-                                                                                color="#F35E4A"
-                                                                                style={{ cursor: 'pointer' }}
-                                                                            />
+                                                                            {
+                                                                                endPoints.hasOwnProperty(item) && (
+                                                                                    <ExternalLink size={16}
+                                                                                        color="#F35E4A"
+                                                                                        style={{ cursor: 'pointer' }}
+                                                                                    />
+                                                                                )
+                                                                            }
                                                                         </div>
                                                                     );
                                                                 })
