@@ -182,7 +182,7 @@ export default function Recommendations({ implementedAreas, unImplementedAreas }
                                                                             <div className="text-[16px] font-medium text-[#549B79] cursor-pointer">
                                                                                 - {item}
                                                                             </div>
-                                                                            <ExternalLink size={16}
+                                                                            <ExternalLink size={22}
                                                                                 color="#549B79"
                                                                                 style={{ cursor: 'pointer' }}
                                                                             />
@@ -210,7 +210,7 @@ export default function Recommendations({ implementedAreas, unImplementedAreas }
                                                                             </div>
                                                                             {
                                                                                 endPoints.hasOwnProperty(item) && (
-                                                                                    <ExternalLink size={16}
+                                                                                    <ExternalLink size={22}
                                                                                         color="#F35E4A"
                                                                                         style={{ cursor: 'pointer' }}
                                                                                     />

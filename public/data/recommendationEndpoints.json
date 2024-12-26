@@ -5,7 +5,7 @@
   "Compare memory and energy utilization of docker and multi-stage docker files": "",
   "Compare energy efficiency for synchronous (REST vs gRPC) and Asynchronous (Kafka vs RabbitMQ) messaging between microservices": "",
   "Tagging of resources to track usage": "/dashboard/reports/tagging",
-  "Calculate energy utilization for provisioned resources and show recommendations to deployment teams": "",
+  "Calculate energy utilization for provisioned resources and show recommendations to deployment teams": "/dashboard/reports/ec2-optimize",
   "Identify and share report on unused resources": "",
   "Turn off workloads and node pools outside of business hours": "/dashboard/reports/turnoff",
   "Show energy efficient resource provisioning options during provisioning": "",
