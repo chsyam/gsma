@@ -6,9 +6,9 @@
   "Compare energy efficiency for synchronous (REST vs gRPC) and Asynchronous (Kafka vs RabbitMQ) messaging between microservices": "",
   "Tagging of resources to track usage": "/dashboard/reports/tagging",
   "Calculate energy utilization for provisioned resources and show recommendations to deployment teams": "/dashboard/reports/ec2-optimize",
-  "Identify and share report on unused resources": "",
+  "Identify and share report on unused resources": "/dashboard/reports/unused-resources",
   "Turn off workloads and node pools outside of business hours": "/dashboard/reports/turnoff",
-  "Show energy efficient resource provisioning options during provisioning": "",
-  "Implement pre-checks for common issues in CI/CD pipeline to avoid failures in different stages of pipeline": "",
-  "Workload allocation on energy efficient servers, VMs": ""
+  "Show energy efficient resource provisioning options during provisioning": "/dashboard/reports/region-based-provisioning",
+  "Implement pre-checks for common issues in CI/CD pipeline to avoid failures in different stages of pipeline": "/dashboard/reports/pipeline-prechecks",
+  "Workload allocation on energy efficient servers, VMs": "/dashboard/reports/mysql-workload-comparison"
 }

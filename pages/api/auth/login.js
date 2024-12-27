@@ -18,7 +18,7 @@ export default async function handler(req, res) {
                     email: user.email,
                     role: user.role
                 }, secretKey, {
-                    expiresIn: 60 * 60,
+                    expiresIn: 60 * 60 * 24,
                 })
                 console.log(token)
                 return res.status(200).json({ token: token, message: 'user details found & login successful' });

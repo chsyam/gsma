@@ -1,0 +1,827 @@
+{
+  "docker": [
+    {
+      "id": "single-stage",
+      "icon": "docker",
+      "title": "Single-Stage Dockerfile",
+      "basicMetrics": {
+        "Energy Usage": {
+          "value": "High",
+          "status": "high"
+        }
+      },
+      "detailedMetrics": {
+        "Build Time": "5 minutes",
+        "Layer Count": "12 layers",
+        "Image Size": "2.06 GB",
+        "Cache Efficiency": "Low",
+        "CI/CD Impact": "Higher resource usage"
+      },
+      "description": "Single-stage Dockerfiles include all build dependencies in the final image, resulting in larger sizes and higher resource consumption.",
+      "chartData": {
+        "labels": ["Memory", "Energy", "Build Time", "Size"],
+        "values": [85, 80, 75, 90]
+      }
+    },
+    {
+      "id": "multi-stage",
+      "icon": "docker",
+      "title": "Multi-Stage Dockerfile",
+      "basicMetrics": {
+        "Energy Usage": {
+          "value": "Low",
+          "status": "low"
+        }
+      },
+      "detailedMetrics": {
+        "Build Time": "6 minutes",
+        "Layer Count": "8 layers",
+        "Image Size": "2.01 GB",
+        "Cache Efficiency": "High",
+        "CI/CD Impact": "Optimized resource usage"
+      },
+      "description": "Multi-stage builds separate build-time dependencies from runtime dependencies, resulting in smaller, more efficient containers.",
+      "chartData": {
+        "labels": ["Memory", "Energy", "Build Time", "Size"],
+        "values": [45, 40, 80, 50]
+      }
+    }
+  ],
+  "sync": [
+    {
+      "id": "grpc",
+      "icon": "grpc",
+      "title": "gRPC",
+      "basicMetrics": {
+        "Energy Usage": {
+          "value": "18.1 W",
+          "status": "high"
+        }
+      },
+      "detailedMetrics": {
+        "Peak Memory": "4.45 MB",
+        "Time Taken": "3 Min",
+        "Requests": "500k",
+        "Peak CPU": "10%"
+      },
+      "description": "gRPC shows higher energy consumption but offers excellent performance characteristics with efficient binary protocol.",
+      "chartData": {
+        "labels": ["100k", "200k", "300k", "500k"],
+        "values": [2.25, 2.4, 2.28, 2.5]
+      }
+    },
+    {
+      "id": "rest",
+      "icon": "rest",
+      "title": "REST",
+      "basicMetrics": {
+        "Energy Usage": {
+          "value": "8.2 W",
+          "status": "low"
+        }
+      },
+      "detailedMetrics": {
+        "Peak Memory": "8 MB",
+        "Time Taken": "4 Min 50 Sec",
+        "Requests": "500k",
+        "Peak": "4%"
+      },
+      "description": "REST demonstrates excellent energy efficiency due to its simplicity and stateless nature.",
+      "chartData": {
+        "labels": ["100k", "200k", "300k", "500k"],
+        "values": [0.8, 1.0, 0.9, 1.1]
+      }
+    }
+  ],
+  "async": [
+    {
+      "id": "kafka",
+      "icon": "kafka",
+      "title": "Kafka",
+      "basicMetrics": {
+        "Energy Usage": {
+          "value": "19.2 W",
+          "status": "high"
+        }
+      },
+      "detailedMetrics": {
+        "Peak Memory": "1024 MB",
+        "Message Rate": "1M msg/s",
+        "Latency": "10ms",
+        "CPU Usage": "55%"
+      },
+      "description": "Kafka shows higher energy usage but excels in high-throughput scenarios with durable message storage.",
+      "chartData": {
+        "labels": ["1k", "10k", "50k", "100k"],
+        "values": [4.8, 9.6, 14.4, 19.2]
+      }
+    },
+    {
+      "id": "rabbitmq",
+      "icon": "rabbitmq",
+      "title": "RabbitMQ",
+      "basicMetrics": {
+        "Energy Usage": {
+          "value": "10.68 W",
+          "status": "low"
+        }
+      },
+      "detailedMetrics": {
+        "Peak Memory": "512 MB",
+        "Message Rate": "50k msg/s",
+        "Latency": "5ms",
+        "CPU Usage": "35%"
+      },
+      "description": "RabbitMQ provides moderate energy efficiency with reliable message delivery and routing capabilities.",
+      "chartData": {
+        "labels": ["1k", "10k", "50k", "100k"],
+        "values": [3.2, 6.5, 8.9, 10.68]
+      }
+    }
+  ],
+  "heft_ecws": [
+    {
+      "id": "heft",
+      "icon": "heft",
+      "title": "HEFT",
+      "basicMetrics": {
+        "Time Taken": {
+          "value": "316 Sec",
+          "status": "high"
+        }
+      },
+      "detailedMetrics": {
+        "Total VM Count": "5",
+        "Used VMs Count": "5",
+        "Time Taken": "316 Sec"
+      },
+      "description": "ECWS is 30% faster than HEFT and used 40% less resources​"
+    },
+    {
+      "id": "ecws",
+      "icon": "ecws",
+      "title": "ECWS",
+      "basicMetrics": {
+        "Time Taken": {
+          "value": "240 Sec",
+          "status": "low"
+        }
+      },
+      "detailedMetrics": {
+        "Total VM Count": "5",
+        "Used VMs Count": "3",
+        "Time Taken": "240 Sec"
+      },
+      "description": "ECWS is 30% faster than HEFT and used 40% less resources​"
+    }
+  ],
+  "fcfs_ecws": [
+    {
+      "id": "fcfs",
+      "icon": "fcfs",
+      "title": "FCFS",
+      "basicMetrics": {
+        "Time Taken": {
+          "value": "5519 Sec",
+          "status": "high"
+        }
+      },
+      "detailedMetrics": {
+        "Total VM Count": "5",
+        "Used VMs Count": "5",
+        "Time Taken": "5519 Sec"
+      },
+      "description": "ECWS is 38% faster than FCFS and used​ same resources​"
+    },
+    {
+      "id": "ecws",
+      "icon": "ecws",
+      "title": "ECWS",
+      "basicMetrics": {
+        "Time Taken": { "value": "3378 Sec", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Total VM Count": "5",
+        "Used VMs Count": "5",
+        "Time Taken": "3378 Sec"
+      },
+      "description": "ECWS is 38% faster than FCFS and used​ same resources​"
+    }
+  ],
+  "python_sync": [
+    {
+      "id": "django",
+      "icon": "django",
+      "title": "Django",
+      "basicMetrics": {
+        "Latency": { "value": "1 Sec", "status": "high" },
+        "Req/s": { "value": "48", "status": "high" }
+      },
+      "detailedMetrics": {
+        "Latency": "1 s",
+        "No. of Req/s": "48"
+      },
+      "description": "For Asynchronous execution,  FastAPI is 30% faster in processing requests compared to Flask and ​10 times faster than Django"
+    },
+    {
+      "id": "flask",
+      "icon": "flask",
+      "title": "Flask",
+      "basicMetrics": {
+        "Latency": { "value": "1.16 Sec", "status": "medium" },
+        "Req/s": { "value": "414", "status": "medium" }
+      },
+      "detailedMetrics": {
+        "Latency": "1.16 s",
+        "No. of Req/s": "414"
+      },
+      "description": "For Asynchronous execution,  FastAPI is 30% faster in processing requests compared to Flask and 10 times faster than Django"
+    },
+    {
+      "id": "fastapi",
+      "icon": "fastapi",
+      "title": "FastAPI",
+      "basicMetrics": {
+        "Latency": { "value": "1.22 Sec", "status": "low" },
+        "Req/s": { "value": "529", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Latency": "1.22 s",
+        "No. of Req/s": "529"
+      },
+      "description": "For Asynchronous execution,  FastAPI is 30% faster in processing requests compared to Flask and ​10 times faster than Django"
+    }
+  ],
+  "python_async": [
+    {
+      "id": "django",
+      "icon": "django",
+      "title": "Django",
+      "basicMetrics": {
+        "Latency": { "value": "1.37 Sec", "status": "high" },
+        "Req/s": { "value": "66", "status": "high" }
+      },
+      "detailedMetrics": {
+        "Latency": "1.37 s",
+        "No. of Req/s": "66"
+      },
+      "description": "For Synchronous Execution, Flask and FastAPI has similar performance, and they are 5 times faster than Django"
+    },
+    {
+      "id": "flask",
+      "icon": "flask",
+      "title": "Flask",
+      "basicMetrics": {
+        "Latency": { "value": "241 mSec", "status": "low" },
+        "Req/s": { "value": "388", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Latency": "241 ms",
+        "No. of Req/s": "388"
+      },
+      "description": "For Synchronous Execution, Flask and FastAPI has similar performance, and they are 5 times faster than Django"
+    },
+    {
+      "id": "fastapi",
+      "icon": "fastapi",
+      "title": "FastAPI",
+      "basicMetrics": {
+        "Latency": { "value": "274 mSec", "status": "low" },
+        "Req/s": { "value": "344", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Latency": "274 ms",
+        "No. of Req/s": "344"
+      },
+      "description": "For Synchronous Execution, Flask and FastAPI has similar performance, and they are 5 times faster than Django"
+    }
+  ],
+  "spring": [
+    {
+      "id": "springv2",
+      "icon": "springv2",
+      "title": "Spring Boot Version 2",
+      "basicMetrics": {
+        "Latency": { "value": "1070 mSec", "status": "high" },
+        "Req/s": { "value": "43", "status": "high" }
+      },
+      "detailedMetrics": {
+        "Energy Consumption": "573 J"
+      },
+      "description": "Spring boot version 3 is consuming less energy than version 2, also throughput and response time are better when compared with version 2"
+    },
+    {
+      "id": "springv3",
+      "icon": "springv3",
+      "title": "Spring Boot Version 3",
+      "basicMetrics": {
+        "Latency": { "value": "699 mSec", "status": "low" },
+        "Req/s": { "value": "71", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Energy Consumption": "512 J"
+      },
+      "description": "Spring boot version 3 is consuming less energy than version 2, also throughput and response time are better when compared with version 2"
+    }
+  ],
+  "java_io": [
+    {
+      "id": "read_whole_file_small",
+      "icon": "read_whole_file_small",
+      "title": "Read Whole File (Small)",
+      "basicMetrics": {
+        "Best I/O Method": {
+          "value": "InputStream.readAllBytes()",
+          "status": "low"
+        }
+      },
+      "detailedMetrics": {
+        "Efficiency": "Very High",
+        "Best Case": "Best for small to medium-sized files"
+      },
+      "description": "InputStream.readAllBytes() is ideal for small to medium files.​"
+    },
+    {
+      "id": "read_whole_file_large",
+      "icon": "read_whole_file_large",
+      "title": "Read Whole File (Large)",
+      "basicMetrics": {
+        "Best I/O Method": {
+          "value": "Apache FileUtils.read()",
+          "status": "low"
+        }
+      },
+      "detailedMetrics": {
+        "Efficiency": "High",
+        "Best Case": "More efficient for larger files"
+      },
+      "description": "Apache FileUtils performs well for reading large files in one go."
+    },
+    {
+      "id": "read_in_chunks",
+      "icon": "read_in_chunks",
+      "title": "Read in Chunks",
+      "basicMetrics": {
+        "Best I/O Method": { "value": "NIO Channels", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Efficiency": "Very High (20% more efficient)",
+        "Best Case": "Ideal for large files and memory-constrained environments​"
+      },
+      "description": "NIO Channels is the most energy-efficient for large file reads and seek operations."
+    },
+    {
+      "id": "seek_specific_data",
+      "icon": "seek_specific_data",
+      "title": "Seek Specific Data",
+      "basicMetrics": {
+        "Best I/O Method": {
+          "value": "NIO Channels.position()",
+          "status": "low"
+        }
+      },
+      "detailedMetrics": {
+        "Efficiency": "Very High ",
+        "Best Case": "Best for seeking operations"
+      },
+      "description": "Avoid using RandomAccessFile for reading due to high energy consumption."
+    },
+    {
+      "id": "write_small_file",
+      "icon": "write_small_file",
+      "title": "Write Small File",
+      "basicMetrics": {
+        "Best I/O Method": {
+          "value": "Apache FileUtils.write()​",
+          "status": "low"
+        }
+      },
+      "detailedMetrics": {
+        "Efficiency": "High",
+        "Best Case": "Best for frequent small writes"
+      },
+      "description": "Apache FileUtils.write() is best for small, frequent writes."
+    },
+    {
+      "id": "write_large_file",
+      "icon": "write_large_file",
+      "title": "Write Large File",
+      "basicMetrics": {
+        "Best I/O Method": { "value": "BufferedWriter", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Efficiency": "High",
+        "Best Case": "Efficient for large files"
+      },
+      "description": "BufferedWriter is highly efficient for large file writes."
+    },
+    {
+      "id": "avioid_for_writing",
+      "icon": "avioid_for_writing",
+      "title": "Avoid for Writing",
+      "basicMetrics": {
+        "I/O Method": { "value": "Guava Files", "status": "high" }
+      },
+      "detailedMetrics": {
+        "Efficiency": "High",
+        "Best Case": "Consumes significantly more energy"
+      },
+      "description": "Guava Files should be avoided for write operations due to excessive energy use.​"
+    }
+  ],
+  "thread_java": [
+    {
+      "id": "list",
+      "icon": "list",
+      "title": "List",
+      "basicMetrics": {
+        "Best Thread-Safe": {
+          "value": "Vector / CopyonWriteArrayList",
+          "status": "low"
+        },
+        "Best Non-Thread-Safe": { "value": "ArrayList", "status": "low" }
+      },
+      "detailedMetrics": {
+        "ArrayList": "For Speed",
+        "Vector": "For Thread Safety",
+        "CopyonWriteArrayList": "For Frequent Reads"
+      },
+      "description": "Ideal for Read-Heavy Scenarios, Collections like CopyOnWriteArrayList and CopyOnWriteArraySet are suitable for cases where reads significantly outnumber writes. They have high insertion costs but perform excellently for frequent read operations.​"
+    },
+    {
+      "id": "set",
+      "icon": "set",
+      "title": "Set",
+      "basicMetrics": {
+        "Best Thread-Safe": {
+          "value": "ConcurrentHashSetV8 / CopyOnWriteArraySet",
+          "status": "low"
+        },
+        "Best Non-Thread-Safe": { "value": "LinkedHashSet", "status": "low" }
+      },
+      "detailedMetrics": {
+        "LinkedHashSet": "For Simple Cases",
+        "ConcurrentHashSetV8": "For Concurrency",
+        "CopyonWriteArraySet": "For Frequent Reads"
+      },
+      "description": "For Simpler Thread-Safe Needs, Collections.synchronizedMap() offers a straightforward thread-safe alternative to ConcurrentHashMapV8, but with lower performance for larger datasets or highly concurrent tasks"
+    },
+    {
+      "id": "map",
+      "icon": "map",
+      "title": "Map",
+      "basicMetrics": {
+        "Best Thread-Safe": {
+          "value": "ConcurrentHashMapV8 / Collections.synchronizedMap()​",
+          "status": "low"
+        },
+        "Best Non-Thread-Safe": { "value": "LinkedHashMap", "status": "low" }
+      },
+      "detailedMetrics": {
+        "LinkedHashMap": "For Basic Needs",
+        "ConcurrentHashMapV8": "For Perforomance & Concurrency",
+        "synchronizedMap": "For Simple Thread Safety"
+      },
+      "description": "Use non-thread-safe collections like ArrayList, LinkedHashSet, and LinkedHashMap when thread safety isn't required. These collections offer the fastest operations, particularly for insertion and removal tasks.​"
+    }
+  ],
+  "trade_offs": [
+    {
+      "id": "low",
+      "icon": "low",
+      "title": "Low Transcations (10-1000 TPS)",
+      "basicMetrics": {
+        "Best Framework": { "value": "Plain JDBC", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Plain JDBC": "Best energy efficiency and high goodput",
+        "EclipseLink": "16%-22% more energy than JDBC and high goodput",
+        "Hibernate": "Higher energy than JDBC & EclipseLink and Good Performance"
+      },
+      "description": "Plain JDBC is best energy efficient for low transactions"
+    },
+    {
+      "id": "moderate",
+      "icon": "moderate",
+      "title": "Moderate Transcations (1000-10000 TPS)",
+      "basicMetrics": {
+        "Best Framework": { "value": "Plain JDBC", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Plain JDBC": "Best energy efficiency",
+        "EclipseLink": "11%-20% more energy than JDBC",
+        "Hibernate": "Slightly better goodput than EclipseLink but use higher energy"
+      },
+      "description": "Plain JDBC is best energy efficient for moderate transactions"
+    },
+    {
+      "id": "high",
+      "icon": "high",
+      "title": "High Transcations (10000+ TPS)",
+      "basicMetrics": {
+        "Best Framework": { "value": "Plain JDBC", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Plain JDBC": "Best energy efficiency and requires manual effort",
+        "EclipseLink": "Balanced performance and 20% energy overhead ",
+        "Hibernate": "Best goodput but 25%-40% more energy than JDBC"
+      },
+      "description": "Plain JDBC is best energy efficient for high transactions"
+    },
+    {
+      "id": "optimised",
+      "icon": "optimised",
+      "title": "Optimized (Lazy Fetch, Batch Processing)",
+      "basicMetrics": {
+        "Best Framework": { "value": "EclipseLink", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Plain JDBC": "N/A",
+        "EclipseLink": "Improved performance & efficiency",
+        "Hibernate": "Significant improvements but still high energy usage"
+      },
+      "description": "EclipseLink is best energy efficient for Optimized (Lazy Fetch, Batch Processing)"
+    }
+  ],
+  "container_runtime": [
+    {
+      "id": "cpu",
+      "icon": "cpu",
+      "title": "CPU Performance",
+      "basicMetrics": {
+        "Best Runtime": { "value": "containerd/runc", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Why it's best": "Lowest CPU overhead (best for CPU-heavy tasks)"
+      },
+      "description": "Performance Comparison of Container Runtimes Across Various Scenarios ​"
+    },
+    {
+      "id": "memory",
+      "icon": "memory",
+      "title": "Memory Usage",
+      "basicMetrics": {
+        "Best Runtime": { "value": "containerd/runc", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Why it's best": "Fastest memory access and efficiency"
+      },
+      "description": "Performance Comparison of Container Runtimes Across Various Scenarios ​"
+    },
+    {
+      "id": "fileRead",
+      "icon": "fileRead",
+      "title": "File Read Speed",
+      "basicMetrics": {
+        "Best Runtime": { "value": "containerd/runc", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Why it's best": "Best for reading files"
+      },
+      "description": "Performance Comparison of Container Runtimes Across Various Scenarios ​"
+    },
+    {
+      "id": "fileWrite",
+      "icon": "fileWrite",
+      "title": "File Write Speed",
+      "basicMetrics": {
+        "Best Runtime": { "value": "crio/runc", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Why it's best": "Best for frequenct write operations"
+      },
+      "description": "Performance Comparison of Container Runtimes Across Various Scenarios "
+    },
+    {
+      "id": "containerCreate",
+      "icon": "containerCreate",
+      "title": "Container Creation",
+      "basicMetrics": {
+        "Best Runtime": { "value": "containerd/runc", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Why it's best": "Faster container creation"
+      },
+      "description": "Performance Comparison of Container Runtimes Across Various Scenarios "
+    },
+
+    {
+      "id": "containerRun",
+      "icon": "containerRun",
+      "title": "Container Running",
+      "basicMetrics": {
+        "Best Runtime": { "value": "crio/runc", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Why it's best": "Quickest to run pre-created containers"
+      },
+      "description": "Performance Comparison of Container Runtimes Across Various Scenarios​"
+    },
+    {
+      "id": "containerDesc",
+      "icon": "containerDesc",
+      "title": "Container Destruction",
+      "basicMetrics": {
+        "Best Runtime": { "value": "crio/runc", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Why it's best": "Fastest at destroying containers"
+      },
+      "description": "Performance Comparison of Container Runtimes Across Various Scenarios ​"
+    },
+    {
+      "id": "Scalability",
+      "icon": "scalability",
+      "title": "Scalability",
+      "basicMetrics": {
+        "Best Runtime": { "value": "containerd/runc", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Why it's best": "Best for handling many containers (50+)"
+      },
+      "description": "Performance Comparison of Container Runtimes Across Various Scenarios ​"
+    }
+  ],
+  "cni_virtual": [
+    {
+      "id": "best",
+      "icon": "best",
+      "title": "Best Overall",
+      "basicMetrics": {
+        "Plugin": { "value": "Canal", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Notes": "Highest throughput in TCP (virtualized environment), minimal degradation in MTU.​"
+      },
+      "description": "Canal stands out with the best overall performance, particularly for TCP throughput, maintaining strong results with minimal MTU impact.​​"
+    },
+    {
+      "id": "bestTcp",
+      "icon": "bestTcp",
+      "title": "Best TCP throughput",
+      "basicMetrics": {
+        "Plugin": { "value": "Canal, Calico, Romana", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Notes": "Similar performance (~9000 Mbit/s); Canal slightly better overall.​"
+      },
+      "description": "Canal stands out with the best overall performance, particularly for TCP throughput, maintaining strong results with minimal MTU impact.​​ Romana delivers exceptional UDP performance, even outperforming bare-metal setups."
+    },
+    {
+      "id": "bestUdp",
+      "icon": "bestUdp",
+      "title": "Best UDP throughput",
+      "basicMetrics": {
+        "Plugin": { "value": "Romana", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Notes": "Exceeded even bare metal performance (~9907 Mbit/s)​​"
+      },
+      "description": "Romana delivers exceptional UDP performance, even outperforming bare-metal setups."
+    },
+    {
+      "id": "besthttp",
+      "icon": "besthttp",
+      "title": "Best HTTP throughput",
+      "basicMetrics": {
+        "Plugin": { "value": "WaveNet (9000 MTU)", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Notes": "Best performance under high MTU (9000B); significant degradation for others"
+      },
+      "description": "WaveNet shines in HTTP throughput when using a high MTU (9000B)."
+    }
+  ],
+  "cni_physical": [
+    {
+      "id": "best",
+      "icon": "best",
+      "title": "Best Overall",
+      "basicMetrics": {
+        "Plugin": { "value": "Flannel", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Notes": "Best throughput in TCP and HTTP (close to bare metal results)"
+      },
+      "description": "Flannel consistently delivers the best overall performance, excelling in both TCP and HTTP throughput."
+    },
+    {
+      "id": "bestTcp",
+      "icon": "bestTcp",
+      "title": "Best TCP throughput",
+      "basicMetrics": {
+        "Plugin": { "value": "Flannel", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Notes": "Outperformed other plugins (~919 Mbit/s)"
+      },
+      "description": "Flannel consistently delivers the best overall performance, excelling in both TCP and HTTP throughput."
+    },
+    {
+      "id": "bestUdp",
+      "icon": "bestUdp",
+      "title": "Best UDP throughput",
+      "basicMetrics": {
+        "Plugin": { "value": "Romana, Calico", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Notes": "Both achieved performance close to or better than bare metal results"
+      },
+      "description": "Romana and Calico lead in UDP throughput, matching or even surpassing bare-metal performance.​"
+    },
+    {
+      "id": "besthttp",
+      "icon": "besthttp",
+      "title": "Best HTTP throughput",
+      "basicMetrics": {
+        "Plugin": { "value": "Flannel", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Notes": "Similar to TCP performance; maintained high throughput"
+      },
+      "description": "Flannel again shines in HTTP throughput, maintaining high performance across scenarios, similar to its TCP results.​"
+    }
+  ],
+  "json_avro": [
+    {
+      "id": "time",
+      "icon": "time",
+      "title": "Serialization Time",
+      "basicMetrics": {
+        "Efficient": { "value": "Avro", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Json": "82.92 ms",
+        "Avro": "22.27 ms"
+      },
+      "description": "Avro outperforms JSON in serialization time, completing the process over 3.7x faster."
+    },
+    {
+      "id": "size",
+      "icon": "size",
+      "title": "Serialized Data Size",
+      "basicMetrics": {
+        "Efficient": { "value": "Avro", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Json": "191 bytes",
+        "Avro": "64 bytes"
+      },
+      "description": "Avro achieves a more compact data size, reducing the payload to just 33% of JSON's size."
+    },
+    {
+      "id": "detime",
+      "icon": "detime",
+      "title": "Deserialization Time",
+      "basicMetrics": {
+        "Efficient": { "value": "Avro", "status": "low" }
+      },
+      "detailedMetrics": {
+        "Json": "60.62 ms",
+        "Avro": "21.22 ms"
+      },
+      "description": "Avro is also more efficient during deserialization, performing the task nearly 2.9x faster than JSON.​ One notable drawback of Avro is the complexity of managing schemas. For every object or data structure, an explicit schema must be defined and maintained. This adds development overhead, particularly in environments with numerous or frequently evolving data models.​"
+    }
+  ],
+  "grpc_json": [
+    {
+      "id": "energy",
+      "icon": "energy",
+      "title": "Energy Consumption",
+      "basicMetrics": {
+        "API": { "value": "gRPC/Protobuf", "status": "low" }
+      },
+      "detailedMetrics": {
+        "gRPC/Protobuf": "156 mW",
+        "JSON": "650 mW"
+      },
+      "description": "gRPC shows a significant reduction in energy consumption compared to JSON​"
+    },
+    {
+      "id": "response",
+      "icon": "response",
+      "title": "95th Percentile Response Time",
+      "basicMetrics": {
+        "API": { "value": "gRPC/Protobuf", "status": "low" }
+      },
+      "detailedMetrics": {
+        "gRPC/Protobuf": "980 ms",
+        "JSON": "2468 ms"
+      },
+      "description": "The Response time for gRPC is considerably lower than that of JSON, indicating better performance under load.​​"
+    },
+    {
+      "id": "throughput",
+      "icon": "throughput",
+      "title": "Throughput",
+      "basicMetrics": {
+        "API": { "value": "gRPC/Protobuf", "status": "low" }
+      },
+      "detailedMetrics": {
+        "gRPC/Protobuf": "167 req/s",
+        "JSON": "102 req/s"
+      },
+      "description": "gRPC achieves a higher throughput compared to JSON , making it more efficient for handling requests."
+    }
+  ]
+}

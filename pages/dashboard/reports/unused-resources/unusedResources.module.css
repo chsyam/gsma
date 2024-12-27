@@ -1,0 +1,10 @@
+.bodyContainer {
+    margin: 10px 10% 50px 10%;
+}
+
+.title {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 24px;
+    font-weight: 600;
+}

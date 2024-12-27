@@ -1,0 +1,68 @@
+.bodyContainer {
+    line-height: 1.8;
+    color: #333;
+    max-width: 80%;
+    margin: 30px auto;
+    padding: 20px 20px;
+}
+
+.container h2 {
+    font-size: 28px;
+    color: #333;
+    font-weight: 600;
+    border-bottom: 2px solid #549B79;
+    padding-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container h3 {
+    font-size: 24px;
+    border-left: 4px solid #549B79;
+    padding-left: 20px;
+    color: #549B79;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.container p,
+.container ul {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #000;
+}
+
+.container code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    background-color: #E9ECEF;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.container pre {
+    background-color: #E9ECEF;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+    border: 1px solid #DEE2E6;
+}
+
+.container pre code {
+    background-color: transparent;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.container ul {
+    padding-left: 1.5rem;
+}
+
+.container {
+    background-color: white;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 1px 8px rgba(0, 0, 0, 0.2);
+}

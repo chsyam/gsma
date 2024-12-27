@@ -66,45 +66,6 @@ export default function ApplicationList({ projectsList }) {
         { value: 'Level 5', label: 'Level 5' },
     ]
 
-    const rows = [
-        {
-            applicationId: 1,
-            applicationName: 'Sample App',
-            applicationDescription: 'Sample App',
-            cloudProvider: 'AWS',
-            lastVersionAnalysed: '0.0.1',
-            lastAnalysedOn: new Date(),
-            sustainabilityLevel: 'Level 1',
-        },
-        {
-            applicationId: 2,
-            applicationName: 'Sample App1',
-            applicationDescription: 'Sample App',
-            cloudProvider: 'AWS',
-            lastVersionAnalysed: '0.0.1',
-            lastAnalysedOn: new Date(),
-            sustainabilityLevel: 'Level 2'
-        },
-        {
-            applicationId: 3,
-            applicationName: 'Sample App',
-            applicationDescription: 'Sample App',
-            cloudProvider: 'AWS',
-            lastVersionAnalysed: '0.0.1',
-            lastAnalysedOn: new Date(),
-            sustainabilityLevel: 'Level 3'
-        },
-        {
-            applicationId: 4,
-            applicationName: 'Sample App',
-            applicationDescription: 'Sample App',
-            cloudProvider: 'AWS',
-            lastVersionAnalysed: '0.0.1',
-            lastAnalysedOn: new Date(),
-            sustainabilityLevel: 'Level 4'
-        }
-    ];
-
     const [selectedCloudProvider, setSelectedCloudProvider] = useState(null);
     const [selectedMaturityLevels, setSelectedMaturityLevels] = useState([]);
     const [applicationSearchTerm, setApplicationSearchTerm] = useState("");

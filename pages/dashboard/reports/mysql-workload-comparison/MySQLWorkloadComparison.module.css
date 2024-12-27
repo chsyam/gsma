@@ -1,0 +1,36 @@
+.comparisonGrid {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex: 0 0 32%;
+}
+
+.comparisonContainer {
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.cpuName {
+    font-weight: bold;
+    padding: 10px;
+    background-color: #2f875c;
+    color: white;
+    font-size: 16px;
+}
+
+.comparisonContainer table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.comparisonContainer table th {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+}
