@@ -1,18 +1,72 @@
+import { useState } from "react";
 import { decrypt } from "./../../../api/auth/lib";
 import { ChevronDown, ExternalLink } from "lucide-react";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import toolsComparison from "./../../../../public/data/tools_comparison.json";
-import { useState } from "react";
+import DockerComaparison from "../../../../components/tools_comparison/DockerComparison";
+
+const tools_architecture = {
+    "Docker Build Comparison": ["docker"],
+    "Messaging between Java Microservices": ["sync", "async"],
+    "Energy efficient Workload Orchestrator": ["heft_ecws", "fcfs_ecws"],
+    "Python Web Frameworks": ["python_sync", "python_async"],
+    "Spring Boot Framework": ["spring"],
+    "Energy Consumption of Java I/O Libraries & Techniques": ["java_io"],
+    "Efficiency of Thread-Safe Collections in Java": ["thread_java"],
+    "Trade-Offs in Object-Relational Mapping(ORM) Framework": ["trade_offs"],
+    "Container Runtimes Across Various Scenarios": ["container_runtime"],
+    "Performance of Container Network Plugins(CNIs) in Virtualized Environment": ["cni_virtual"],
+    "Performance of Container Network Plugins(CNIs) in Physical Environment": ["cni_physical"],
+    "Performance of Container Network Plugins(CNIs) in Physical Environment": ["json_avro"],
+    "Serialization Efficiency : JSON vs Avro": ["json_avro"],
+    "Performance of API Data Formats: gRPC/Protobuf vs JSON": ["grpc_json"]
+};
+
+const ComponentsImporting = {
+    "docker": DockerComaparison,
+    "sync": DockerComaparison,
+    "async": DockerComaparison,
+    "heft_ecws": DockerComaparison,
+    "fcfs_ecws": DockerComaparison,
+    "python_sync": DockerComaparison,
+    "python_async": DockerComaparison,
+    "spring": DockerComaparison,
+    "java_io": DockerComaparison,
+    "thread_java": DockerComaparison,
+    "trade_offs": DockerComaparison,
+    "container_runtime": DockerComaparison,
+    "cni_virtual": DockerComaparison,
+    "cni_physical": DockerComaparison,
+    "json_avro": DockerComaparison,
+    "grpc_json": DockerComaparison
+}
 
 export default function ToolsComparison() {
     console.log(toolsComparison);
     const [expandedPanels, setExpandedPanels] = useState({});
+    const [toggleOperation, setToggleOperation] = useState("Expand");
+
+    const handleExpand = (panel) => {
+        if (expandedPanels.hasOwnProperty(panel))
+            setExpandedPanels({ ...expandedPanels, [panel]: !expandedPanels[panel] })
+        else
+            setExpandedPanels({ ...expandedPanels, [panel]: true })
+    }
+
+    const handleToggleExpandAll = () => {
+        setToggleOperation(toggleOperation === "Expand" ? "Collapse" : "Expand");
+        let temp = {};
+        Object.keys(analysisResult).map((key, index) => {
+            temp[index] = toggleOperation === "Expand";
+        })
+        setExpandedPanels(temp);
+    }
 
     return (
         <div>
             <div>
                 {
-                    Object.keys(toolsComparison)?.map((area, index) => {
+                    Object.keys(tools_architecture)?.map((area, index) => {
                         return (
                             <Accordion
                                 expanded={expandedPanels[index] ? true : false}
@@ -34,69 +88,17 @@ export default function ToolsComparison() {
                                     id="panel1-header"
                                     sx={{ fontSize: '14px', fontWeight: '500', backgroundColor: expandedPanels[index] ? '#549B79' : '3E3E440D', borderRadius: '4px' }}
                                 >
-                                    {toolsComparison[area].areaName}
-                                    <span className="px-2 tracking-widest font-semibold">({toolsComparison[area].implementedAreas}/{toolsComparison[area].totalAreas})</span>
+                                    {area}
                                 </AccordionSummary>
                                 <AccordionDetails sx={{ backgroundColor: '#F8F8F80D' }}>
-                                    <div className="flex justify-center align-center gap-8 flex-wrap px-4 py-4">
-                                        <div className="flex-grow">
-                                            <div className="font-semibold text-[16px]">
-                                                Sustainability Passed Areas
-                                            </div>
-                                            <div className="px-4">
-                                                {
-                                                    toolsComparison[area].passedAreas?.length === 0 ? (
-                                                        <div className="text-[16px] font-medium my-8 text-[#F35E4A] cursor-pointer">
-                                                            No Passed Areas
-                                                        </div>
-                                                    ) : (
-                                                        toolsComparison[area].passedAreas?.map((item, index) => {
-                                                            return (
-                                                                <div key={index} onClick={() => endPointHandler(item)} className={`flex justify-between flex-nowrap items-center gap-2 my-4 ${endPoints.hasOwnProperty(item) && 'hover:underline'} underline-offset-4`}>
-                                                                    <div className="text-[16px] font-medium text-[#549B79] cursor-pointer">
-                                                                        - {item}
-                                                                    </div>
-                                                                    <ExternalLink size={22}
-                                                                        color="#549B79"
-                                                                        style={{ cursor: 'pointer' }}
-                                                                    />
-                                                                </div>
-                                                            );
-                                                        })
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className="flex-grow">
-                                            <div className="font-semibold text-[16px]">Failed Areas</div>
-                                            <div className="px-4">
-                                                {
-                                                    toolsComparison[area].failedAreas?.length === 0 ? (
-                                                        <div className="text-[16px] font-medium my-8 text-[#549B79] cursor-pointer">
-                                                            No Failed Areas
-                                                        </div>
-                                                    ) : (
-                                                        toolsComparison[area].failedAreas?.map((item, index) => {
-                                                            return (
-                                                                <div key={index} className="flex justify-between flex-nowrap items-center gap-2 my-4">
-                                                                    <div className={`text-[16px] font-medium text-[#F35E4A] ${endPoints.hasOwnProperty(item) && 'cursor-pointer hover:underline'} underline-offset-4`}>
-                                                                        - {item}
-                                                                    </div>
-                                                                    {
-                                                                        endPoints.hasOwnProperty(item) && (
-                                                                            <ExternalLink size={22}
-                                                                                color="#F35E4A"
-                                                                                style={{ cursor: 'pointer' }}
-                                                                            />
-                                                                        )
-                                                                    }
-                                                                </div>
-                                                            );
-                                                        })
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
+                                    <div>
+                                        {
+                                            tools_architecture[area]?.map((item, ind) => {
+                                                return (
+                                                    callComponent(ComponentsImporting[item], toolsComparison[item], index)
+                                                )
+                                            })
+                                        }
                                     </div>
                                 </AccordionDetails>
                             </Accordion>
