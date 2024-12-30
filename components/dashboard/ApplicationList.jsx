@@ -131,7 +131,7 @@ export default function ApplicationList({ projectsList }) {
     }
 
     const handleApplicationRoute = (baseURL, appName, maturityLevel) => {
-        if (['0', '1', '2', '3', '4', '5'].includes(maturityLevel)) {
+        if (['1', '2', '3', '4', '5'].includes(maturityLevel)) {
             if (appName) {
                 router.push({
                     pathname: baseURL,
