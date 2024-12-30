@@ -1,12 +1,14 @@
 import { X } from "lucide-react";
-import { useState } from "react";
+import Highcharts from "highcharts";
 import { ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
 import { decrypt } from "./../../../api/auth/lib";
-import { Accordion, AccordionDetails, AccordionSummary, Box, Divider, Modal } from "@mui/material";
-import toolsComparison from "./../../../../public/data/tools_comparison.json";
-import DockerComaparison from "../../../../components/tools_comparison/DockerComparison";
-import styles from "./../../../../components/tools_comparison/ToolsComparison.module.css";
+import HighchartsReact from "highcharts-react-official";
 import Docker_SVG from "../../../../components/icons/tools_svg/docker";
+import toolsComparison from "./../../../../public/data/tools_comparison.json";
+import styles from "./../../../../components/tools_comparison/ToolsComparison.module.css";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Divider, Modal } from "@mui/material";
+import ToolsComparisonComponent from "./../../../../components/tools_comparison/ToolsComparisonComponent";
 
 const style = {
     position: 'absolute',
@@ -14,8 +16,11 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    maxHeight: '650px',
     boxShadow: 24,
+    borderRadius: 2,
+    outline: 'none',
+    overflowY: 'scroll',
     pt: 2,
     px: 4,
     pb: 3,
@@ -23,56 +28,86 @@ const style = {
 
 const tools_architecture = {
     "Docker Build Comparison": {
-        "component": DockerComaparison, "data": [...toolsComparison["docker"]]
+        "component": ToolsComparisonComponent, "data": {
+            "NA": toolsComparison["docker"]
+        }
     },
     "Messaging between Java Microservices": {
-        "component": DockerComaparison, "data": [...toolsComparison["sync"], ...toolsComparison["async"]]
+        "component": ToolsComparisonComponent, "data": {
+            "Synchronous Communication Protocols": toolsComparison["sync"],
+            "Asynchronous Communication Protocols": toolsComparison["async"]
+        }
     },
     "Energy efficient Workload Orchestrator": {
-        "component": DockerComaparison, "data": [...toolsComparison["heft_ecws"], ...toolsComparison["fcfs_ecws"]]
+        "component": ToolsComparisonComponent, "data": {
+            "HEFT vs ECWS": toolsComparison["heft_ecws"],
+            "FCFS vs ECWS": toolsComparison["fcfs_ecws"]
+        }
     },
     "Python Web Frameworks": {
-        "component": DockerComaparison, "data": [...toolsComparison["python_sync"], ...toolsComparison["python_async"]]
+        "component": ToolsComparisonComponent, "data": {
+            "Synchronous Execution": toolsComparison["python_sync"],
+            "Asynchronous Execution": toolsComparison["python_async"]
+        }
     },
     "Spring Boot Framework": {
-        "component": DockerComaparison, "data": [...toolsComparison["spring"]]
+        "component": ToolsComparisonComponent, "data": {
+            "NA": toolsComparison["spring"]
+        }
     },
     "Energy Consumption of Java I/O Libraries & Techniques": {
-        "component": DockerComaparison, "data": [...toolsComparison["java_io"]]
+        "component": ToolsComparisonComponent, "data": {
+            "NA": toolsComparison["java_io"]
+        }
     },
     "Efficiency of Thread-Safe Collections in Java": {
-        "component": DockerComaparison, "data": [...toolsComparison["thread_java"]]
+        "component": ToolsComparisonComponent, "data": {
+            "NA": toolsComparison["thread_java"]
+        }
     },
     "Trade-Offs in Object-Relational Mapping(ORM) Framework": {
-        "component": DockerComaparison, "data": [...toolsComparison["trade_offs"]]
+        "component": ToolsComparisonComponent, "data": {
+            "NA": toolsComparison["trade_offs"]
+        }
     },
     "Container Runtimes Across Various Scenarios": {
-        "component": DockerComaparison, "data": [...toolsComparison["container_runtime"]]
+        "component": ToolsComparisonComponent, "data": {
+            "NA": toolsComparison["container_runtime"]
+        }
     },
     "Performance of Container Network Plugins(CNIs) in Virtualized Environment": {
-        "component": DockerComaparison, "data": [...toolsComparison["cni_virtual"]]
+        "component": ToolsComparisonComponent, "data": {
+            "NA": toolsComparison["cni_virtual"]
+        }
     },
     "Performance of Container Network Plugins(CNIs) in Physical Environment": {
-        "component": DockerComaparison, "data": [...toolsComparison["cni_physical"]]
+        "component": ToolsComparisonComponent, "data": {
+            "NA": toolsComparison["cni_physical"]
+        }
     },
     "Serialization Efficiency : JSON vs Avro": {
-        "component": DockerComaparison, "data": [...toolsComparison["json_avro"]]
+        "component": ToolsComparisonComponent, "data": {
+            "NA": toolsComparison["json_avro"]
+        }
     },
     "Performance of API Data Formats: gRPC/Protobuf vs JSON": {
-        "component": DockerComaparison, "data": [...toolsComparison["grpc_json"]]
+        "component": ToolsComparisonComponent, "data": {
+            "NA": toolsComparison["grpc_json"]
+        }
     },
 };
 
 export default function ToolsComparison() {
-    console.log(toolsComparison);
     const [expandedPanels, setExpandedPanels] = useState({});
     const [toggleOperation, setToggleOperation] = useState("Expand");
     const [popupData, setPopupData] = useState({});
     const [open, setOpen] = useState(false);
+    const [chartData, setChartData] = useState([]);
 
     const handleClose = () => {
         setOpen(false);
         setPopupData({});
+        setChartData([]);
     }
 
     const handleExpand = (panel) => {
@@ -93,10 +128,12 @@ export default function ToolsComparison() {
 
     const getEnergyUsageClass = (value) => {
         switch (value) {
-            case "High":
+            case "high":
                 return styles.danger;
-            case "Low":
+            case "low":
                 return styles.success;
+            case "medium":
+                return styles.warning;
             default:
                 return "";
         }
@@ -106,11 +143,74 @@ export default function ToolsComparison() {
         return (
             <Component
                 dockerDetails={data}
-                popupData={popupData}
                 setPopupData={setPopupData}
                 setOpen={setOpen}
             />
         )
+    }
+
+    useEffect(() => {
+        let tempChatData = [];
+        let labels = popupData?.chartData?.labels;
+        let values = popupData?.chartData?.values;
+        if (labels && values) {
+            for (let i = 0; i < labels.length; i++) {
+                tempChatData.push([labels[i], values[i]]);
+            }
+        }
+        setChartData(tempChatData);
+    }, [popupData])
+
+    const chartOptions = {
+        chart: {
+            type: 'line',
+            height: 400
+        },
+        title: {
+            text: "",
+            align: 'left',
+            style: {
+                fontFamily: 'Montserrat, sans-serif',
+                fontSize: '24px',
+                fontWeight: '600',
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true
+            }
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                enabled: true,
+            }
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+            labels: {
+                enabled: true,
+            }
+        },
+        legend: {
+            enabled: true,
+        },
+        series: [
+            {
+                name: 'Metrics',
+                data: chartData,
+            }
+        ],
+        tooltip: {
+            headerFormat: '<span style="font-size:16px;font-family:Montserrat, sans-serif">{point.key}</span><br/>',
+            pointFormat: '<span style="color:{series.color};font-family:Montserrat, sans-serif">{series.name}</span>: <b>{point.y}</b><br/>',
+            valueSuffix: '<span style="font-family:Montserrat, sans-serif"> kWh</span>'
+        },
     }
 
     return (
@@ -170,20 +270,30 @@ export default function ToolsComparison() {
                             <X />
                         </div>
                     </div>
-                    <div className={styles.energyUsage}>
-                        <div>Energy Usage</div>
+                    <div>
                         {
-                            Object.keys(popupData).length !== 0 && (
-                                <div className={getEnergyUsageClass(popupData["basicMetrics"]["Energy Usage"]?.value)}
-                                >
-                                    {popupData["basicMetrics"]["Energy Usage"]?.value}
-                                </div>
-                            )
+                            popupData["basicMetrics"] && Object.keys(popupData["basicMetrics"]).map((key, i) => {
+                                return (
+                                    <div className={styles.energyUsage}>
+                                        <div>
+                                            {key}
+                                        </div>
+                                        {
+                                            Object.keys(popupData).length !== 0 && (
+                                                <div className={getEnergyUsageClass(popupData["basicMetrics"][key]?.status)}
+                                                >
+                                                    {popupData["basicMetrics"][key]?.value}
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                );
+                            })
                         }
                     </div>
                     <Divider className="my-6" />
                     <div>
-                        <span className="font-semibold text-xl">Detailed Metrics</span>
+                        <span className={styles.title}>Detailed Metrics</span>
                         {
                             Object.keys(popupData).length !== 0 && (
                                 Object.keys(popupData?.detailedMetrics).map((key, i) => {
@@ -198,7 +308,14 @@ export default function ToolsComparison() {
                         }
                     </div>
                     <Divider className="my-6" />
-                    <div>{popupData?.description}</div>
+                    <div className="text-[14px] tracking-wider mb-4">{popupData?.description}</div>
+                    {
+                        chartData.length !== 0 && (
+                            <div className="mt-12">
+                                <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+                            </div>
+                        )
+                    }
                 </Box>
             </Modal>
         </div>

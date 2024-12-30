@@ -59,11 +59,11 @@ export default function ApplicationList({ projectsList }) {
     ]
 
     const maturityLevels = [
-        { value: 'Level 1', label: 'Level 1' },
-        { value: 'Level 2', label: 'Level 2' },
-        { value: 'Level 3', label: 'Level 3' },
-        { value: 'Level 4', label: 'Level 4' },
-        { value: 'Level 5', label: 'Level 5' },
+        { value: '1', label: 'Level 1' },
+        { value: '2', label: 'Level 2' },
+        { value: '3', label: 'Level 3' },
+        { value: '4', label: 'Level 4' },
+        { value: '5', label: 'Level 5' },
     ]
 
     const [selectedCloudProvider, setSelectedCloudProvider] = useState(null);
@@ -81,15 +81,18 @@ export default function ApplicationList({ projectsList }) {
         }
         if (selectedCloudProvider) {
             temp = temp.filter((row) => {
-                return !selectedCloudProvider || (row.cloudProvider?.toLowerCase() === selectedCloudProvider?.value?.toLowerCase())
+                return !selectedCloudProvider || (row.cloud_provider?.toLowerCase() === selectedCloudProvider?.value?.toLowerCase())
             })
         }
         if (selectedMaturityLevels.length !== 0) {
             temp = temp.filter((row) => {
-                return !selectedMaturityLevels || selectedMaturityLevels.length === 0 || selectedMaturityLevels.map((level) => level.value).includes(row.sustainabilityLevel)
+                return !selectedMaturityLevels || selectedMaturityLevels.length === 0 || selectedMaturityLevels.map((level) => level.value).includes(row.sustainability_level)
             })
         }
-        setFilterdRows(temp)
+        let sortedByTime = temp.sort((a, b) => {
+            return new Date(b.last_analyzed_on) - new Date(a.last_analyzed_on)
+        })
+        setFilterdRows(sortedByTime)
     }, [applicationSearchTerm, selectedCloudProvider, selectedMaturityLevels])
 
     const handleChangePage = (event, newPage) => {
@@ -127,12 +130,16 @@ export default function ApplicationList({ projectsList }) {
         setSelectedMaturityLevels(selectedOption);
     }
 
-    const handleApplicationRoute = (baseURL, appName) => {
-        if (appName) {
-            router.push({
-                pathname: baseURL,
-                query: { projectName: encodeURIComponent(appName) }
-            })
+    const handleApplicationRoute = (baseURL, appName, maturityLevel) => {
+        if (['0', '1', '2', '3', '4', '5'].includes(maturityLevel)) {
+            if (appName) {
+                router.push({
+                    pathname: baseURL,
+                    query: { projectName: encodeURIComponent(appName) }
+                })
+            }
+        } else {
+            console.log("Invalid maturity level to proceed to application details");
         }
     }
 
@@ -230,12 +237,12 @@ export default function ApplicationList({ projectsList }) {
                                         </TableHead>
                                         <TableBody>
                                             {
-                                                filteredRows.map((row, index) => {
+                                                visibleRows.map((row, index) => {
                                                     return (
                                                         <TableRow hover tabIndex={-1}
                                                             key={index}
                                                             sx={{ cursor: 'pointer', fontSize: 14 }}
-                                                            onClick={() => handleApplicationRoute(`${router.pathname}/application`, row.application_name)}
+                                                            onClick={() => handleApplicationRoute(`${router.pathname}/application`, row.application_name, row?.sustainability_level)}
                                                         >
                                                             <TableCell align='center' sx={{
                                                                 color: '#17202a'
