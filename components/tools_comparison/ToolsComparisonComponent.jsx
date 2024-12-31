@@ -1,7 +1,7 @@
 import styles from "./ToolsComparison.module.css";
-import Docker_SVG from "../icons/tools_svg/docker";
 
-export default function ToolsComparisonComponent({ dockerDetails, setPopupData, setOpen }) {
+export default function ToolsComparisonComponent({ dockerDetails, setPopupData, setOpen, toolIcons }) {
+    console.log("dockerDetails", dockerDetails)
     const getEnergyUsageClass = (value) => {
         switch (value) {
             case "high":
@@ -37,7 +37,11 @@ export default function ToolsComparisonComponent({ dockerDetails, setPopupData, 
                                         return (
                                             <div onClick={() => handleToolClick(tool)} key={j} className="bg-white min-w-[300px] rounded-md py-6 px-6 shadow-lg cursor-pointer">
                                                 <div className={styles.title}>
-                                                    <Docker_SVG />{tool?.title}
+                                                    {
+                                                        toolIcons[tool?.icon] &&
+                                                        toolIcons[tool?.icon]
+                                                    }
+                                                    {tool?.title}
                                                 </div>
                                                 <div>
                                                     {

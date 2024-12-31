@@ -50,7 +50,7 @@
   "sync": [
     {
       "id": "grpc",
-      "icon": "grpc",
+      "icon": "gRPC",
       "title": "gRPC",
       "basicMetrics": {
         "Energy Usage": {
@@ -239,7 +239,7 @@
     },
     {
       "id": "fastapi",
-      "icon": "fastapi",
+      "icon": "fastAPI",
       "title": "FastAPI",
       "basicMetrics": {
         "Latency": { "value": "1.22 Sec", "status": "low" },
@@ -283,7 +283,7 @@
     },
     {
       "id": "fastapi",
-      "icon": "fastapi",
+      "icon": "fastAPI",
       "title": "FastAPI",
       "basicMetrics": {
         "Latency": { "value": "274 mSec", "status": "low" },
@@ -299,7 +299,7 @@
   "spring": [
     {
       "id": "springv2",
-      "icon": "springv2",
+      "icon": "springboot",
       "title": "Spring Boot Version 2",
       "basicMetrics": {
         "Latency": { "value": "1070 mSec", "status": "high" },
@@ -312,7 +312,7 @@
     },
     {
       "id": "springv3",
-      "icon": "springv3",
+      "icon": "springboot",
       "title": "Spring Boot Version 3",
       "basicMetrics": {
         "Latency": { "value": "699 mSec", "status": "low" },
@@ -327,7 +327,7 @@
   "java_io": [
     {
       "id": "read_whole_file_small",
-      "icon": "read_whole_file_small",
+      "icon": "java",
       "title": "Read Whole File (Small)",
       "basicMetrics": {
         "Best I/O Method": {
@@ -343,7 +343,7 @@
     },
     {
       "id": "read_whole_file_large",
-      "icon": "read_whole_file_large",
+      "icon": "java",
       "title": "Read Whole File (Large)",
       "basicMetrics": {
         "Best I/O Method": {
@@ -359,7 +359,7 @@
     },
     {
       "id": "read_in_chunks",
-      "icon": "read_in_chunks",
+      "icon": "java",
       "title": "Read in Chunks",
       "basicMetrics": {
         "Best I/O Method": { "value": "NIO Channels", "status": "low" }
@@ -372,7 +372,7 @@
     },
     {
       "id": "seek_specific_data",
-      "icon": "seek_specific_data",
+      "icon": "java",
       "title": "Seek Specific Data",
       "basicMetrics": {
         "Best I/O Method": {
@@ -388,7 +388,7 @@
     },
     {
       "id": "write_small_file",
-      "icon": "write_small_file",
+      "icon": "java",
       "title": "Write Small File",
       "basicMetrics": {
         "Best I/O Method": {
@@ -404,7 +404,7 @@
     },
     {
       "id": "write_large_file",
-      "icon": "write_large_file",
+      "icon": "java",
       "title": "Write Large File",
       "basicMetrics": {
         "Best I/O Method": { "value": "BufferedWriter", "status": "low" }
@@ -417,7 +417,7 @@
     },
     {
       "id": "avioid_for_writing",
-      "icon": "avioid_for_writing",
+      "icon": "java",
       "title": "Avoid for Writing",
       "basicMetrics": {
         "I/O Method": { "value": "Guava Files", "status": "high" }
@@ -432,7 +432,7 @@
   "thread_java": [
     {
       "id": "list",
-      "icon": "list",
+      "icon": "java",
       "title": "List",
       "basicMetrics": {
         "Best Thread-Safe": {
@@ -450,7 +450,7 @@
     },
     {
       "id": "set",
-      "icon": "set",
+      "icon": "java",
       "title": "Set",
       "basicMetrics": {
         "Best Thread-Safe": {
@@ -468,7 +468,7 @@
     },
     {
       "id": "map",
-      "icon": "map",
+      "icon": "java",
       "title": "Map",
       "basicMetrics": {
         "Best Thread-Safe": {
@@ -488,7 +488,7 @@
   "trade_offs": [
     {
       "id": "low",
-      "icon": "low",
+      "icon": "tradeOFFs",
       "title": "Low Transcations (10-1000 TPS)",
       "basicMetrics": {
         "Best Framework": { "value": "Plain JDBC", "status": "low" }
@@ -502,7 +502,7 @@
     },
     {
       "id": "moderate",
-      "icon": "moderate",
+      "icon": "tradeOFFs",
       "title": "Moderate Transcations (1000-10000 TPS)",
       "basicMetrics": {
         "Best Framework": { "value": "Plain JDBC", "status": "low" }
@@ -516,7 +516,7 @@
     },
     {
       "id": "high",
-      "icon": "high",
+      "icon": "tradeOFFs",
       "title": "High Transcations (10000+ TPS)",
       "basicMetrics": {
         "Best Framework": { "value": "Plain JDBC", "status": "low" }
@@ -530,7 +530,7 @@
     },
     {
       "id": "optimised",
-      "icon": "optimised",
+      "icon": "tradeOFFs",
       "title": "Optimized (Lazy Fetch, Batch Processing)",
       "basicMetrics": {
         "Best Framework": { "value": "EclipseLink", "status": "low" }
@@ -570,7 +570,7 @@
     },
     {
       "id": "fileRead",
-      "icon": "fileRead",
+      "icon": "file",
       "title": "File Read Speed",
       "basicMetrics": {
         "Best Runtime": { "value": "containerd/runc", "status": "low" }
@@ -582,7 +582,7 @@
     },
     {
       "id": "fileWrite",
-      "icon": "fileWrite",
+      "icon": "file",
       "title": "File Write Speed",
       "basicMetrics": {
         "Best Runtime": { "value": "crio/runc", "status": "low" }
@@ -604,7 +604,6 @@
       },
       "description": "Performance Comparison of Container Runtimes Across Various Scenarios "
     },
-
     {
       "id": "containerRun",
       "icon": "containerRun",
@@ -645,7 +644,7 @@
   "cni_virtual": [
     {
       "id": "best",
-      "icon": "best",
+      "icon": "cni",
       "title": "Best Overall",
       "basicMetrics": {
         "Plugin": { "value": "Canal", "status": "low" }
@@ -657,7 +656,7 @@
     },
     {
       "id": "bestTcp",
-      "icon": "bestTcp",
+      "icon": "cni",
       "title": "Best TCP throughput",
       "basicMetrics": {
         "Plugin": { "value": "Canal, Calico, Romana", "status": "low" }
@@ -669,7 +668,7 @@
     },
     {
       "id": "bestUdp",
-      "icon": "bestUdp",
+      "icon": "cni",
       "title": "Best UDP throughput",
       "basicMetrics": {
         "Plugin": { "value": "Romana", "status": "low" }
@@ -681,7 +680,7 @@
     },
     {
       "id": "besthttp",
-      "icon": "besthttp",
+      "icon": "cni",
       "title": "Best HTTP throughput",
       "basicMetrics": {
         "Plugin": { "value": "WaveNet (9000 MTU)", "status": "low" }
@@ -695,7 +694,7 @@
   "cni_physical": [
     {
       "id": "best",
-      "icon": "best",
+      "icon": "cni",
       "title": "Best Overall",
       "basicMetrics": {
         "Plugin": { "value": "Flannel", "status": "low" }
@@ -707,7 +706,7 @@
     },
     {
       "id": "bestTcp",
-      "icon": "bestTcp",
+      "icon": "cni",
       "title": "Best TCP throughput",
       "basicMetrics": {
         "Plugin": { "value": "Flannel", "status": "low" }
@@ -719,7 +718,7 @@
     },
     {
       "id": "bestUdp",
-      "icon": "bestUdp",
+      "icon": "cni",
       "title": "Best UDP throughput",
       "basicMetrics": {
         "Plugin": { "value": "Romana, Calico", "status": "low" }
@@ -731,7 +730,7 @@
     },
     {
       "id": "besthttp",
-      "icon": "besthttp",
+      "icon": "cni",
       "title": "Best HTTP throughput",
       "basicMetrics": {
         "Plugin": { "value": "Flannel", "status": "low" }
@@ -745,7 +744,7 @@
   "json_avro": [
     {
       "id": "time",
-      "icon": "time",
+      "icon": "serialization",
       "title": "Serialization Time",
       "basicMetrics": {
         "Efficient": { "value": "Avro", "status": "low" }
@@ -758,7 +757,7 @@
     },
     {
       "id": "size",
-      "icon": "size",
+      "icon": "serialization",
       "title": "Serialized Data Size",
       "basicMetrics": {
         "Efficient": { "value": "Avro", "status": "low" }
@@ -771,7 +770,7 @@
     },
     {
       "id": "detime",
-      "icon": "detime",
+      "icon": "serialization",
       "title": "Deserialization Time",
       "basicMetrics": {
         "Efficient": { "value": "Avro", "status": "low" }
@@ -786,7 +785,7 @@
   "grpc_json": [
     {
       "id": "energy",
-      "icon": "energy",
+      "icon": "performance",
       "title": "Energy Consumption",
       "basicMetrics": {
         "API": { "value": "gRPC/Protobuf", "status": "low" }
@@ -799,7 +798,7 @@
     },
     {
       "id": "response",
-      "icon": "response",
+      "icon": "performance",
       "title": "95th Percentile Response Time",
       "basicMetrics": {
         "API": { "value": "gRPC/Protobuf", "status": "low" }
@@ -812,7 +811,7 @@
     },
     {
       "id": "throughput",
-      "icon": "throughput",
+      "icon": "performance",
       "title": "Throughput",
       "basicMetrics": {
         "API": { "value": "gRPC/Protobuf", "status": "low" }

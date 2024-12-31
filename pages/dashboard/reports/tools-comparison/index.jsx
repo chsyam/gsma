@@ -4,11 +4,34 @@ import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { decrypt } from "./../../../api/auth/lib";
 import HighchartsReact from "highcharts-react-official";
-import Docker_SVG from "../../../../components/icons/tools_svg/docker";
 import toolsComparison from "./../../../../public/data/tools_comparison.json";
 import styles from "./../../../../components/tools_comparison/ToolsComparison.module.css";
 import { Accordion, AccordionDetails, AccordionSummary, Box, Divider, Modal } from "@mui/material";
 import ToolsComparisonComponent from "./../../../../components/tools_comparison/ToolsComparisonComponent";
+import GRPC from "../../../../components/icons/tools_svg/grpc";
+import Docker from "../../../../components/icons/tools_svg/docker";
+import REST from "../../../../components/icons/tools_svg/rest";
+import Kafka from "../../../../components/icons/tools_svg/kafka";
+import RabbitMQ from "../../../../components/icons/tools_svg/rabbitmq";
+import HEFT from "../../../../components/icons/tools_svg/heft";
+import ECWS from "../../../../components/icons/tools_svg/ecws";
+import FCFS from "../../../../components/icons/tools_svg/fcfs";
+import DJango from "../../../../components/icons/tools_svg/django";
+import Flask from "../../../../components/icons/tools_svg/flask";
+import FastAPI from "../../../../components/icons/tools_svg/fastAPI";
+import SpringBoot from "../../../../components/icons/tools_svg/springBoot";
+import Java from "../../../../components/icons/tools_svg/java";
+import TradeOFF from "../../../../components/icons/tools_svg/tradeOFF";
+import CPU from "../../../../components/icons/tools_svg/cpu";
+import Memory from "../../../../components/icons/tools_svg/memory";
+import File from "../../../../components/icons/tools_svg/file";
+import ContainerCreation from "../../../../components/icons/tools_svg/containerCreation";
+import ContainerRun from "../../../../components/icons/tools_svg/containerRun";
+import ContainerDestruction from "../../../../components/icons/tools_svg/containerDestruction";
+import Scalability from "../../../../components/icons/tools_svg/scalability";
+import CNI from "../../../../components/icons/tools_svg/cni";
+import Serialization from "../../../../components/icons/tools_svg/serialization";
+import Performance from "../../../../components/icons/tools_svg/performance";
 
 const style = {
     position: 'absolute',
@@ -26,6 +49,33 @@ const style = {
     pb: 3,
 };
 
+const toolIcons = {
+    "docker": <Docker />,
+    "gRPC": <GRPC />,
+    "rest": <REST />,
+    "kafka": <Kafka />,
+    "rabbitmq": <RabbitMQ />,
+    "heft": <HEFT />,
+    "ecws": <ECWS />,
+    "fcfs": <FCFS />,
+    "django": <DJango />,
+    "flask": <Flask />,
+    "fastAPI": <FastAPI />,
+    "springboot": <SpringBoot />,
+    "java": <Java />,
+    "tradeOFFs": <TradeOFF />,
+    "cpu": <CPU />,
+    "memory": <Memory />,
+    "file": <File />,
+    "containerCreate": <ContainerCreation />,
+    "containerRun": <ContainerRun />,
+    "containerDesc": <ContainerDestruction />,
+    "scalability": <Scalability />,
+    "cni": <CNI />,
+    "serialization": <Serialization />,
+    "performance": <Performance />
+}
+
 const tools_architecture = {
     "Docker Build Comparison": {
         "component": ToolsComparisonComponent, "data": {
@@ -35,7 +85,8 @@ const tools_architecture = {
     "Messaging between Java Microservices": {
         "component": ToolsComparisonComponent, "data": {
             "Synchronous Communication Protocols": toolsComparison["sync"],
-            "Asynchronous Communication Protocols": toolsComparison["async"]
+            "Asynchronous Communication Protocols": toolsComparison["async"],
+            "Energy Usage Comparison": toolsComparison["energy"]
         }
     },
     "Energy efficient Workload Orchestrator": {
@@ -145,6 +196,7 @@ export default function ToolsComparison() {
                 dockerDetails={data}
                 setPopupData={setPopupData}
                 setOpen={setOpen}
+                toolIcons={toolIcons}
             />
         )
     }
@@ -261,7 +313,9 @@ export default function ToolsComparison() {
                 <Box sx={{ ...style, width: '60%' }}>
                     <div className="flex justify-between">
                         <div className={styles.title}>
-                            <Docker_SVG />
+                            {
+                                toolIcons[popupData?.icon] && toolIcons[popupData?.icon]
+                            }
                             {popupData?.title}
                         </div>
                         <div className="p-4 rounded-full bg-gray-100 cursor-pointer hover:bg-gray-300"

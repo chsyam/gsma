@@ -1,0 +1,18 @@
+.cls1,
+.cls4 {
+    fill: #669df6;
+}
+
+.cls2 {
+    fill: #4285f4;
+}
+
+.cls2,
+.cls3,
+.cls4 {
+    fillRule: 'evenodd'
+}
+
+.cls3 {
+    fill: #aecbfa;
+}
