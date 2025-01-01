@@ -62,14 +62,14 @@ export default function RenderComponent({ details, newProjectForm, setNewProject
                             details.questionsList.map((question, index) => {
                                 return (
                                     <div key={index} className={`mb-5 ${(activeQuestion !== index + 1) && 'hidden'}`}>
-                                        <div className="py-1 text-md">
+                                        <div className="py-1 text-md font-medium">
                                             {question.questionTitle}
                                         </div>
                                         <RadioGroup
                                             aria-labelledby="demo-radio-buttons-group-label"
                                             name="radio-buttons-group"
                                             onChange={(e) => handleActiveQuestion(question.questionTitle, e.target.value, details.questionsList.length)}
-                                            sx={{ marginTop: '5px' }}
+                                            sx={{ marginTop: '5px', fontFamily: 'Montserrat' }}
                                         >
                                             {
                                                 question.questionOptions.map((option, optionInd) => {
@@ -78,7 +78,7 @@ export default function RenderComponent({ details, newProjectForm, setNewProject
                                                             key={optionInd}
                                                             value={option.value}
                                                             control={<Radio />}
-                                                            label={option.label}
+                                                            label={<span className='font-[montserrat]'>{option.label}</span>}
                                                         />
                                                     )
                                                 })

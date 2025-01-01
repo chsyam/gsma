@@ -6,33 +6,22 @@ import NotificationDropdown from "./NotificationDropdown";
 
 export default function UserNavbar({ username }) {
     const [notificationCount, setNotificationCount] = useState(0);
+    const [markAllRead, setMarkAllRead] = useState(false);
+
     const mockNotifications = [
         {
             id: '1',
-            message: 'Your project "Website Redesign" has been approved',
-            time: '5 minutes ago',
+            message: 'Your project started sustainability analysis',
+            time: 'few minutes ago',
             isRead: false,
         },
         {
             id: '2',
-            message: 'New comment on your post',
+            message: 'Your project analysis failed',
             time: '1 hour ago',
             isRead: false,
-        },
-        {
-            id: '3',
-            message: 'You have a new follower',
-            time: '2 hours ago',
-            isRead: true,
-        },
-        {
-            id: '4',
-            message: 'Meeting reminder: Team sync at 2 PM',
-            time: '3 hours ago',
-            isRead: true,
-        },
+        }
     ];
-    const [mouseEnter, setMouseEnter] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
     const [showProfile, setShowProfile] = useState(false);
 
@@ -42,8 +31,17 @@ export default function UserNavbar({ username }) {
     };
 
     useEffect(() => {
-        setNotificationCount(mockNotifications.length)
-    }, [mockNotifications])
+        if (markAllRead) {
+            setNotificationCount(0);
+            localStorage.setItem('markAllRead', 0);
+        } else {
+            const storedCount = localStorage.getItem('markAllRead');
+            if (storedCount)
+                setNotificationCount(parseInt(storedCount));
+            else
+                setNotificationCount(mockNotifications.length);
+        }
+    }, [mockNotifications, markAllRead])
 
     return (
         <nav className={`relative z-50 ${styles.navbarContainer}`}>
@@ -80,7 +78,7 @@ export default function UserNavbar({ username }) {
                                 )}
                             </button>
                             {showNotifications &&
-                                <NotificationDropdown notifications={mockNotifications} />
+                                <NotificationDropdown notifications={mockNotifications} setMarkAllRead={setMarkAllRead} />
                             }
                         </div>
 

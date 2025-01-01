@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bell } from 'lucide-react';
 
-const NotificationDropdown = ({ notifications }) => {
+const NotificationDropdown = ({ notifications, setMarkAllRead }) => {
     return (
         <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-2xl border border-gray-300 py-1 z-50">
             <div className="px-4 py-2 border-b border-gray-200">
@@ -31,7 +31,7 @@ const NotificationDropdown = ({ notifications }) => {
             </div>
 
             {notifications.length > 0 && (
-                <div className="px-4 py-2 border-t border-gray-200">
+                <div className="px-4 py-2 border-t border-gray-200" onClick={() => setMarkAllRead(true)}>
                     <button className="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
                         Mark all as read
                     </button>

@@ -6,11 +6,19 @@ import formFields from "./../../../public/data/ApplicationFormFields.json";
 import SuccessPopup from "../../../components/dashboard/SuccessPopup";
 import FailurePopup from '../../../components/dashboard/FailurePopup';
 import { decrypt } from "../../api/auth/lib";
+import { getAllApplications } from "../../api/applications/getAllApplications";
 
 export default function AddNewApplication() {
     const [newProjectForm, setNewProjectForm] = useState({});
+    const [projectsList, setProjectsList] = useState([]);
+
     useEffect(() => {
         setNewProjectForm(formFields);
+        async function fetchAllProjects() {
+            const projects = await getAllApplications();
+            !projects ? setProjectsList([]) : setProjectsList(projects);
+        }
+        fetchAllProjects();
     }, []);
 
     useEffect(() => {
@@ -31,6 +39,7 @@ export default function AddNewApplication() {
                 setNewProjectForm={setNewProjectForm}
                 setFailureShowPopup={setFailureShowPopup}
                 setSuccessShowPopup={setSuccessShowPopup}
+                projectsList={projectsList}
             />
             <SuccessPopup showSuccessPopup={showSuccessPopup} setSuccessShowPopup={setSuccessShowPopup} />
             <FailurePopup showFailurePopup={showFailurePopup} setFailureShowPopup={setFailureShowPopup} />

@@ -1,24 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DashboardMenu from "./DashboardMenu";
 import ZeroApplicationUI from "../../components/dashboard/ZeroApplicationUI";
 import ApplicationList from "../../components/dashboard/ApplicationList";
 import { getAllApplications } from "../api/applications/getAllApplications";
 import { decrypt } from "../api/auth/lib";
+import styles from "./../../styles/Loading.module.css";
 
-export default function Dashboard({ projectsList }) {
-    console.log(projectsList)
+export default function Dashboard() {
+    const [projectsList, setProjectsList] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        async function fetchProjectsList() {
+            setLoading(true);
+            const projectsList = await getAllApplications();
+            console.log(projectsList);
+            if (!projectsList) {
+                console.log("Error while fetching project list")
+                setProjectsList([]);
+            } else {
+                setProjectsList(projectsList)
+            }
+            setLoading(false);
+        }
+        fetchProjectsList();
+    }, [])
 
     return (
-        <div className="bg-[#F0F0F0]">
+        <div>
             <DashboardMenu />
             {
-                !projectsList || projectsList?.length == 0 ? (
-                    <ZeroApplicationUI />
+                loading ? (
+                    <div className="flex justify-center items-center flex-nowrap mt-[10%] tracking-wide">
+                        <div className={styles.loader} />fetching projects list...
+                    </div>
                 ) : (
-                    <ApplicationList projectsList={projectsList} />
+                    <div>
+                        {
+                            !projectsList || projectsList?.length == 0 ? (
+                                <ZeroApplicationUI />
+                            ) : (
+                                <ApplicationList projectsList={projectsList} />
+                            )
+                        }
+                    </div>
                 )
             }
-        </div>
+        </div >
     );
 }
 
@@ -37,36 +65,11 @@ export async function getServerSideProps(context) {
             }
         }
     } else {
-        try {
-            const projectsList = await getAllApplications();
-            if (!projectsList) {
-                console.log("Error while fetching project list")
-                return {
-                    props: {
-                        projectsList: [],
-                        username: payload?.username,
-                        email: payload?.email,
-                        role: payload?.role
-                    }
-                }
-            }
-            return {
-                props: {
-                    projectsList: projectsList,
-                    username: payload?.username,
-                    email: payload?.email,
-                    role: payload?.role
-                }
-            }
-        } catch (error) {
-            console.log(error);
-            return {
-                props: {
-                    projectsList: [],
-                    username: payload?.username,
-                    email: payload?.email,
-                    role: payload?.role
-                }
+        return {
+            props: {
+                username: payload?.username,
+                email: payload?.email,
+                role: payload?.role
             }
         }
     }

@@ -9,7 +9,7 @@ export async function getMaturityLevel(projectName) {
         const maturityLevel = await response.json();
         return maturityLevel;
     } catch (error) {
-        console.log("Error while fetching project list", error)
-        return -1;
+        console.log("Error while fetching maturity level", error)
+        return [];
     }
 }

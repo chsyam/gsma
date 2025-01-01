@@ -6,7 +6,7 @@ import SustainabilitySelection from "./SustainabilitySelection";
 import CloudDetails from "./CloudDetails";
 import { Alert, Snackbar } from "@mui/material";
 
-export default function AddApplications({ newProjectForm, setNewProjectForm, setFailureShowPopup, setSuccessShowPopup }) {
+export default function AddApplications({ newProjectForm, setNewProjectForm, setFailureShowPopup, setSuccessShowPopup, projectsList }) {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const handleSnackbarOpen = () => {
         setOpenSnackbar(true);
@@ -98,7 +98,8 @@ export default function AddApplications({ newProjectForm, setNewProjectForm, set
                                             newProjectForm: newProjectForm,
                                             setNewProjectForm: setNewProjectForm,
                                             setSuccessShowPopup: setSuccessShowPopup,
-                                            setFailureShowPopup: setFailureShowPopup
+                                            setFailureShowPopup: setFailureShowPopup,
+                                            projectsList: projectsList
                                         })
                                     }
                                 </div>

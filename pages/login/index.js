@@ -2,8 +2,10 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import Layout from "../../components/Layout";
 import styles from "./../../styles/Login/Login.module.css";
 import { useState } from "react";
+import loaderStyles from "./../../styles/Loading.module.css";
 
 export default function LoginPage() {
+    const [loginStatus, setLoginStatus] = useState(false);
     const [formData, setFormData] = useState(
         {
             email: "syamkumar6845@gmail.com",
@@ -17,6 +19,7 @@ export default function LoginPage() {
     }
 
     const handleSubmit = async (e) => {
+        setLoginStatus(true);
         e.preventDefault();
 
         try {
@@ -31,9 +34,7 @@ export default function LoginPage() {
             if (res.status === 200) {
                 const { token } = await res.json()
                 document.cookie = `token=${token}; path=/`
-                setTimeout(() => {
-                    window.location.href = "/dashboard"
-                }, 100);
+                window.location.href = "/dashboard"
             }
             else {
                 throw new Error(`Error: ${res.status}`);
@@ -41,6 +42,7 @@ export default function LoginPage() {
         } catch (error) {
             console.log(error);
         }
+        setLoginStatus(false);
     }
 
     return (
@@ -67,6 +69,7 @@ export default function LoginPage() {
                             type="email"
                             placeholder="email"
                             name="email"
+                            readOnly={loginStatus}
                         />
                     </div>
                     <div className={styles.inputField}>
@@ -77,6 +80,7 @@ export default function LoginPage() {
                             placeholder="password"
                             type="password"
                             name="password"
+                            readOnly={loginStatus}
                         />
                     </div>
                     <div className="flex justify-between flex-wrap items-center my-1">
@@ -97,9 +101,17 @@ export default function LoginPage() {
                             Forgot Password?
                         </div>
                     </div>
-                    <div className={styles.inputField}>
-                        <input type="submit" value="Log In" />
-                    </div>
+                    {
+                        loginStatus ? (
+                            <div className="flex justify-center items-center">
+                                <div className={loaderStyles.loader} />
+                            </div>
+                        ) : (
+                            <div className={styles.inputField}>
+                                <input type="submit" value="Log In" />
+                            </div>
+                        )
+                    }
                 </form>
             </div>
         </Layout >

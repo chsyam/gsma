@@ -82,18 +82,19 @@
 
 .formGroup {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-direction: column;
     margin: 20px 0;
 }
 
 .formElement {
     flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #a3a7ab;
 }
 
-.formElement label {
+.formGroup label {
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
@@ -103,13 +104,15 @@
 .formElement input,
 .formElement textarea,
 .formElement select {
-    border-bottom: 1px solid #a3a7ab;
     width: 100%;
     background: #FFFFFF;
     padding: 8px 12px 8px 12px;
     gap: 0px;
     opacity: 0px;
-    font-size: 14px;
+    font-size: 16px;
+    letter-spacing: 3px;
+    font-weight: 600;
+    outline: none;
 }
 
 .formElement textarea {
@@ -119,9 +122,9 @@
 .formButton {
     background: #5e9b7e;
     float: right;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 8px 16px;
     color: white;
     font-weight: 500;
     transition: 0.1s all ease-in-out;

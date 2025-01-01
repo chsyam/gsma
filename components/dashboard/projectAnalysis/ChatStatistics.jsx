@@ -1,7 +1,8 @@
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
+import loadingStles from "./../../../styles/Loading.module.css";
 
-export default function ChartStatistics({ energyUsageChartData, carbonFootprintChartData }) {
+export default function ChartStatistics({ energyUsageChartData, carbonFootprintChartData, energyStatsLoading }) {
     const energyUsageChartOptions = {
         chart: {
             type: 'areaspline',
@@ -138,10 +139,28 @@ export default function ChartStatistics({ energyUsageChartData, carbonFootprintC
     return (
         <div className="py-6 mb-8 flex gap-4">
             <div className="flex-grow max-w-[50%] p-2 rounded-md bg-white">
-                <HighchartsReact highcharts={Highcharts} options={energyUsageChartOptions} />
+                {
+                    energyStatsLoading ? (
+                        <div className="flex justify-center flex-nowrap tracking-wide my-[20%]">
+                            <div className={loadingStles.loader} />
+                            fetching Energy stats....
+                        </div>
+                    ) : (
+                        <HighchartsReact highcharts={Highcharts} options={energyUsageChartOptions} />
+                    )
+                }
             </div>
             <div className="flex-grow max-w-[50%] p-2 rounded-md bg-white">
-                <HighchartsReact highcharts={Highcharts} options={carbonFootprintChartOptions} />
+                {
+                    energyStatsLoading ? (
+                        <div className="flex justify-center flex-nowrap tracking-wide my-[20%]">
+                            <div className={loadingStles.loader} />
+                            fetching Energy stats....
+                        </div>
+                    ) : (
+                        <HighchartsReact highcharts={Highcharts} options={carbonFootprintChartOptions} />
+                    )
+                }
             </div>
         </div>
     );

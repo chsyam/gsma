@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { Plus } from "lucide-react";
 import styles from "./../../styles/dashboard/AddApplication.module.css"
 import Box from '@mui/material/Box';
@@ -13,6 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { format } from "date-fns";
 import dynamic from 'next/dynamic';
+import loaderStyles from "./../../styles/Loading.module.css";
 
 const Select = dynamic(() => import('react-select'), { ssr: false });
 
@@ -48,6 +48,12 @@ const headCells = [
         align: 'center',
     },
 ];
+
+const tableCellStyle = {
+    fontFamily: 'Montserrat',
+    color: '#17202a',
+    fontWeight: '500'
+}
 
 export default function ApplicationList({ projectsList }) {
     const [page, setPage] = useState(0);
@@ -113,9 +119,8 @@ export default function ApplicationList({ projectsList }) {
         setVisibleRows([...filteredRows].slice(startIndex, endIndex));
     }, [page, rowsPerPage, filteredRows]);
 
-    const router = useRouter();
     const handleAddNewApp = () => {
-        router.push(`${router.pathname}/add`)
+        window.location.href = `${window.location.origin + window.location.pathname}/add`
     }
 
     const getFormattedDate = (date) => {
@@ -130,13 +135,10 @@ export default function ApplicationList({ projectsList }) {
         setSelectedMaturityLevels(selectedOption);
     }
 
-    const handleApplicationRoute = (baseURL, appName, maturityLevel) => {
+    const handleApplicationRoute = (appName, maturityLevel) => {
         if (['1', '2', '3', '4', '5'].includes(maturityLevel)) {
             if (appName) {
-                router.push({
-                    pathname: baseURL,
-                    query: { projectName: encodeURIComponent(appName) }
-                })
+                window.location.href = `${window.location.origin + window.location.pathname}/application?projectName=${encodeURIComponent(appName)}`
             }
         } else {
             console.log("Invalid maturity level to proceed to application details");
@@ -153,6 +155,25 @@ export default function ApplicationList({ projectsList }) {
                 return "GCP";
             default:
                 return "-";
+        }
+    }
+
+    const getTextColor = (level) => {
+        switch (level) {
+            case 'Failed': return (
+                <span className='text-[#F72B2B]'>{level}</span>
+            );
+            case "Analyzing": return (
+                <div className="flex justify-center">
+                    <span className={loaderStyles.dotLoader}></span>
+                </div>
+            );
+            case "Pending": return (
+                <div className={loaderStyles.dotLoader} />
+            );
+            default: return (
+                <span className='text-[#000]'>{level}</span>
+            );
         }
     }
 
@@ -241,40 +262,28 @@ export default function ApplicationList({ projectsList }) {
                                                     return (
                                                         <TableRow hover tabIndex={-1}
                                                             key={index}
-                                                            sx={{ cursor: 'pointer', fontSize: 14 }}
-                                                            onClick={() => handleApplicationRoute(`${router.pathname}/application`, row.application_name, row?.sustainability_level)}
+                                                            sx={{ cursor: 'pointer', fontSize: '12px', fontFamily: 'Montserrat' }}
+                                                            onClick={() => handleApplicationRoute(row.application_name, row?.sustainability_level)}
                                                         >
-                                                            <TableCell align='center' sx={{
-                                                                color: '#17202a'
-                                                            }}>
-                                                                {index + 1}
+                                                            <TableCell align='center' sx={tableCellStyle}>
+                                                                {row.sno || index + 1}
                                                             </TableCell>
-                                                            <TableCell align='left' sx={{
-                                                                color: '#17202a'
-                                                            }}>
+                                                            <TableCell align='left' sx={tableCellStyle}>
                                                                 {row.application_name ? row.application_name : "-"}
                                                             </TableCell>
-                                                            <TableCell align='left' sx={{
-                                                                color: '#17202a'
-                                                            }}>
+                                                            <TableCell align='left' sx={tableCellStyle}>
                                                                 {row.application_description ? row.application_description : '-'}
                                                             </TableCell>
-                                                            <TableCell align='center' sx={{
-                                                                color: '#17202a'
-                                                            }}>
+                                                            <TableCell align='center' sx={tableCellStyle}>
                                                                 {row.cloud_provider ? getCloud(row.cloud_provider) : "-"}
                                                             </TableCell>
-                                                            <TableCell align='center' sx={{
-                                                                color: '#17202a'
-                                                            }}>
+                                                            <TableCell align='center' sx={{ ...tableCellStyle }}>
                                                                 {row.last_analyzed_on ? getFormattedDate(row.last_analyzed_on) : "-"}
                                                             </TableCell>
-                                                            <TableCell align='center' sx={{
-                                                                color: '#17202a'
-                                                            }}>
-                                                                <span className="font-semibold px-1 text-black">
-                                                                    {row.sustainability_level ? row.sustainability_level : "-"}
-                                                                </span>
+                                                            <TableCell align='center' sx={{ ...tableCellStyle }}>
+                                                                {
+                                                                    getTextColor(row?.sustainability_level || "-")
+                                                                }
                                                             </TableCell>
                                                         </TableRow>
                                                     );
@@ -306,6 +315,6 @@ export default function ApplicationList({ projectsList }) {
                     )
                 }
             </div>
-        </div>
+        </div >
     );
 }
